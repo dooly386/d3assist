@@ -1,2 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2017-07-17 02:48:36.462,=D:\github\d3assist\Untitled1.htm</Transaction>
+    <Transaction>2017-07-17 02:49:07.705,D:\github\d3assist\readme.htm=D:\github\d3assist\Untitled1.htm</Transaction>
+  </Transactions>
+</BorlandProject>
