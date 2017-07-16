@@ -576,8 +576,7 @@ void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseBut
 		MouseClickObject = Sender;
 		return;
 	}
-    */
-
+	*/
 	if(MouseClickObject==Sender)
 	{
 		TComponent *comp = (TComponent *)Sender;
@@ -604,6 +603,8 @@ void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseBut
 			return;
 		}
 	}
+
+
 	MouseClickObject = Sender;
 }
 //---------------------------------------------------------------------------
@@ -970,8 +971,8 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 			TComponent *comp = (TComponent *)ActiveControl;
 			if(comp->Tag==1)
 			{
-				TEdit *te = (TEdit *)comp;
-				te->Text = key;
+				//TEdit *te = (TEdit *)comp;
+				//te->Text = key;
 				ActiveControl = 0;
 				MouseClickObject = 0;
 				return;
