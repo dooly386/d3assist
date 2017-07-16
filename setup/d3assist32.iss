@@ -10,7 +10,7 @@
 [Setup]
 AppName=d3assist
 AppVersion=1.0.0.5
-AppPublisher=DoYoung Kang  (dooly386)
+AppPublisher=DoYoung Kang  (dooly386@gmail.com)
 AppPublisherURL=https://github.com/dooly386/d3assist
 DefaultDirName={pf32}\d3assist
 DefaultGroupName=d3assist
@@ -40,6 +40,9 @@ Name: "{app}"; Permissions: everyone-full
 
 [Files]
 Source: "..\Final\*"; DestDir: "{app}";
+Source: "..\readme.htm"; DestDir: "{app}";
+Source: "..\LICENSE"; DestDir: "{app}";
+
 
 
 

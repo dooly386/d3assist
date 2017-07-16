@@ -1,3 +1,9 @@
+/*
+	Programmed by DoYoung Kang
+	dooly386@gmail.com
+	Copyright(c) dooly386@gmail.com
+	2017.7.17
+*/
 //---------------------------------------------------------------------------
 #include <map>
 
