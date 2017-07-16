@@ -665,15 +665,18 @@ void TD3AssistantMainForm::Start()
 		if(comp->Tag==1)
 		{
 			ActiveControl = 0;
+			MouseClickObject = 0;
 			return;
 		}
 
 	}
 
+	MouseClickObject = 0;
+
 	if(bStarted)
 	{
 		Stop();
-    }
+	}
 
 	bStarted = true;
 	targetHwnd = 0;
@@ -1251,39 +1254,6 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		row.timer->Interval = row.interval;
 	}
 
-	if(row.key.Length()>0)
-	{
-		char vc = row.key[1];
-		if(row.key.Length()>1)
-		{
-			vc = str2vkey(row.key);
-            if(vc==0) return;
-		}
-
-		unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
-		if(row.toggle->Checked)
-		{
-			if(row.pushdown==false)
-			{
-				PushDownKey(vc,sc);
-				row.pushdown = true;
-			}
-			else
-			{
-				PushUpKey(vc,sc);
-				row.timer->Enabled = false;
-				row.timer->Interval = 1;
-				row.pushdown = false;
-				checkColor();
-
-			}
-		}
-		else
-		{
-			PressKey(vc,sc);
-		}
-		return;
-	}
 
 	if(row.key=="[mbLeft]")
 	{
@@ -1367,6 +1337,40 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		else
 		{
 			MouseClick(btn);
+		}
+		return;
+	}
+
+	if(row.key.Length()>0)
+	{
+		char vc = row.key[1];
+		if(row.key.Length()>1)
+		{
+			vc = str2vkey(row.key);
+            if(vc==0) return;
+		}
+
+		unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
+		if(row.toggle->Checked)
+		{
+			if(row.pushdown==false)
+			{
+				PushDownKey(vc,sc);
+				row.pushdown = true;
+			}
+			else
+			{
+				PushUpKey(vc,sc);
+				row.timer->Enabled = false;
+				row.timer->Interval = 1;
+				row.pushdown = false;
+				checkColor();
+
+			}
+		}
+		else
+		{
+			PressKey(vc,sc);
 		}
 		return;
 	}
