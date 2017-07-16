@@ -1563,6 +1563,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
       Caption = 'Delete'
       OnClick = DeleteRecentlyFileMenuClick
     end
+    object DeleteAllRecentlyFileMenu: TMenuItem
+      Caption = 'Delete All'
+      OnClick = DeleteAllRecentlyFileMenuClick
+    end
   end
   object IdHTTP: TIdHTTP
     AllowCookies = True

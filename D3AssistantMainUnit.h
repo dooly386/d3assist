@@ -169,6 +169,7 @@ __published:	// IDE-managed Components
 	TMenuItem *DeleteRecentlyFileMenu;
 	TCheckBox *cbCheckUpdateOnStart;
 	TIdHTTP *IdHTTP;
+	TMenuItem *DeleteAllRecentlyFileMenu;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -201,6 +202,7 @@ __published:	// IDE-managed Components
 	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
 	void __fastcall MenuCheckUpdateClick(TObject *Sender);
 	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall DeleteAllRecentlyFileMenuClick(TObject *Sender);
 
 
 private:	// User declarations

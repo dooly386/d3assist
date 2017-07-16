@@ -1,10 +1,10 @@
+//---------------------------------------------------------------------------
 /*
 	Programmed by DoYoung Kang
 	dooly386@gmail.com
 	Copyright(c) dooly386@gmail.com
 	2017.7.17
 */
-//---------------------------------------------------------------------------
 #include <map>
 
 #include <vcl.h>
@@ -158,8 +158,6 @@ void DBG(String s)
 __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	: TForm(Owner)
 {
-	String ver = GetFileVersionString(Application->ExeName);
-
 	bModified = false;
 	targetHwnd = 0;
 	OpenFileName = "";
@@ -178,14 +176,20 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 		}
 	}
 
+	//--------------------------------------------------------------------------
 	prepareKeyRows();
+	//--------------------------------------------------------------------------
 
+	//--------------------------------------------------------------------------
+	// start hook keyboard and mouse
 	HINSTANCE app = GetModuleHandle(NULL);
 
 	g_hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, app, 0);
 	g_hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, app, 0);
+	//--------------------------------------------------------------------------
 
-
+	//--------------------------------------------------------------------------
+	// load configuration ini
 	String filename = ChangeFileExt(Application->ExeName,".ini");
 	if(FileExists(filename))
 	{
@@ -213,13 +217,17 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 		}
 		if(ini->ValueExists("Setup","CheckUpdateOnStart"))
 		{
-            cbCheckUpdateOnStart->Checked = ini->ReadBool("Setup","CheckUpdateOnStart",true);
-        }
+			cbCheckUpdateOnStart->Checked = ini->ReadBool("Setup","CheckUpdateOnStart",true);
+		}
 
 		delete ini;
 		LoadIni(openfilename);
 	}
+	//--------------------------------------------------------------------------
 
+	//--------------------------------------------------------------------------
+	// set version caption
+	String ver = GetFileVersionString(Application->ExeName);
 	Caption = String("D3Assist v")+ver;
 
 #ifdef _WIN64
@@ -227,10 +235,11 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 #else
 	Caption = Caption + " win32";
 #endif
+	//--------------------------------------------------------------------------
 
 
-	EnvironmentTabSheet->Visible = false;
 	PageControl->TabIndex = 0;
+
 
 	UpdateRecentlyLb();
 
@@ -433,6 +442,7 @@ void TD3AssistantMainForm::UpdateRecentlyLb()
 {
 	String rfilename = ChangeFileExt(Application->ExeName,".files");
 	lbRecentlyFiles->Items->Clear();
+	lbRecentlyFilesFullPath->Items->Clear();
 
 	TStringList *strs = new TStringList;
 	if(FileExists(rfilename))
@@ -441,11 +451,16 @@ void TD3AssistantMainForm::UpdateRecentlyLb()
 	}
 	for(int i=0;i<strs->Count;i++)
 	{
-		String fname = ExtractFileName(strs->Strings[i]);
-		fname = ChangeFileExt(fname,"");
-		lbRecentlyFiles->Items->Add(fname);
+		String filename = strs->Strings[i];
+		if(FileExists(filename))
+		{
+			String fname = ExtractFileName(filename);
+			fname = ChangeFileExt(fname,"");
+
+			lbRecentlyFiles->Items->Add(fname);
+			lbRecentlyFilesFullPath->Items->Add(filename);
+		}
 	}
-	lbRecentlyFilesFullPath->Items = strs;
 	delete strs;
 
 }
@@ -1540,7 +1555,7 @@ void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject
 	String inifile = path+"\\YoloMouse\\Target.ini";
 
 	TStringList *strs = new TStringList;
-	strs->Add(InputString);
+    strs->Add(InputString);
 	strs->SaveToFile(inifile);
 	delete strs;
 
@@ -1557,11 +1572,12 @@ void __fastcall TD3AssistantMainForm::FormShow(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::PageControlChange(TObject *Sender)
 {
+/*
 	if(PageControl->TabIndex==1)
 	{
 		PageControl->TabIndex = 0;
 	}
-
+*/
 }
 //---------------------------------------------------------------------------
 
@@ -1571,7 +1587,7 @@ void __fastcall TD3AssistantMainForm::lbRecentlyFilesDblClick(TObject *Sender)
 	if(idx<0) return;
 
 	String filename = lbRecentlyFilesFullPath->Items->Strings[idx];
-	LoadIni(filename);
+    LoadIni(filename);
 
 }
 //---------------------------------------------------------------------------
@@ -1623,12 +1639,11 @@ void __fastcall TD3AssistantMainForm::FormCloseQuery(TObject *Sender, bool &CanC
 String GetURLAsString(String aURL)
 {
 	String r = D3AssistantMainForm->IdHTTP->Get(aURL);
-	return r;
+    return r;
 }
 
 void __fastcall TD3AssistantMainForm::MenuCheckUpdateClick(TObject *Sender)
 {
-//
 	ShellExecute(NULL, "open", "https://github.com/dooly386/d3assist",
 			NULL, NULL, SW_SHOWNORMAL);
 
@@ -1638,8 +1653,19 @@ void __fastcall TD3AssistantMainForm::MenuCheckUpdateClick(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::FormCreate(TObject *Sender)
 {
- //	MenuCheckUpdateClick(0);
+//    MenuCheckUpdateClick(0);
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TD3AssistantMainForm::DeleteAllRecentlyFileMenuClick(TObject *Sender)
+
+{
+	lbRecentlyFiles->Items->Clear();
+	lbRecentlyFilesFullPath->Items->Clear();
+
+	String rfilename = ChangeFileExt(Application->ExeName,".files");
+	lbRecentlyFilesFullPath->Items->SaveToFile(rfilename);
+
+}
+//---------------------------------------------------------------------------
 
