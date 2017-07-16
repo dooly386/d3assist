@@ -570,11 +570,13 @@ void __fastcall TD3AssistantMainForm::edStartKeyDown(TObject *Sender, WORD &Key,
 void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseButton Button,
           TShiftState Shift, int X, int Y)
 {
+	/*
 	if(edStart==Sender || edStop==Sender)
 	{
 		MouseClickObject = Sender;
 		return;
 	}
+    */
 
 	if(MouseClickObject==Sender)
 	{
@@ -1056,6 +1058,11 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 
 void TD3AssistantMainForm::OnMouseDownHook(int b,WPARAM wParam,LPARAM lParam)
 {
+	if(MouseClickObject)
+	{
+        return;
+	}
+
 	String key="";
 	if(b==(int)mbLeft)
 	{
