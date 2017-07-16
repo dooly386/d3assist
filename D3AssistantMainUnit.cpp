@@ -1510,7 +1510,7 @@ void __fastcall TD3AssistantMainForm::MenuHelpClick(TObject *Sender)
 void __fastcall TD3AssistantMainForm::MenuHomePageClick(TObject *Sender)
 {
 
-	ShellExecute(NULL, "open", "https://drive.google.com/drive/folders/0B6SbBl5GZA4oQ3N0WDl5QUZ5YVU?usp=sharing",
+	ShellExecute(NULL, "open", "https://github.com/dooly386/d3assist",
 			NULL, NULL, SW_SHOWNORMAL);
 }
 //---------------------------------------------------------------------------
