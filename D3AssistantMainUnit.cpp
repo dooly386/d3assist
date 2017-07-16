@@ -1572,12 +1572,10 @@ void __fastcall TD3AssistantMainForm::FormShow(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::PageControlChange(TObject *Sender)
 {
-/*
 	if(PageControl->TabIndex==1)
 	{
 		PageControl->TabIndex = 0;
 	}
-*/
 }
 //---------------------------------------------------------------------------
 
@@ -1624,7 +1622,7 @@ void __fastcall TD3AssistantMainForm::FormCloseQuery(TObject *Sender, bool &CanC
 {
 	if(bModified)
 	{
-		int r = MessageDlg("Some field(s) modified, do you want to exit now?",mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
+		int r = MessageDlg("Some field(s) are modified, do you want to exit now?",mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
 		if(r==IDNO)
 		{
 			CanClose = false;
