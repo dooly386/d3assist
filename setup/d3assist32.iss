@@ -40,6 +40,7 @@ Name: "{app}"; Permissions: everyone-full
 
 [Files]
 Source: "..\Final\*"; DestDir: "{app}";
+Source: "..\Final\Cursors\Default\*"; DestDir: "{app}\Cursors\Default";
 Source: "..\readme.htm"; DestDir: "{app}";
 Source: "..\LICENSE"; DestDir: "{app}";
 
