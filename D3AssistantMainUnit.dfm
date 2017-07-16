@@ -121,8 +121,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitTop = 403
-    ExplicitWidth = 905
   end
   object PageControl: TPageControl
     Left = -1
@@ -134,10 +132,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     OnChange = PageControlChange
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -169,10 +163,11 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object Label8: TLabel
         Left = 0
         Top = 249
-        Width = 287
+        Width = 401
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
+        ExplicitWidth = 287
       end
       object Label15: TLabel
         Left = 165
@@ -769,10 +764,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Pause All Key(not yet)'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label9: TLabel
         Left = 3
         Top = 21
@@ -1347,10 +1338,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1553,7 +1540,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = MenuHomePageClick
       end
       object MenuCheckUpdate: TMenuItem
-        Caption = 'Check Update'
+        Caption = 'Visit Github for Source code and binary'
         OnClick = MenuCheckUpdateClick
       end
       object MenuReleaseNote: TMenuItem
