@@ -7,7 +7,7 @@
         <MainSource>D3Assist.cpp</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -76,7 +76,7 @@
         <ProjectType>CppVCLApplication</ProjectType>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
-        <FinalOutputDir>D:\devhome10\D3Assistant\Final</FinalOutputDir>
+        <FinalOutputDir>Final</FinalOutputDir>
         <BCC_wpar>false</BCC_wpar>
         <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
         <BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
@@ -86,7 +86,7 @@
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <VerInfo_Build>5</VerInfo_Build>
         <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.5;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
-        <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "D:\devhome10\D3Assistant\Final\$(OutputName)32$(OutputExt)"
+        <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)32$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -101,7 +101,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <VerInfo_Build>5</VerInfo_Build>
         <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.5;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
-        <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "D:\devhome10\D3Assistant\Final\$(OutputName)64$(OutputExt)"
+        <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)64$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -263,12 +263,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Final\D3Assist.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win64">
-                        <RemoteName>D3Assist.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgstl.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
@@ -282,6 +276,12 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true' And '$(Multithreaded)'=='true'" LocalName="$(BDS)\bin\cc32240mt.dll" Class="DependencyModule">
                     <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Final\D3Assist.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>D3Assist.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -329,27 +329,12 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -728,12 +713,27 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
@@ -760,7 +760,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;D:\devhome10\D3Assistant\Final\$(OutputName)32$(OutputExt)&quot;</PostBuildEvent>
+        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;Final\$(OutputName)32$(OutputExt)&quot;</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
@@ -768,7 +768,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;D:\devhome10\D3Assistant\Final\$(OutputName)64$(OutputExt)&quot;</PostBuildEvent>
+        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;Final\$(OutputName)64$(OutputExt)&quot;</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
@@ -776,7 +776,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;D:\devhome10\D3Assistant\Final\$(OutputName)32$(OutputExt)&quot;</PostBuildEvent>
+        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;Final\$(OutputName)32$(OutputExt)&quot;</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
@@ -784,7 +784,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;D:\devhome10\D3Assistant\Final\$(OutputName)64$(OutputExt)&quot;</PostBuildEvent>
+        <PostBuildEvent>copy /B &quot;$(OutputPath)&quot; &quot;Final\$(OutputName)64$(OutputExt)&quot;</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
 </Project>

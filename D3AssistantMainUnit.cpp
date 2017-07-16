@@ -1534,7 +1534,7 @@ void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject
 	String inifile = path+"\\YoloMouse\\Target.ini";
 
 	TStringList *strs = new TStringList;
-    strs->Add(InputString);
+	strs->Add(InputString);
 	strs->SaveToFile(inifile);
 	delete strs;
 
@@ -1565,7 +1565,7 @@ void __fastcall TD3AssistantMainForm::lbRecentlyFilesDblClick(TObject *Sender)
 	if(idx<0) return;
 
 	String filename = lbRecentlyFilesFullPath->Items->Strings[idx];
-    LoadIni(filename);
+	LoadIni(filename);
 
 }
 //---------------------------------------------------------------------------
@@ -1617,62 +1617,14 @@ void __fastcall TD3AssistantMainForm::FormCloseQuery(TObject *Sender, bool &CanC
 String GetURLAsString(String aURL)
 {
 	String r = D3AssistantMainForm->IdHTTP->Get(aURL);
-    return r;
+	return r;
 }
 
 void __fastcall TD3AssistantMainForm::MenuCheckUpdateClick(TObject *Sender)
 {
 //
-    // /var/www/html/d3assist
-	AnsiString vercur = GetURLAsString("http://plex.csieda.net/d3assist/version.txt");
-	AnsiString ver = GetFileVersionString(Application->ExeName);
-
-	int a1,a2,a3,a4;
-	int b1,b2,b3,b4;
-
-	int a = sscanf(vercur.c_str(),"%d.%d.%d.%d",&a1,&a2,&a3,&a4);
-	int b = sscanf(ver.c_str(),"%d.%d.%d.%d",&b1,&b2,&b3,&b4);
-
-    bool newver = false;
-	if(a==4 && b==4)
-	{
-		if(a1>b1)
-		{
-			newver = true;
-		}
-		if(a1==b1 && a2>b2)
-		{
-			newver = true;
-		}
-		if(a1==b1 && a2==b2 && a3>b3)
-		{
-			newver = true;
-		}
-		if(a1==b1 && a2==b2 && a3==b3 && a4>b4)
-		{
-			newver = true;
-		}
-	}
-
-	if(newver)
-	{
-		int r = MessageDlg("There is a new version. Visit the download site??",mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
-		if(r==IDYES)
-		{
-			ShellExecute(NULL, "open", "https://drive.google.com/open?id=0B6SbBl5GZA4oQ3N0WDl5QUZ5YVU",
-				NULL, NULL, SW_SHOWNORMAL);
-
-        }
-
-	}
-	else
-	{
-		if(Sender)
-		{
-			MessageDlg("You are using the latest version.",mtConfirmation,TMsgDlgButtons()<<mbYes,0);
-		}
-
-    }
+	ShellExecute(NULL, "open", "https://github.com/dooly386/d3assist",
+			NULL, NULL, SW_SHOWNORMAL);
 
 
 }
@@ -1680,7 +1632,7 @@ void __fastcall TD3AssistantMainForm::MenuCheckUpdateClick(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::FormCreate(TObject *Sender)
 {
-    MenuCheckUpdateClick(0);
+	MenuCheckUpdateClick(0);
 }
 //---------------------------------------------------------------------------
 
