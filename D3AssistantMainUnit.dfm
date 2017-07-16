@@ -127,7 +127,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 111
     Width = 409
     Height = 290
-    ActivePage = KeySettingTabSheet
+    ActivePage = EnvironmentTabSheet
     TabOrder = 6
     OnChange = PageControlChange
     object KeySettingTabSheet: TTabSheet
