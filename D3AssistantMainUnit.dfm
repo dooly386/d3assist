@@ -762,66 +762,52 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
     end
     object EnvironmentTabSheet: TTabSheet
-      Caption = 'Pause All Key(not yet)'
+      Caption = 'Stop Keys'
       ImageIndex = 1
       object Label9: TLabel
         Left = 3
-        Top = 21
+        Top = 12
         Width = 27
         Height = 13
         Caption = 'Name'
       end
       object Label10: TLabel
         Left = 114
-        Top = 21
+        Top = 12
         Width = 18
         Height = 13
         Caption = 'Key'
       end
       object Label11: TLabel
         Left = 206
-        Top = 21
+        Top = 12
         Width = 27
         Height = 13
         Caption = 'Name'
       end
       object Label12: TLabel
         Left = 317
-        Top = 21
+        Top = 12
         Width = 18
         Height = 13
         Caption = 'Key'
       end
-      object Label13: TLabel
-        Left = 70
-        Top = 3
-        Width = 74
-        Height = 13
-        Caption = 'Toggle Method '
-      end
-      object Label14: TLabel
-        Left = 270
-        Top = 3
-        Width = 60
-        Height = 13
-        Caption = 'Hold Method'
-      end
-      object edToggleName1: TEdit
+      object edStopName1: TEdit
         Tag = 1
         Left = 3
-        Top = 37
+        Top = 28
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 0
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey1: TEdit
+      object edStopKey1: TEdit
         Tag = 1
         Left = 114
-        Top = 37
+        Top = 28
         Width = 81
         Height = 21
         TabStop = False
@@ -833,28 +819,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName2: TEdit
+      object edStopName2: TEdit
         Tag = 1
         Left = 3
-        Top = 64
+        Top = 55
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 2
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey2: TEdit
+      object edStopKey2: TEdit
         Tag = 1
         Left = 114
-        Top = 64
+        Top = 55
         Width = 81
         Height = 21
         TabStop = False
@@ -866,28 +852,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 3
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName3: TEdit
+      object edStopName3: TEdit
         Tag = 1
         Left = 3
-        Top = 91
+        Top = 82
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 4
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey3: TEdit
+      object edStopKey3: TEdit
         Tag = 1
         Left = 114
-        Top = 91
+        Top = 82
         Width = 81
         Height = 21
         TabStop = False
@@ -899,28 +885,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 5
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName4: TEdit
+      object edStopName4: TEdit
         Tag = 1
         Left = 3
-        Top = 118
+        Top = 109
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 6
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey4: TEdit
+      object edStopKey4: TEdit
         Tag = 1
         Left = 114
-        Top = 118
+        Top = 109
         Width = 81
         Height = 21
         TabStop = False
@@ -932,28 +918,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 7
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName5: TEdit
+      object edStopName5: TEdit
         Tag = 1
         Left = 3
-        Top = 145
+        Top = 136
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 8
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey5: TEdit
+      object edStopKey5: TEdit
         Tag = 1
         Left = 114
-        Top = 145
+        Top = 136
         Width = 81
         Height = 21
         TabStop = False
@@ -965,28 +951,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 9
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName6: TEdit
+      object edStopName6: TEdit
         Tag = 1
         Left = 3
-        Top = 172
+        Top = 163
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 10
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey6: TEdit
+      object edStopKey6: TEdit
         Tag = 1
         Left = 114
-        Top = 172
+        Top = 163
         Width = 81
         Height = 21
         TabStop = False
@@ -998,28 +984,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 11
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName7: TEdit
+      object edStopName7: TEdit
         Tag = 1
         Left = 3
-        Top = 199
+        Top = 190
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 12
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey7: TEdit
+      object edStopKey7: TEdit
         Tag = 1
         Left = 114
-        Top = 199
+        Top = 190
         Width = 81
         Height = 21
         TabStop = False
@@ -1031,28 +1017,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 13
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edToggleName8: TEdit
+      object edStopName8: TEdit
         Tag = 1
         Left = 3
-        Top = 226
+        Top = 217
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 14
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edToggleKey8: TEdit
+      object edStopKey8: TEdit
         Tag = 1
         Left = 114
-        Top = 226
+        Top = 217
         Width = 81
         Height = 21
         TabStop = False
@@ -1064,16 +1050,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 15
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldKey1: TEdit
+      object edStopKey9: TEdit
         Tag = 1
         Left = 317
-        Top = 37
+        Top = 28
         Width = 81
         Height = 21
         TabStop = False
@@ -1085,40 +1071,40 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 16
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldName1: TEdit
+      object edStopName9: TEdit
         Tag = 1
         Left = 206
-        Top = 37
+        Top = 28
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 17
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldName2: TEdit
+      object edStopName10: TEdit
         Tag = 1
         Left = 206
-        Top = 64
+        Top = 55
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 18
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldKey2: TEdit
+      object edStopKey10: TEdit
         Tag = 1
         Left = 317
-        Top = 64
+        Top = 55
         Width = 81
         Height = 21
         TabStop = False
@@ -1130,16 +1116,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 19
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldKey3: TEdit
+      object edStopKey11: TEdit
         Tag = 1
         Left = 317
-        Top = 91
+        Top = 82
         Width = 81
         Height = 21
         TabStop = False
@@ -1151,40 +1137,40 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 20
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldName3: TEdit
+      object edStopName11: TEdit
         Tag = 1
         Left = 206
-        Top = 91
+        Top = 82
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 21
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldName4: TEdit
+      object edStopName12: TEdit
         Tag = 1
         Left = 206
-        Top = 118
+        Top = 109
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 22
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldKey4: TEdit
+      object edStopKey12: TEdit
         Tag = 1
         Left = 317
-        Top = 118
+        Top = 109
         Width = 81
         Height = 21
         TabStop = False
@@ -1196,16 +1182,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 23
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldKey5: TEdit
+      object edStopKey13: TEdit
         Tag = 1
         Left = 317
-        Top = 145
+        Top = 136
         Width = 81
         Height = 21
         TabStop = False
@@ -1217,40 +1203,40 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 24
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldName5: TEdit
+      object edStopName13: TEdit
         Tag = 1
         Left = 206
-        Top = 145
+        Top = 136
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 25
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldName6: TEdit
+      object edStopName14: TEdit
         Tag = 1
         Left = 206
-        Top = 172
+        Top = 163
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 26
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldKey6: TEdit
+      object edStopKey14: TEdit
         Tag = 1
         Left = 317
-        Top = 172
+        Top = 163
         Width = 81
         Height = 21
         TabStop = False
@@ -1262,16 +1248,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 27
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldKey7: TEdit
+      object edStopKey15: TEdit
         Tag = 1
         Left = 317
-        Top = 199
+        Top = 190
         Width = 81
         Height = 21
         TabStop = False
@@ -1283,40 +1269,40 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 28
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
       end
-      object edHoldName7: TEdit
+      object edStopName15: TEdit
         Tag = 1
         Left = 206
-        Top = 199
+        Top = 190
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 29
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldName8: TEdit
+      object edStopName16: TEdit
         Tag = 1
         Left = 206
-        Top = 226
+        Top = 217
         Width = 105
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 30
-        Text = 'Inventory'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
       end
-      object edHoldKey8: TEdit
+      object edStopKey16: TEdit
         Tag = 1
         Left = 317
-        Top = 226
+        Top = 217
         Width = 81
         Height = 21
         TabStop = False
@@ -1328,7 +1314,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 31
-        Text = 'I'
+        OnChange = edStopName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
@@ -1557,8 +1543,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 235
-    Top = 95
+    Left = 275
+    Top = 63
     object DeleteRecentlyFileMenu: TMenuItem
       Caption = 'Delete'
       OnClick = DeleteRecentlyFileMenuClick

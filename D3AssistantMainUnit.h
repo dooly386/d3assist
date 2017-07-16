@@ -116,44 +116,42 @@ __published:	// IDE-managed Components
 	TEdit *edOnlyWindow;
 	TEdit *edAlphaValue;
 	TLabel *Label6;
-	TEdit *edToggleName1;
-	TEdit *edToggleKey1;
+	TEdit *edStopName1;
+	TEdit *edStopKey1;
 	TLabel *Label9;
 	TLabel *Label10;
-	TEdit *edToggleName2;
-	TEdit *edToggleKey2;
-	TEdit *edToggleName3;
-	TEdit *edToggleKey3;
-	TEdit *edToggleName4;
-	TEdit *edToggleKey4;
-	TEdit *edToggleName5;
-	TEdit *edToggleKey5;
-	TEdit *edToggleName6;
-	TEdit *edToggleKey6;
-	TEdit *edToggleName7;
-	TEdit *edToggleKey7;
-	TEdit *edToggleName8;
-	TEdit *edToggleKey8;
+	TEdit *edStopName2;
+	TEdit *edStopKey2;
+	TEdit *edStopName3;
+	TEdit *edStopKey3;
+	TEdit *edStopName4;
+	TEdit *edStopKey4;
+	TEdit *edStopName5;
+	TEdit *edStopKey5;
+	TEdit *edStopName6;
+	TEdit *edStopKey6;
+	TEdit *edStopName7;
+	TEdit *edStopKey7;
+	TEdit *edStopName8;
+	TEdit *edStopKey8;
 	TLabel *Label11;
 	TLabel *Label12;
-	TEdit *edHoldKey1;
-	TEdit *edHoldName1;
-	TEdit *edHoldName2;
-	TEdit *edHoldKey2;
-	TEdit *edHoldKey3;
-	TEdit *edHoldName3;
-	TEdit *edHoldName4;
-	TEdit *edHoldKey4;
-	TEdit *edHoldKey5;
-	TEdit *edHoldName5;
-	TEdit *edHoldName6;
-	TEdit *edHoldKey6;
-	TEdit *edHoldKey7;
-	TEdit *edHoldName7;
-	TEdit *edHoldName8;
-	TEdit *edHoldKey8;
-	TLabel *Label13;
-	TLabel *Label14;
+	TEdit *edStopKey9;
+	TEdit *edStopName9;
+	TEdit *edStopName10;
+	TEdit *edStopKey10;
+	TEdit *edStopKey11;
+	TEdit *edStopName11;
+	TEdit *edStopName12;
+	TEdit *edStopKey12;
+	TEdit *edStopKey13;
+	TEdit *edStopName13;
+	TEdit *edStopName14;
+	TEdit *edStopKey14;
+	TEdit *edStopKey15;
+	TEdit *edStopName15;
+	TEdit *edStopName16;
+	TEdit *edStopKey16;
 	TLabel *Label15;
 	TCheckBox *cbToggle1;
 	TCheckBox *cbToggle2;
@@ -203,6 +201,7 @@ __published:	// IDE-managed Components
 	void __fastcall MenuCheckUpdateClick(TObject *Sender);
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall DeleteAllRecentlyFileMenuClick(TObject *Sender);
+	void __fastcall edStopName1Change(TObject *Sender);
 
 
 private:	// User declarations
@@ -212,6 +211,7 @@ private:	// User declarations
 	std::list<DWORD> editlist;
 	HWND targetHwnd;
 	TObject *MouseClickObject;
+	bool bPause;
 
 
 

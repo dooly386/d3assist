@@ -16,6 +16,7 @@
 #include "UtilFunctions.h"
 #include "ABOUT.h"
 #include "CallbackFunctions.h"
+#include "KeyRows.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -29,42 +30,8 @@ TD3AssistantMainForm *D3AssistantMainForm;
 HHOOK g_hKeyHook=0;
 HHOOK g_hMouseHook=0;
 
-struct keyRow
-{
-	TEdit *edkey;
-	TEdit *eddelay;
-	TEdit *edpause;
-	TEdit *edactive;
-	TTimer *timer;
-    TCheckBox *toggle;
-
-	String key;
-	int interval;
-	String pausekey;
-	String activekey;
-
-    bool pushdown;
-} keyRows[8];
-
-std::map<TTimer *,keyRow *> keyTimerMap;
 
 
-std::map<String,keyRow *> keyPauseMap;
-std::map<String,keyRow *> keyActiveMap;
-
-
-struct toggleKeyRow
-{
-	TEdit *edName;
-	TEdit *edKey;
-} toggleKeyRows[8];
-
-struct holdKeyRow
-{
-	TEdit *edName;
-    TEdit *edKey;
-
-} holdKeyRows[8];
 
 
 bool pauseKbHook=false;
@@ -159,6 +126,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	: TForm(Owner)
 {
 	bModified = false;
+    bPause = false;
 	targetHwnd = 0;
 	OpenFileName = "";
 	bStarted = false;
@@ -248,6 +216,12 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 
 void TD3AssistantMainForm::prepareKeyRows()
 {
+	keyTimerMap.clear();
+	keyPauseMap.clear();
+	keyActiveMap.clear();
+
+	keyStopMap.clear();
+
 	TEdit *ed;
 	for(int i=0;i<8;i++)
 	{
@@ -287,27 +261,28 @@ void TD3AssistantMainForm::prepareKeyRows()
         keyRows[i].pushdown = false;
 	}
 
-	for(int i=0;i<8;i++)
+	for(int i=0;i<16;i++)
 	{
-		String name = String("edToggleName")+(i+1);
-		String key = String("edToggleKey")+(i+1);
-		toggleKeyRows[i].edName = (TEdit *)FindComponent(name);
-		toggleKeyRows[i].edKey = (TEdit *)FindComponent(key);
+		String name = String("edStopName")+(i+1);
+		String key = String("edStopKey")+(i+1);
+		keyStopRows[i].edname = (TEdit *)FindComponent(name);
+		keyStopRows[i].edkey = (TEdit *)FindComponent(key);
+		keyStopRows[i].name = keyStopRows[i].edname->Text;
+		keyStopRows[i].key = keyStopRows[i].edkey->Text;
+
+		if(keyStopRows[i].key.Length())
+		{
+			keyStopMap[keyStopRows[i].key] = keyStopRows+i;
+        }
 	}
 
-	for(int i=0;i<8;i++)
-	{
-		String name = String("edHoldName")+(i+1);
-		String key = String("edHoldKey")+(i+1);
-		holdKeyRows[i].edName = (TEdit *)FindComponent(name);
-		holdKeyRows[i].edKey = (TEdit *)FindComponent(key);
-	}
 
 	for(int i=0;i<8;i++)
 	{
 		keyRow *row = (keyRows+i);
 		keyTimerMap[row->timer] = row;
     }
+
 
 }
 
@@ -345,6 +320,7 @@ void TD3AssistantMainForm::enableRecord(int i)
 	keyRows[i].eddelay->Enabled = true;
 	keyRows[i].edpause->Enabled = true;
 	keyRows[i].edactive->Enabled = true;
+	keyRows[i].toggle->Enabled = true;
 
 
 }
@@ -355,6 +331,7 @@ void TD3AssistantMainForm::disableRecord(int i)
 	keyRows[i].eddelay->Enabled = false;
 	keyRows[i].edpause->Enabled = false;
 	keyRows[i].edactive->Enabled = false;
+	keyRows[i].toggle->Enabled = false;
 
 }
 
@@ -370,10 +347,15 @@ void TD3AssistantMainForm::checkColor()
 			if(row.toggle->Checked)
 			{
                 color = clYellow;
-            }
-
-
+			}
 		}
+		else
+		{
+			if(row.timer->Tag==10)
+			{
+                color = clLtGray;
+            }
+        }
 		row.edkey->Color = color;
 		row.eddelay->Color = color;
 		row.edpause->Color = color;
@@ -387,11 +369,14 @@ void TD3AssistantMainForm::enableEditAll()
 	for(int i=0;i<8;i++)
 	{
 		enableRecord(i);
-		toggleKeyRows[i].edName->Enabled = true;
-		toggleKeyRows[i].edKey->Enabled = true;
-		holdKeyRows[i].edName->Enabled = true;
-		holdKeyRows[i].edKey->Enabled = true;
 	}
+
+	for(int i=0;i<16;i++)
+	{
+		keyStopRows[i].edname->Enabled = true;
+		keyStopRows[i].edkey->Enabled = true;
+    }
+
 	edStart->Enabled = true;
 	edStop->Enabled = true;
 
@@ -401,11 +386,14 @@ void TD3AssistantMainForm::disableEditAll()
 	for(int i=0;i<8;i++)
 	{
 		disableRecord(i);
-		toggleKeyRows[i].edName->Enabled = false;
-		toggleKeyRows[i].edKey->Enabled = false;
-		holdKeyRows[i].edName->Enabled = false;
-		holdKeyRows[i].edKey->Enabled = false;
 	}
+
+	for(int i=0;i<16;i++)
+	{
+		keyStopRows[i].edname->Enabled = false;
+		keyStopRows[i].edkey->Enabled = false;
+    }
+
 	edStart->Enabled = false;
 	edStop->Enabled = false;
 }
@@ -413,6 +401,7 @@ void TD3AssistantMainForm::disableEditAll()
 
 void __fastcall TD3AssistantMainForm::CMDialogKey(TMessage &a)
 {
+	// prevent tab stop in window form
 	if(a.WParam==VK_TAB)
 	{
 		a.Result = 0;
@@ -492,6 +481,8 @@ void TD3AssistantMainForm::SaveIni(String filename)
 	UpdateRecentlyFile(filename);
 
 	bModified = false;
+	stBar->SimpleText = String("Saved ")+filename;
+
 
 }
 void TD3AssistantMainForm::LoadIni(String filename)
@@ -527,10 +518,12 @@ void TD3AssistantMainForm::LoadIni(String filename)
 	delete ini;
 
 	OpenFileName = filename;
-	stBar->SimpleText = OpenFileName;
 	UpdateRecentlyFile(OpenFileName);
 
 	bModified = false;
+
+	stBar->SimpleText = String("Load ")+filename;
+
 }
 //---------------------------------------------------------------------------
 void __fastcall TD3AssistantMainForm::edStartKeyPress(TObject *Sender, System::WideChar &Key)
@@ -684,9 +677,6 @@ void TD3AssistantMainForm::Start()
 
 	prepareKeyRows();
 
-	keyPauseMap.clear();
-	keyActiveMap.clear();
-
 	for(int i=0;i<8;i++)
 	{
 		keyRow &row = keyRows[i];
@@ -696,6 +686,25 @@ void TD3AssistantMainForm::Start()
 			row.timer->Tag = 10;
 		}
 	}
+
+	keyPauseMap.clear();
+	keyActiveMap.clear();
+	for(int i=0;i<8;i++)
+	{
+		keyRow &row = keyRows[i];
+		if(row.timer->Tag==0) continue;
+		if(row.timer->Interval==0) continue;
+
+		if(row.pausekey.Length())
+		{
+			keyPauseMap[row.pausekey] = &row;
+		}
+		if(row.activekey.Length())
+		{
+			keyActiveMap[row.activekey] = &row;
+		}
+	}
+
 
 
 	for(int i=0;i<8;i++)
@@ -709,15 +718,6 @@ void TD3AssistantMainForm::Start()
 			row.timer->Interval = 1;
 
         }
-
-		if(row.pausekey.Length())
-		{
-			keyPauseMap[row.pausekey] = &row;
-		}
-		if(row.activekey.Length())
-		{
-			keyActiveMap[row.activekey] = &row;
-		}
 		if(row.activekey.Length()==0)
 		{
 			row.timer->Enabled = true;
@@ -769,7 +769,7 @@ void TD3AssistantMainForm::Stop()
 	}
 
 	StatusPanel->Caption = "Stop";
-	StatusPanel->Color = clRed;
+	StatusPanel->Color = clLtGray;
 
 	enableEditAll();
 	checkColor();
@@ -809,7 +809,18 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 	{
 		Stop();
 		return;
+	}
+
+	{
+		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
+		if(it!=keyStopMap.end())
+		{
+			Stop();
+			return;
+        }
     }
+
+
 
 	{
 		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
@@ -1086,13 +1097,14 @@ void TD3AssistantMainForm::OnMouseUpHook(int b,WPARAM wParam,LPARAM lParam)
 		key = "[mbMiddle]";
 	}
 
-    ProcessMouseUp(key);
+	ProcessMouseUp(key);
 
 
 }
 
 void TD3AssistantMainForm::PushDownKey(int vcode,int scancode)
 {
+	if(bPause) return;
 	pauseKbHook = true;
 	keybd_event(vcode,scancode,0,0);
 	pauseKbHook = false;
@@ -1100,6 +1112,7 @@ void TD3AssistantMainForm::PushDownKey(int vcode,int scancode)
 
 void TD3AssistantMainForm::PushUpKey(int vcode,int scancode)
 {
+	if(bPause) return;
 	pauseKbHook = true;
 	keybd_event(vcode,scancode,KEYEVENTF_KEYUP,0);
 	pauseKbHook = false;
@@ -1107,7 +1120,9 @@ void TD3AssistantMainForm::PushUpKey(int vcode,int scancode)
 
 void TD3AssistantMainForm::PressKey(int vcode,int scancode)
 {
-//	keybd_event(0x31,0x02,0,0);
+	if(bPause) return;
+
+	//	keybd_event(0x31,0x02,0,0);
 //	Sleep(500);
 //	keybd_event(0x31,0x02,KEYEVENTF_KEYUP,0);
 	pauseKbHook = true;
@@ -1119,6 +1134,8 @@ void TD3AssistantMainForm::PressKey(int vcode,int scancode)
 
 void TD3AssistantMainForm::MouseDown(TMouseButton button)
 {
+	if(bPause) return;
+
 	pauseMouseHook = true;
 	if(button==mbLeft)
 	{
@@ -1142,6 +1159,8 @@ void TD3AssistantMainForm::MouseDown(TMouseButton button)
 }
 void TD3AssistantMainForm::MouseUp(TMouseButton button)
 {
+	if(bPause) return;
+
 	pauseMouseHook = true;
 	if(button==mbLeft)
 	{
@@ -1166,6 +1185,8 @@ void TD3AssistantMainForm::MouseUp(TMouseButton button)
 
 void TD3AssistantMainForm::MouseClick(TMouseButton button)
 {
+	if(bPause) return;
+
 	pauseMouseHook = true;
 	if(button==mbLeft)
 	{
@@ -1572,10 +1593,12 @@ void __fastcall TD3AssistantMainForm::FormShow(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::PageControlChange(TObject *Sender)
 {
+/*
 	if(PageControl->TabIndex==1)
 	{
 		PageControl->TabIndex = 0;
 	}
+*/
 }
 //---------------------------------------------------------------------------
 
@@ -1664,6 +1687,12 @@ void __fastcall TD3AssistantMainForm::DeleteAllRecentlyFileMenuClick(TObject *Se
 	String rfilename = ChangeFileExt(Application->ExeName,".files");
 	lbRecentlyFilesFullPath->Items->SaveToFile(rfilename);
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::edStopName1Change(TObject *Sender)
+{
+	bModified = true;
 }
 //---------------------------------------------------------------------------
 
