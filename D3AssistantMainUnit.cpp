@@ -577,6 +577,8 @@ void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseBut
 		return;
 	}
 	*/
+	if(ActiveControl==0) return;
+
 	if(MouseClickObject==Sender)
 	{
 		TComponent *comp = (TComponent *)Sender;
@@ -598,10 +600,12 @@ void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseBut
 				te->Text = "[mbMiddle]";
 			}
 
-			ActiveControl = 0;
 			MouseClickObject = 0;
+			ActiveControl = 0;
 			return;
 		}
+		ActiveControl = 0;
+
 	}
 
 
@@ -1705,6 +1709,17 @@ void __fastcall TD3AssistantMainForm::DeleteAllRecentlyFileMenuClick(TObject *Se
 void __fastcall TD3AssistantMainForm::edStopName1Change(TObject *Sender)
 {
 	bModified = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::edKey1MouseUp(TObject *Sender, TMouseButton Button,
+          TShiftState Shift, int X, int Y)
+{
+	if(Button==mbRight)
+	{
+		ActiveControl = 0;
+		MouseClickObject = 0;
+    }
 }
 //---------------------------------------------------------------------------
 

@@ -202,6 +202,8 @@ __published:	// IDE-managed Components
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall DeleteAllRecentlyFileMenuClick(TObject *Sender);
 	void __fastcall edStopName1Change(TObject *Sender);
+	void __fastcall edKey1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
 
 
 private:	// User declarations

@@ -85,8 +85,8 @@
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <VerInfo_Release>1</VerInfo_Release>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.14;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
         <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)32$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
@@ -101,8 +101,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <VerInfo_Release>1</VerInfo_Release>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.14;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
         <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)64$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
@@ -138,8 +138,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.14;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon4.ico</Icon_MainIcon>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -149,8 +149,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.14;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
         <AppEnableHighDPI>true</AppEnableHighDPI>
@@ -164,8 +164,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.14;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
@@ -175,8 +175,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>14</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.14;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Build>17</VerInfo_Build>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
@@ -255,7 +255,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="readme.htm" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="releasenote.html" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -347,18 +347,33 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="releasenote.html" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="readme.htm" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -737,27 +752,12 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>

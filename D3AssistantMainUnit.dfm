@@ -3,8 +3,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   ActiveControl = GroupBox1
   Caption = 'D3Assist v1.0.0.1'
-  ClientHeight = 421
-  ClientWidth = 413
+  ClientHeight = 419
+  ClientWidth = 410
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -57,6 +57,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       OnKeyDown = edStartKeyDown
       OnKeyPress = edStartKeyPress
       OnMouseDown = edKey1MouseDown
+      OnMouseUp = edKey1MouseUp
     end
     object edStop: TEdit
       Tag = 1
@@ -72,6 +73,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       OnKeyDown = edStartKeyDown
       OnKeyPress = edStartKeyPress
       OnMouseDown = edKey1MouseDown
+      OnMouseUp = edKey1MouseUp
     end
   end
   object Memo1: TMemo
@@ -115,19 +117,21 @@ object D3AssistantMainForm: TD3AssistantMainForm
   end
   object stBar: TStatusBar
     Left = 0
-    Top = 402
-    Width = 413
+    Top = 400
+    Width = 410
     Height = 19
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
+    ExplicitTop = 402
+    ExplicitWidth = 413
   end
   object PageControl: TPageControl
     Left = -1
     Top = 111
     Width = 409
     Height = 290
-    ActivePage = EnvironmentTabSheet
+    ActivePage = KeySettingTabSheet
     TabOrder = 6
     OnChange = PageControlChange
     object KeySettingTabSheet: TTabSheet
@@ -190,6 +194,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edPause1: TEdit
         Tag = 1
@@ -205,6 +210,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edDelay1: TEdit
         Tag = 2
@@ -240,6 +246,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edKey2: TEdit
         Tag = 1
@@ -261,6 +268,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edDelay2: TEdit
         Tag = 2
@@ -290,6 +298,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive2: TEdit
         Tag = 1
@@ -305,6 +314,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive3: TEdit
         Tag = 1
@@ -320,6 +330,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edPause3: TEdit
         Tag = 1
@@ -335,6 +346,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edDelay3: TEdit
         Tag = 2
@@ -370,6 +382,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edKey4: TEdit
         Tag = 1
@@ -391,6 +404,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edKey5: TEdit
         Tag = 1
@@ -412,6 +426,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edKey6: TEdit
         Tag = 1
@@ -433,6 +448,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edKey7: TEdit
         Tag = 1
@@ -454,6 +470,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edKey8: TEdit
         Tag = 1
@@ -475,6 +492,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edDelay8: TEdit
         Tag = 2
@@ -560,6 +578,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edPause5: TEdit
         Tag = 1
@@ -575,6 +594,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edPause6: TEdit
         Tag = 1
@@ -590,6 +610,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edPause7: TEdit
         Tag = 1
@@ -605,6 +626,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edPause8: TEdit
         Tag = 1
@@ -620,6 +642,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive8: TEdit
         Tag = 1
@@ -635,6 +658,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive7: TEdit
         Tag = 1
@@ -650,6 +674,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive6: TEdit
         Tag = 1
@@ -665,6 +690,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive5: TEdit
         Tag = 1
@@ -680,6 +706,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edActive4: TEdit
         Tag = 1
@@ -695,6 +722,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object cbToggle1: TCheckBox
         Left = 171
@@ -824,6 +852,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName2: TEdit
         Tag = 1
@@ -857,6 +886,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName3: TEdit
         Tag = 1
@@ -890,6 +920,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName4: TEdit
         Tag = 1
@@ -923,6 +954,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName5: TEdit
         Tag = 1
@@ -956,6 +988,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName6: TEdit
         Tag = 1
@@ -989,6 +1022,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName7: TEdit
         Tag = 1
@@ -1022,6 +1056,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName8: TEdit
         Tag = 1
@@ -1055,6 +1090,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopKey9: TEdit
         Tag = 1
@@ -1076,6 +1112,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName9: TEdit
         Tag = 1
@@ -1121,6 +1158,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopKey11: TEdit
         Tag = 1
@@ -1142,6 +1180,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName11: TEdit
         Tag = 1
@@ -1187,6 +1226,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopKey13: TEdit
         Tag = 1
@@ -1208,6 +1248,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName13: TEdit
         Tag = 1
@@ -1253,6 +1294,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopKey15: TEdit
         Tag = 1
@@ -1274,6 +1316,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
       object edStopName15: TEdit
         Tag = 1
@@ -1319,6 +1362,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
       end
     end
     object TabSheet1: TTabSheet
