@@ -1632,7 +1632,7 @@ void __fastcall TD3AssistantMainForm::MenuCheckUpdateClick(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::FormCreate(TObject *Sender)
 {
-	MenuCheckUpdateClick(0);
+ //	MenuCheckUpdateClick(0);
 }
 //---------------------------------------------------------------------------
 
