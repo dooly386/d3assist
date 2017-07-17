@@ -227,6 +227,11 @@ void TD3AssistantMainForm::prepareKeyRows()
 
 }
 
+bool TD3AssistantMainForm::IsForegroundWindow(HWND hwnd)
+{
+    return GetForegroundWindow()==hwnd;
+}
+
 void TD3AssistantMainForm::setBlend()
 {
 	if(bStarted==false)
@@ -804,6 +809,7 @@ void TD3AssistantMainForm::Stop()
 
 void TD3AssistantMainForm::StartImmediately(String key)
 {
+	if(IsForegroundWindow(Handle)) return;
 	if(key==edImmediatelyActive->Text)
 	{
 		if(edImmediatelyDelay->Text.Length())
@@ -1069,6 +1075,23 @@ bool TD3AssistantMainForm::OnMouseWheelHook(int delta)
 void TD3AssistantMainForm::OnMouseXButtonDown(int btn)
 {
 	// btn = 1 or 2 (XBUTTON1 , XBUTTON2)
+	if(IsForegroundWindow(Handle)==false)
+	{
+		if(bStarted==false)
+		{
+			if(btn==1)
+			{
+				StartImmediately("[XButton1]");
+				return;
+			}
+			if(btn==2)
+			{
+				StartImmediately("[XButton2]");
+				return;
+			}
+
+		}
+    }
 
 	if(btn==1)
 	{
@@ -1085,6 +1108,21 @@ void TD3AssistantMainForm::OnMouseXButtonDown(int btn)
 void TD3AssistantMainForm::OnMouseXButtonUp(int btn)
 {
 	// btn = 1 or 2 (XBUTTON1 , XBUTTON2)
+	if(bStarted==false)
+	{
+		if(btn==1)
+		{
+			StopImmediately("[XButton1]");
+			return;
+		}
+		if(btn==2)
+		{
+			StopImmediately("[XButton2]");
+			return;
+		}
+
+	}
+
 	if(btn==1)
 	{
 		ProcessMouseUp("[XButton1]");
@@ -1112,7 +1150,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 				{
 					TEdit *te = (TEdit *)comp;
 					te->Text = key;
-                }
+				}
 
 				ActiveControl = 0;
 				MouseClickObject = 0;
@@ -1135,7 +1173,11 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 		return;
 	}
 
-	if(bStarted==false) return;
+	if(bStarted==false)
+	{
+		StartImmediately(key);
+		return;
+	}
 
 	{
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
@@ -1335,7 +1377,6 @@ void TD3AssistantMainForm::OnMouseDownHook(int b,WPARAM wParam,LPARAM lParam)
 }
 void TD3AssistantMainForm::OnMouseUpHook(int b,WPARAM wParam,LPARAM lParam)
 {
-	if(bStarted==false) return;
 	String key="";
 	if(b==(int)mbLeft)
 	{
@@ -1350,6 +1391,11 @@ void TD3AssistantMainForm::OnMouseUpHook(int b,WPARAM wParam,LPARAM lParam)
 	if(b==(int)mbMiddle)
 	{
 		key = "[mbMiddle]";
+	}
+	if(bStarted==false)
+	{
+		StopImmediately(key);
+        return;
 	}
 
 	ProcessMouseUp(key);

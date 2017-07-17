@@ -264,6 +264,7 @@ private:	// User declarations
     void StopImmediately(String key);
 
 
+	bool IsForegroundWindow(HWND hwnd);
 
 public:		// User declarations
 	bool bStarted;
