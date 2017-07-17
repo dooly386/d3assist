@@ -80,7 +80,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 	LRESULT r;
 	if(pauseMouseHook)
 	{
-		if(wParam==WM_LBUTTONDOWN && D3AssistantMainForm->bStarted)
+		if((wParam==WM_LBUTTONDOWN || wParam==WM_RBUTTONDOWN || wParam==WM_MBUTTONDOWN) && D3AssistantMainForm->bStarted)
 		{
 			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
 			if(InsideProtArea(p->pt))
@@ -97,7 +97,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
   if (nCode >= 0)
   {
-	if(wParam==WM_LBUTTONDOWN && D3AssistantMainForm->bStarted)
+	if((wParam==WM_LBUTTONDOWN || wParam==WM_RBUTTONDOWN || wParam==WM_MBUTTONDOWN) && D3AssistantMainForm->bStarted)
 	{
 		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
 		if(InsideProtArea(p->pt))
