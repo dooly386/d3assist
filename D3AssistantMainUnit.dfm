@@ -1549,6 +1549,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Open Protection Area Manager'
         OnClick = MenuOpenProtectionAreaManagerClick
       end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object MenuLoadFromAreaFile: TMenuItem
+        Caption = 'Load from Area File'
+        OnClick = MenuLoadFromAreaFileClick
+      end
     end
     object Y1: TMenuItem
       Caption = 'YoloMouse'

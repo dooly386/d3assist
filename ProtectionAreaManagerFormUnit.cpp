@@ -314,6 +314,7 @@ void __fastcall TProtectionAreaManagerForm::MenuSaveAreaToFileClick(TObject *Sen
 
 
 	FILE *fp = fopen(filename.c_str(),"w");
+	fprintf(fp,"window %d,%d,%d,%d\n",Left,Top,Width,Height);
 
 	std::list<RECT>::iterator it = gProtArea.begin();
 	while(it!=gProtArea.end())
@@ -343,7 +344,15 @@ void __fastcall TProtectionAreaManagerForm::MenuLoadAreaFromFileClick(TObject *S
 	int left,top,right,bottom;
 	while(true)
 	{
-		int a = fscanf(fp,"%d,%d,%d,%d\n",&left,&top,&right,&bottom);
+		int a = fscanf(fp,"window %d,%d,%d,%d\n",&left,&top,&right,&bottom);
+		if(a==4)
+		{
+			Left = left;
+			Top = top;
+			Width = right;
+			Height = bottom;
+        }
+		a = fscanf(fp,"%d,%d,%d,%d\n",&left,&top,&right,&bottom);
 		if(a!=4)
 		{
 			break;
@@ -357,6 +366,11 @@ void __fastcall TProtectionAreaManagerForm::MenuLoadAreaFromFileClick(TObject *S
 	}
 
 	fclose(fp);
+
+	if(Visible==false)
+	{
+        Visible = true;
+    }
 
 	Refresh();
 
@@ -404,5 +418,12 @@ void __fastcall TProtectionAreaManagerForm::MenuDeleteOverlappedAreaClick(TObjec
 	}
     Refresh();
 
+}
+//---------------------------------------------------------------------------
+void __fastcall TProtectionAreaManagerForm::MenuClearAndCloseWindowClick(TObject *Sender)
+
+{
+	gProtArea.clear();
+	Hide();
 }
 //---------------------------------------------------------------------------

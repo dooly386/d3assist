@@ -171,6 +171,8 @@ __published:	// IDE-managed Components
 	TLabel *Label13;
 	TMenuItem *P1;
 	TMenuItem *MenuOpenProtectionAreaManager;
+	TMenuItem *N5;
+	TMenuItem *MenuLoadFromAreaFile;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -208,6 +210,7 @@ __published:	// IDE-managed Components
 	void __fastcall edKey1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
 	void __fastcall MenuOpenProtectionAreaManagerClick(TObject *Sender);
+	void __fastcall MenuLoadFromAreaFileClick(TObject *Sender);
 
 
 private:	// User declarations

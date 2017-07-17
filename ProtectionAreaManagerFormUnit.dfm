@@ -40,6 +40,17 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
   object MainPopupMenu: TPopupMenu
     Left = 640
     Top = 192
+    object MenuLoadFromAreaFile: TMenuItem
+      Caption = 'Load from Area File'
+      OnClick = MenuLoadAreaFromFileClick
+    end
+    object MenuSaveToAreaFile: TMenuItem
+      Caption = 'Save to Area File'
+      OnClick = MenuSaveAreaToFileClick
+    end
+    object N6: TMenuItem
+      Caption = '-'
+    end
     object MenuFitToBackWindow: TMenuItem
       Caption = 'Fit to Back Window'
       OnClick = MenuFitToBackWindowClick
@@ -70,6 +81,10 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
     end
     object N3: TMenuItem
       Caption = '-'
+    end
+    object MenuClearAndCloseWindow: TMenuItem
+      Caption = 'Clear Area and Close Window'
+      OnClick = MenuClearAndCloseWindowClick
     end
     object MenuCloseWindow: TMenuItem
       Caption = 'Close Window'

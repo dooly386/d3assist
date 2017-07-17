@@ -1884,3 +1884,9 @@ void __fastcall TD3AssistantMainForm::MenuOpenProtectionAreaManagerClick(TObject
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TD3AssistantMainForm::MenuLoadFromAreaFileClick(TObject *Sender)
+{
+	ProtectionAreaManagerForm->MenuLoadAreaFromFileClick(Sender);
+}
+//---------------------------------------------------------------------------
+

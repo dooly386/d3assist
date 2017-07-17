@@ -36,6 +36,10 @@ __published:	// IDE-managed Components
 	TMenuItem *MenuLoadAreaFromFile;
 	TMenuItem *MenuSaveAreaToFile;
 	TMenuItem *MenuDeleteOverlappedArea;
+	TMenuItem *MenuLoadFromAreaFile;
+	TMenuItem *N6;
+	TMenuItem *MenuSaveToAreaFile;
+	TMenuItem *MenuClearAndCloseWindow;
 	void __fastcall FormMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
 	void __fastcall FormMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -59,6 +63,7 @@ __published:	// IDE-managed Components
 	void __fastcall MenuSaveAreaToFileClick(TObject *Sender);
 	void __fastcall MenuLoadAreaFromFileClick(TObject *Sender);
 	void __fastcall MenuDeleteOverlappedAreaClick(TObject *Sender);
+	void __fastcall MenuClearAndCloseWindowClick(TObject *Sender);
 
 
 
