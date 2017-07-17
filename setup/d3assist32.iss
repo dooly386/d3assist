@@ -9,7 +9,7 @@
 
 [Setup]
 AppName=d3assist
-AppVersion=1.0.0.5
+AppVersion=1.0.1.xx
 AppPublisher=DoYoung Kang  (dooly386@gmail.com)
 AppPublisherURL=https://github.com/dooly386/d3assist
 DefaultDirName={pf32}\d3assist

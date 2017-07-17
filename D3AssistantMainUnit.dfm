@@ -3,8 +3,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   ActiveControl = GroupBox1
   Caption = 'D3Assist v1.0.0.1'
-  ClientHeight = 419
-  ClientWidth = 413
+  ClientHeight = 447
+  ClientWidth = 410
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,119 +22,21 @@ object D3AssistantMainForm: TD3AssistantMainForm
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object GroupBox1: TGroupBox
-    Left = 0
-    Top = 0
-    Width = 169
-    Height = 105
-    Caption = 'Start/Stop'
-    TabOrder = 0
-    object Label1: TLabel
-      Left = 16
-      Top = 32
-      Width = 45
-      Height = 13
-      Caption = 'Start Key'
-    end
-    object Label2: TLabel
-      Left = 16
-      Top = 64
-      Width = 43
-      Height = 13
-      Caption = 'Stop Key'
-    end
-    object edStart: TEdit
-      Tag = 1
-      Left = 67
-      Top = 34
-      Width = 81
-      Height = 21
-      TabStop = False
-      Alignment = taCenter
-      TabOrder = 0
-      OnChange = edStartChange
-      OnContextPopup = edStartContextPopup
-      OnKeyDown = edStartKeyDown
-      OnKeyPress = edStartKeyPress
-      OnMouseDown = edKey1MouseDown
-      OnMouseUp = edKey1MouseUp
-    end
-    object edStop: TEdit
-      Tag = 1
-      Left = 67
-      Top = 61
-      Width = 81
-      Height = 21
-      TabStop = False
-      Alignment = taCenter
-      TabOrder = 1
-      OnChange = edStartChange
-      OnContextPopup = edStartContextPopup
-      OnKeyDown = edStartKeyDown
-      OnKeyPress = edStartKeyPress
-      OnMouseDown = edKey1MouseDown
-      OnMouseUp = edKey1MouseUp
-    end
-  end
-  object Memo1: TMemo
-    Left = 561
-    Top = 8
-    Width = 262
-    Height = 359
-    ScrollBars = ssVertical
-    TabOrder = 1
-  end
-  object btnSave: TButton
-    Left = 175
-    Top = 8
-    Width = 75
-    Height = 25
-    Caption = 'Save'
-    TabOrder = 2
-    TabStop = False
-    OnClick = btnSaveClick
-  end
-  object btnLoad: TButton
-    Left = 175
-    Top = 39
-    Width = 75
-    Height = 25
-    Caption = 'Load'
-    TabOrder = 3
-    TabStop = False
-    OnClick = btnLoadClick
-  end
-  object StatusPanel: TPanel
-    Left = 175
-    Top = 70
-    Width = 75
-    Height = 23
-    BevelOuter = bvNone
-    Caption = 'Stop'
-    Color = clRed
-    ParentBackground = False
-    TabOrder = 4
-  end
-  object stBar: TStatusBar
-    Left = 0
-    Top = 400
-    Width = 413
-    Height = 19
-    Panels = <>
-    SimplePanel = True
-    SimpleText = 'Welcome D3Assist'
-    ExplicitWidth = 410
-  end
   object PageControl: TPageControl
-    Left = -1
-    Top = 111
-    Width = 409
-    Height = 290
-    ActivePage = TabSheet1
+    Left = 0
+    Top = 110
+    Width = 410
+    Height = 318
+    ActivePage = KeySettingTabSheet
+    Align = alBottom
     TabOrder = 6
     OnChange = PageControlChange
+    ExplicitTop = 111
+    ExplicitWidth = 414
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
+      ExplicitWidth = 401
+      ExplicitHeight = 262
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -165,11 +67,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label8: TLabel
         Left = 0
-        Top = 249
-        Width = 401
+        Top = 277
+        Width = 402
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
+        ExplicitTop = 249
         ExplicitWidth = 287
       end
       object Label15: TLabel
@@ -178,6 +81,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Width = 35
         Height = 13
         Caption = 'Holding'
+      end
+      object Label14: TLabel
+        Left = 168
+        Top = 256
+        Width = 112
+        Height = 13
+        Caption = '<<-- Immediately -->>'
       end
       object edActive1: TEdit
         Tag = 1
@@ -787,10 +697,64 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabOrder = 39
         OnClick = cbToggle1Click
       end
+      object edImmediatelyKey: TEdit
+        Tag = 1
+        Left = 3
+        Top = 250
+        Width = 81
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 40
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyDown = edStartKeyDown
+        OnKeyPress = edStartKeyPress
+        OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
+      end
+      object edImmediatelyDelay: TEdit
+        Tag = 2
+        Left = 90
+        Top = 250
+        Width = 66
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 41
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edImmediatelyActive: TEdit
+        Tag = 1
+        Left = 308
+        Top = 250
+        Width = 88
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 42
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyDown = edStartKeyDown
+        OnKeyPress = edStartKeyPress
+        OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
+      end
     end
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
+      ExplicitWidth = 401
+      ExplicitHeight = 262
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1374,6 +1338,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitWidth = 401
+      ExplicitHeight = 262
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1430,8 +1396,112 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
     end
   end
+  object GroupBox1: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 169
+    Height = 105
+    Caption = 'Start/Stop'
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 16
+      Top = 32
+      Width = 45
+      Height = 13
+      Caption = 'Start Key'
+    end
+    object Label2: TLabel
+      Left = 16
+      Top = 64
+      Width = 43
+      Height = 13
+      Caption = 'Stop Key'
+    end
+    object edStart: TEdit
+      Tag = 1
+      Left = 67
+      Top = 34
+      Width = 81
+      Height = 21
+      TabStop = False
+      Alignment = taCenter
+      TabOrder = 0
+      OnChange = edStartChange
+      OnContextPopup = edStartContextPopup
+      OnKeyDown = edStartKeyDown
+      OnKeyPress = edStartKeyPress
+      OnMouseDown = edKey1MouseDown
+      OnMouseUp = edKey1MouseUp
+    end
+    object edStop: TEdit
+      Tag = 1
+      Left = 67
+      Top = 61
+      Width = 81
+      Height = 21
+      TabStop = False
+      Alignment = taCenter
+      TabOrder = 1
+      OnChange = edStartChange
+      OnContextPopup = edStartContextPopup
+      OnKeyDown = edStartKeyDown
+      OnKeyPress = edStartKeyPress
+      OnMouseDown = edKey1MouseDown
+      OnMouseUp = edKey1MouseUp
+    end
+  end
+  object Memo1: TMemo
+    Left = 561
+    Top = 8
+    Width = 262
+    Height = 359
+    ScrollBars = ssVertical
+    TabOrder = 1
+    Visible = False
+  end
+  object btnSave: TButton
+    Left = 175
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Save'
+    TabOrder = 2
+    TabStop = False
+    OnClick = btnSaveClick
+  end
+  object btnLoad: TButton
+    Left = 175
+    Top = 39
+    Width = 75
+    Height = 25
+    Caption = 'Load'
+    TabOrder = 3
+    TabStop = False
+    OnClick = btnLoadClick
+  end
+  object StatusPanel: TPanel
+    Left = 175
+    Top = 70
+    Width = 75
+    Height = 23
+    BevelOuter = bvNone
+    Caption = 'Stop'
+    Color = clRed
+    ParentBackground = False
+    TabOrder = 4
+  end
+  object stBar: TStatusBar
+    Left = 0
+    Top = 428
+    Width = 410
+    Height = 19
+    Panels = <>
+    SimplePanel = True
+    SimpleText = 'Welcome D3Assist'
+    ExplicitTop = 400
+  end
   object lbRecentlyFiles: TListBox
-    Left = 258
+    Left = 261
     Top = 8
     Width = 145
     Height = 97
@@ -1634,5 +1704,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
     HTTPOptions = [hoForceEncodeParams]
     Left = 488
     Top = 72
+  end
+  object TimerImmediately: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = TimerImmediatelyTimer
+    Left = 408
+    Top = 328
   end
 end

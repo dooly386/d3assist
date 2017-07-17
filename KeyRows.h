@@ -71,6 +71,8 @@ extern std::map<String,std::list<keyRow *>> keyActiveMap;
 
 extern std::map<String,keyStopRow *> keyStopMap;
 
+void GetForceRunKey(const String &key,std::list<keyRow *> &rows);
+
 
 
 #endif

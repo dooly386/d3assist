@@ -33,13 +33,41 @@ void DBG(String s);
 char* translate(int vk, int up);
 
 
+unsigned long keyRepeatCount[256];
+bool keyRepeatCountFlag = false;
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
+	if(keyRepeatCountFlag==false)
+	{
+        ZeroMemory(keyRepeatCount,sizeof(unsigned long)*256);
+		keyRepeatCountFlag = true;
+	}
+
+
+	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
+	if(wParam==WM_KEYUP)
+	{
+		keyRepeatCount[kb->vkCode]=0;
+	}
+
+	if(keyRepeatCount[kb->vkCode])
+	{
+		return -1;
+	}
+
+	if(wParam==WM_KEYDOWN)
+	{
+		keyRepeatCount[kb->vkCode]++;
+	}
+//	DBG(kb->vkCode);
+
+//    return -1;
+
 	if(pauseKbHook)
 	{
 		return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 	}
-	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
+//	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
 	char *str=0;
 	if (wParam == WM_KEYUP)
 	{

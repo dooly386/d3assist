@@ -321,7 +321,11 @@ void TD3AssistantMainForm::enableEditAll()
 	{
 		keyStopRows[i].edname->Enabled = true;
 		keyStopRows[i].edkey->Enabled = true;
-    }
+	}
+
+	edImmediatelyKey->Enabled = true;
+	edImmediatelyDelay->Enabled = true;
+	edImmediatelyActive->Enabled = true;
 
 	edStart->Enabled = true;
 	edStop->Enabled = true;
@@ -338,7 +342,11 @@ void TD3AssistantMainForm::disableEditAll()
 	{
 		keyStopRows[i].edname->Enabled = false;
 		keyStopRows[i].edkey->Enabled = false;
-    }
+	}
+
+	edImmediatelyKey->Enabled = false;
+	edImmediatelyDelay->Enabled = false;
+	edImmediatelyActive->Enabled = false;
 
 	edStart->Enabled = false;
 	edStop->Enabled = false;
@@ -742,21 +750,42 @@ void TD3AssistantMainForm::Stop()
 
 	for(int i=0;i<8;i++)
 	{
+		if(keyRows[i].key.Length() && keyRows[i].pushdown && keyRows[i].timer->Enabled)
+		{
+			String key = keyRows[i].key;
+			if(key=="[mbLeft]")
+			{
+				MouseUp(mbLeft);
+			}
+			if(key=="[mbRight]")
+			{
+				MouseUp(mbRight);
+			}
+			if(key=="[mbMiddle]")
+			{
+				MouseUp(mbMiddle);
+			}
+			if(key.Length()>1)
+			{
+				char vc = str2vkey(key);
+				if(vc)
+				{
+					unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
+					PushUpKey(vc,sc);
+				}
+			}
+			if(key.Length()==1)
+			{
+				char vc = key[1];
+				unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
+				PushUpKey(vc,sc);
+			}
+		}
+
 		keyRows[i].timer->Enabled = false;
 		keyRows[i].timer->Tag = 0;
-
 		keyRows[i].pushdown = false;
-		/*
-		if(keyRows[i].key.Length())
-		{
-			char vc = keyRows[i].key[1];
-			unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
-			PushUpKey(vc,sc);
-			MouseUp(mbLeft);
-			MouseUp(mbRight);
-			MouseUp(mbMiddle);
-		}
-        */
+
 	}
 
 	StatusPanel->Caption = "Stop";
@@ -772,6 +801,44 @@ void TD3AssistantMainForm::Stop()
 
 
 }
+
+void TD3AssistantMainForm::StartImmediately(String key)
+{
+	if(key==edImmediatelyActive->Text)
+	{
+		if(edImmediatelyDelay->Text.Length())
+		{
+			disableEditAll();
+			TimerImmediately->Interval = edImmediatelyDelay->Text.ToInt();
+			TimerImmediately->Enabled = true;
+
+			edImmediatelyKey->Color = clLime;
+			edImmediatelyDelay->Color = clLime;
+			edImmediatelyActive->Color = clLime;
+			targetHwnd = 0;
+
+		}
+
+	}
+
+}
+
+void TD3AssistantMainForm::StopImmediately(String key)
+{
+	if(key==edImmediatelyActive->Text)
+	{
+		TimerImmediately->Enabled = false;
+		enableEditAll();
+
+		edImmediatelyKey->Color = clWindow;
+		edImmediatelyDelay->Color = clWindow;
+		edImmediatelyActive->Color = clWindow;
+		targetHwnd = 0;
+
+	}
+
+}
+
 void TD3AssistantMainForm::OnKeyDownHook(String key)
 {
 //    stBar->SimpleText = key;
@@ -794,7 +861,13 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		return;
 	}
 
-	if(bStarted==false) return;
+
+
+	if(bStarted==false)
+	{
+		StartImmediately(key);
+		return;
+	}
 
 	if(key=="[ENTER]")
 	{
@@ -886,7 +959,14 @@ void TD3AssistantMainForm::OnKeyUpHook(String key)
 			return;
 		}
 	}
-	if(bStarted==false) return;
+
+
+
+	if(bStarted==false)
+	{
+		StopImmediately(key);
+		return;
+	}
 
 	{
 		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
@@ -1412,7 +1492,6 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 	TTimer *timer = (TTimer *)Sender;
 	keyRow *lprow = keyTimerMap[timer];
 	keyRow &row = *lprow;
-
 	if(row.toggle->Checked)
 	{
 		row.timer->Interval = row.interval;
@@ -1904,6 +1983,68 @@ void __fastcall TD3AssistantMainForm::MenuOpenProtectionAreaManagerClick(TObject
 void __fastcall TD3AssistantMainForm::MenuLoadFromAreaFileClick(TObject *Sender)
 {
 	ProtectionAreaManagerForm->MenuLoadAreaFromFileClick(Sender);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::TimerImmediatelyTimer(TObject *Sender)
+{
+	if(cbOnlyD3->Checked)
+	{
+		HWND hwnd = GetForegroundWindow();
+
+		if(hwnd && targetHwnd==0)
+		{
+			char str[255];
+			GetWindowText(hwnd,str,255);
+			String s = str;
+			if(s!=edOnlyWindow->Text)
+			{
+				targetHwnd = hwnd;
+				return;
+			}
+		}
+		if(hwnd==targetHwnd)
+		{
+            return;
+        }
+	}
+
+
+	String key = edImmediatelyKey->Text;
+
+	if(key=="[mbLeft]")
+	{
+		MouseClick(mbLeft);
+		return;
+	}
+	if(key=="[mbRight]")
+	{
+		MouseClick(mbRight);
+		return;
+	}
+	if(key=="[mbMiddle]")
+	{
+		MouseClick(mbMiddle);
+		return;
+	}
+
+
+
+	if(key.Length()>0)
+	{
+		char vc = key[1];
+		if(key.Length()>1)
+		{
+			vc = str2vkey(key);
+			if(vc==0) return;
+		}
+
+		unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
+		PressKey(vc,sc);
+		return;
+	}
+
+
 }
 //---------------------------------------------------------------------------
 

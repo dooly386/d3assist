@@ -20,8 +20,16 @@ std::map<String,std::list<keyRow *>> keyActiveMap;
 std::map<String,keyStopRow *> keyStopMap;
 
 
-bool IsForceRunKey(String key)
+void GetForceRunKey(const String &key,std::list<keyRow *> &rows)
 {
+	for(int i=0;i<8;i++)
+	{
+		if(keyRows[i].pausekey==key && keyRows[i].activekey==key)
+		{
+			rows.push_back(keyRows+i);
+		}
+	}
+
 }
 
 bool IsExistLeftDownMouse()
