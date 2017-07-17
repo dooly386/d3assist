@@ -168,6 +168,7 @@ __published:	// IDE-managed Components
 	TCheckBox *cbCheckUpdateOnStart;
 	TIdHTTP *IdHTTP;
 	TMenuItem *DeleteAllRecentlyFileMenu;
+	TLabel *Label13;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,

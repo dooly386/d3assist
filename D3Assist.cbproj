@@ -58,12 +58,15 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Build>25</VerInfo_Build>
+        <VerInfo_Release>1</VerInfo_Release>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <ILINK_LinkwithSSLandCrypto>true</ILINK_LinkwithSSLandCrypto>
         <BCC_EnableBatchCompilation>true</BCC_EnableBatchCompilation>
         <RunBCCOutOfProcess>true</RunBCCOutOfProcess>
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
         <SubProcessesNumber>8</SubProcessesNumber>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=In Jeju;FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.25;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <VerInfo_Locale>1042</VerInfo_Locale>
         <Multithreaded>true</Multithreaded>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
@@ -83,14 +86,12 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
+        <VerInfo_Build>23</VerInfo_Build>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Build>17</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.23;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)32$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <PackageImports>acntDX10Berlin_R;adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;cDragDropXE10;CloudService;crcontrols240;CustomIPTransport;cxDataRS24;cxEditorsRS24;cxExportRS24;cxGridRS24;cxLibraryRS24;cxPageControlRS24;cxPivotGridChartRS24;cxPivotGridRS24;cxSchedulerGridRS24;cxSchedulerRibbonStyleEventEditorRS24;cxSchedulerRS24;cxSchedulerTreeBrowserRS24;cxStatusKeeperPackageRS17;cxTreeListdxBarPopupMenuRS24;cxTreeListRS24;cxVerticalGridRS24;dac240;dacfmx240;dacvcl240;DataSnapClient;DataSnapCommon;DataSnapConnectors;DatasnapConnectorsFreePascal;DataSnapFireDAC;DataSnapIndy10ServerTransport;DataSnapNativeClient;DataSnapProviderClient;DataSnapServer;DataSnapServerMidas;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXDb2Driver;DBXFirebirdDriver;DBXInformixDriver;DBXInterBaseDriver;DBXMSSQLDriver;DBXMySQLDriver;DBXOdbcDriver;DBXOracleDriver;DBXSqliteDriver;DBXSybaseASADriver;DBXSybaseASEDriver;DCEF_XE10;dclcxStatusKeeperPackageRS17;dsnap;dsnapcon;dsnapxml;dxADOServerModeRS24;dxBarDBNavRS24;dxBarExtDBItemsRS24;dxBarExtItemsRS24;dxBarRS24;dxComnRS24;dxCoreRS24;dxdborRS24;dxdbtrRS24;dxDBXServerModeRS24;dxDockingRS24;dxFireDACServerModeRS24;dxFlowChartRS24;dxGaugeControlRS24;dxGDIPlusRS24;dxHttpIndyRequestRS24;dxLayoutControlRS24;dxMapControlRS24;dxmdsRS24;dxNavBarRS24;dxOfficeCoreRS24;dxorgcRS24;dxPDFViewerRS24;dxPSCoreRS24;dxPScxCommonRS24;dxPScxExtCommonRS24;dxPScxGridLnkRS24;dxPScxPCProdRS24;dxPScxPivotGridLnkRS24;dxPScxSchedulerLnkRS24;dxPScxTLLnkRS24;dxPScxVGridLnkRS24;dxPSdxDBOCLnkRS24;dxPSdxDBTVLnkRS24;dxPSdxFCLnkRS24;dxPSdxGaugeControlLnkRS24;dxPSdxLCLnkRS24;dxPSdxMapControlLnkRS24;dxPSdxOCLnkRS24;dxPSdxPDFViewerLnkRS24;dxPSdxSpreadSheetLnkRS24;dxPSLnksRS24;dxPsPrVwAdvRS24;dxPSPrVwRibbonRS24;dxPSRichEditControlLnkRS24;dxRibbonCustomizationFormRS24;dxRibbonRS24;dxRichEditControlCoreRS24;dxRichEditControlRS24;dxRichEditInplaceRS24;dxServerModeRS24;dxSkinBlackRS24;dxSkinBlueprintRS24;dxSkinBlueRS24;dxSkinCaramelRS24;dxSkinCoffeeRS24;dxSkinDarkRoomRS24;dxSkinDarkSideRS24;dxSkinDevExpressDarkStyleRS24;dxSkinDevExpressStyleRS24;dxSkinFoggyRS24;dxSkinGlassOceansRS24;dxSkinHighContrastRS24;dxSkiniMaginaryRS24;dxSkinLilianRS24;dxSkinLiquidSkyRS24;dxSkinLondonLiquidSkyRS24;dxSkinMcSkinRS24;dxSkinMetropolisDarkRS24;dxSkinMetropolisRS24;dxSkinMoneyTwinsRS24;dxSkinOffice2007BlackRS24;dxSkinOffice2007BlueRS24;dxSkinOffice2007GreenRS24;dxSkinOffice2007PinkRS24;dxSkinOffice2007SilverRS24;dxSkinOffice2010BlackRS24;dxSkinOffice2010BlueRS24;dxSkinOffice2010SilverRS24;dxSkinOffice2013DarkGrayRS24;dxSkinOffice2013LightGrayRS24;dxSkinOffice2013WhiteRS24;dxSkinOffice2016ColorfulRS24;dxSkinOffice2016DarkRS24;dxSkinPumpkinRS24;dxSkinsCoreRS24;dxSkinscxPCPainterRS24;dxSkinscxSchedulerPainterRS24;dxSkinsdxBarPainterRS24;dxSkinsdxDLPainterRS24;dxSkinsdxNavBarPainterRS24;dxSkinsdxRibbonPainterRS24;dxSkinSevenClassicRS24;dxSkinSevenRS24;dxSkinSharpPlusRS24;dxSkinSharpRS24;dxSkinSilverRS24;dxSkinSpringTimeRS24;dxSkinStardustRS24;dxSkinSummer2008RS24;dxSkinTheAsphaltWorldRS24;dxSkinValentineRS24;dxSkinVisualStudio2013BlueRS24;dxSkinVisualStudio2013DarkRS24;dxSkinVisualStudio2013LightRS24;dxSkinVS2010RS24;dxSkinWhiteprintRS24;dxSkinXmas2008BlueRS24;dxSpellCheckerRS24;dxSpreadSheetConditionalFormattingDialogsRS24;dxSpreadSheetInplaceRichEditRS24;dxSpreadSheetReportDesignerRS24;dxSpreadSheetRS24;dxTabbedMDIRS24;dxThemeRS24;dxTileControlRS24;dxtrmdRS24;dxWizardControlRS24;emsclient;emsclientfiredac;emsedge;emshosting;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMongoDBDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;FireDACTDataDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee924;FMXTeeDB924;FMXTeeImport924;FMXTeeLanguage924;FMXTeePro924;FmxTeeUI924;FMXTree24;frx24;frxADO24;frxDB24;frxDBX24;frxe24;frxIBX24;fs24;fsADO24;fsDB24;fsIBX24;ibmonitor;ibxbindings;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;Intraweb;PasLex;RaizeComponentsVcl;RaizeComponentsVclDb;RESTBackendComponents;RESTComponents;RSCommon;RSFMXSVG;RSVclCommon;RSVclSVG;RSVML;rtl;RtmRxCtl210;sdlbasepack_rt_105XB;sdlchartpack_105XB;sdlchartpack_rt_105XB;sdlgeopack_105XB;sdlgeopack_rt_105XB;sdlmathpack_105XB;sdlmathpack_rt_105XB;soapmidas;soaprtl;soapserver;svn;SyntEdit23;Tee924;TeeDB924;TeeGL924;TeeImage924;TeeImport924;TeeLanguage924;TeeMaker124;TeePro924;TeeTree2D24Tee9;TeeUI924;TeeWorld924;tethering;unidac240;unidacfmx240;unidacvcl240;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclib;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;vquery240;xmlrtl;$(PackageImports)</PackageImports>
@@ -99,16 +100,14 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <BT_BuildType>Debug</BT_BuildType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
+        <VerInfo_Build>23</VerInfo_Build>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Build>17</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.23;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)64$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <BT_BuildType>Debug</BT_BuildType>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
@@ -137,48 +136,36 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>17</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.25;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon4.ico</Icon_MainIcon>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>17</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.25;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>17</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.25;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Release>1</VerInfo_Release>
-        <VerInfo_Build>17</VerInfo_Build>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.17;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=D3Assist;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.1.25;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <AppEnableHighDPI>true</AppEnableHighDPI>
@@ -243,8 +230,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
                     <ProjectProperties Name="IndexFiles">False</ProjectProperties>
                 </ProjectProperties>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\WINDOWS\System32\frxADO24.bpl">(untitled)</Excluded_Packages>
-                    <Excluded_Packages Name="C:\WINDOWS\System32\frxDBX24.bpl">(untitled)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\WINDOWS\system32\frxADO24.bpl">(untitled)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\WINDOWS\system32\frxDBX24.bpl">(untitled)</Excluded_Packages>
                     <Excluded_Packages Name="D:\devhome10\comps\DevExpress VCL\Library\RS24\dcldxPSDBTeeChartRS24.bpl">ExpressPrinting System ReportLink for DBTeeChart by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="D:\devhome10\comps\DevExpress VCL\Library\RS24\dclcxPivotGridOLAPRS24.bpl">ExpressPivotGrid OLAP by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k240.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
@@ -255,7 +242,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="releasenote.html" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="readme.htm" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -347,33 +334,18 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="readme.htm" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="releasenote.html" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -752,12 +724,27 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>

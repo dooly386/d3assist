@@ -20,16 +20,42 @@ struct keyRow
 	String activekey;
 
 	bool pushdown;
+
+	keyRow()
+	{
+		edkey = 0;
+		eddelay = 0;
+		edpause = 0;
+		edactive = 0;
+		timer = 0;
+		toggle = 0;
+
+        pushdown = false;
+
+	}
+
 } ;
 
 
 struct keyStopRow
 {
+
 	TEdit *edname;
 	TEdit *edkey;
 
 	String key;
 	String name;
+
+	int type; // 0 stop, 1 pause, 2 pause hold    , name, name+, name-
+	bool paused;
+
+	keyStopRow()
+	{
+		edname = 0;
+		edkey = 0;
+		type = 0;
+        paused = false;
+    }
 };
 
 

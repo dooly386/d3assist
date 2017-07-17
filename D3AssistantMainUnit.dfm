@@ -123,8 +123,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitTop = 402
-    ExplicitWidth = 413
   end
   object PageControl: TPageControl
     Left = -1
@@ -794,36 +792,43 @@ object D3AssistantMainForm: TD3AssistantMainForm
       ImageIndex = 1
       object Label9: TLabel
         Left = 3
-        Top = 12
+        Top = 0
         Width = 27
         Height = 13
         Caption = 'Name'
       end
       object Label10: TLabel
         Left = 114
-        Top = 12
+        Top = 0
         Width = 18
         Height = 13
         Caption = 'Key'
       end
       object Label11: TLabel
         Left = 206
-        Top = 12
+        Top = 0
         Width = 27
         Height = 13
         Caption = 'Name'
       end
       object Label12: TLabel
         Left = 317
-        Top = 12
+        Top = 0
         Width = 18
         Height = 13
         Caption = 'Key'
       end
+      object Label13: TLabel
+        Left = 3
+        Top = 232
+        Width = 248
+        Height = 26
+        Caption = 'name usage'#13#10'name = stop, name+ = pause, name- = pause hold'
+      end
       object edStopName1: TEdit
         Tag = 1
         Left = 3
-        Top = 28
+        Top = 16
         Width = 105
         Height = 21
         TabStop = False
@@ -835,7 +840,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey1: TEdit
         Tag = 1
         Left = 114
-        Top = 28
+        Top = 16
         Width = 81
         Height = 21
         TabStop = False
@@ -857,7 +862,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName2: TEdit
         Tag = 1
         Left = 3
-        Top = 55
+        Top = 43
         Width = 105
         Height = 21
         TabStop = False
@@ -869,7 +874,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey2: TEdit
         Tag = 1
         Left = 114
-        Top = 55
+        Top = 43
         Width = 81
         Height = 21
         TabStop = False
@@ -891,7 +896,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName3: TEdit
         Tag = 1
         Left = 3
-        Top = 82
+        Top = 70
         Width = 105
         Height = 21
         TabStop = False
@@ -903,7 +908,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey3: TEdit
         Tag = 1
         Left = 114
-        Top = 82
+        Top = 70
         Width = 81
         Height = 21
         TabStop = False
@@ -925,7 +930,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName4: TEdit
         Tag = 1
         Left = 3
-        Top = 109
+        Top = 97
         Width = 105
         Height = 21
         TabStop = False
@@ -937,7 +942,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey4: TEdit
         Tag = 1
         Left = 114
-        Top = 109
+        Top = 97
         Width = 81
         Height = 21
         TabStop = False
@@ -959,7 +964,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName5: TEdit
         Tag = 1
         Left = 3
-        Top = 136
+        Top = 124
         Width = 105
         Height = 21
         TabStop = False
@@ -971,7 +976,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey5: TEdit
         Tag = 1
         Left = 114
-        Top = 136
+        Top = 124
         Width = 81
         Height = 21
         TabStop = False
@@ -993,7 +998,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName6: TEdit
         Tag = 1
         Left = 3
-        Top = 163
+        Top = 151
         Width = 105
         Height = 21
         TabStop = False
@@ -1005,7 +1010,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey6: TEdit
         Tag = 1
         Left = 114
-        Top = 163
+        Top = 151
         Width = 81
         Height = 21
         TabStop = False
@@ -1027,7 +1032,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName7: TEdit
         Tag = 1
         Left = 3
-        Top = 190
+        Top = 178
         Width = 105
         Height = 21
         TabStop = False
@@ -1039,7 +1044,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey7: TEdit
         Tag = 1
         Left = 114
-        Top = 190
+        Top = 178
         Width = 81
         Height = 21
         TabStop = False
@@ -1061,7 +1066,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName8: TEdit
         Tag = 1
         Left = 3
-        Top = 217
+        Top = 205
         Width = 105
         Height = 21
         TabStop = False
@@ -1073,7 +1078,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey8: TEdit
         Tag = 1
         Left = 114
-        Top = 217
+        Top = 205
         Width = 81
         Height = 21
         TabStop = False
@@ -1095,7 +1100,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey9: TEdit
         Tag = 1
         Left = 317
-        Top = 28
+        Top = 16
         Width = 81
         Height = 21
         TabStop = False
@@ -1117,7 +1122,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName9: TEdit
         Tag = 1
         Left = 206
-        Top = 28
+        Top = 16
         Width = 105
         Height = 21
         TabStop = False
@@ -1129,7 +1134,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName10: TEdit
         Tag = 1
         Left = 206
-        Top = 55
+        Top = 43
         Width = 105
         Height = 21
         TabStop = False
@@ -1141,7 +1146,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey10: TEdit
         Tag = 1
         Left = 317
-        Top = 55
+        Top = 43
         Width = 81
         Height = 21
         TabStop = False
@@ -1163,7 +1168,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey11: TEdit
         Tag = 1
         Left = 317
-        Top = 82
+        Top = 70
         Width = 81
         Height = 21
         TabStop = False
@@ -1185,7 +1190,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName11: TEdit
         Tag = 1
         Left = 206
-        Top = 82
+        Top = 70
         Width = 105
         Height = 21
         TabStop = False
@@ -1197,7 +1202,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName12: TEdit
         Tag = 1
         Left = 206
-        Top = 109
+        Top = 97
         Width = 105
         Height = 21
         TabStop = False
@@ -1209,7 +1214,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey12: TEdit
         Tag = 1
         Left = 317
-        Top = 109
+        Top = 97
         Width = 81
         Height = 21
         TabStop = False
@@ -1231,7 +1236,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey13: TEdit
         Tag = 1
         Left = 317
-        Top = 136
+        Top = 124
         Width = 81
         Height = 21
         TabStop = False
@@ -1253,7 +1258,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName13: TEdit
         Tag = 1
         Left = 206
-        Top = 136
+        Top = 124
         Width = 105
         Height = 21
         TabStop = False
@@ -1265,7 +1270,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName14: TEdit
         Tag = 1
         Left = 206
-        Top = 163
+        Top = 151
         Width = 105
         Height = 21
         TabStop = False
@@ -1277,7 +1282,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey14: TEdit
         Tag = 1
         Left = 317
-        Top = 163
+        Top = 151
         Width = 81
         Height = 21
         TabStop = False
@@ -1299,7 +1304,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey15: TEdit
         Tag = 1
         Left = 317
-        Top = 190
+        Top = 178
         Width = 81
         Height = 21
         TabStop = False
@@ -1321,7 +1326,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName15: TEdit
         Tag = 1
         Left = 206
-        Top = 190
+        Top = 178
         Width = 105
         Height = 21
         TabStop = False
@@ -1333,7 +1338,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopName16: TEdit
         Tag = 1
         Left = 206
-        Top = 217
+        Top = 205
         Width = 105
         Height = 21
         TabStop = False
@@ -1345,7 +1350,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStopKey16: TEdit
         Tag = 1
         Left = 317
-        Top = 217
+        Top = 205
         Width = 81
         Height = 21
         TabStop = False
@@ -1368,6 +1373,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72

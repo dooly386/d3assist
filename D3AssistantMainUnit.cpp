@@ -270,9 +270,22 @@ void TD3AssistantMainForm::prepareKeyRows()
 		keyStopRows[i].name = keyStopRows[i].edname->Text;
 		keyStopRows[i].key = keyStopRows[i].edkey->Text;
 
-		if(keyStopRows[i].key.Length())
+		if(keyStopRows[i].name.Length())
 		{
-			keyStopMap[keyStopRows[i].key] = keyStopRows+i;
+			keyStopRows[i].type = 0;
+			char c = *keyStopRows[i].name.LastChar();
+			if(c=='+')
+			{
+				keyStopRows[i].type = 1;
+			}
+			if(c=='-')
+			{
+				keyStopRows[i].type = 2;
+			}
+			if(keyStopRows[i].key.Length())
+			{
+				keyStopMap[keyStopRows[i].key] = keyStopRows+i;
+			}
         }
 	}
 
@@ -355,6 +368,11 @@ void TD3AssistantMainForm::checkColor()
 			{
                 color = clLtGray;
             }
+		}
+
+		if(bPause && row.timer->Tag)
+		{
+            color = clLtGray;
         }
 		row.edkey->Color = color;
 		row.eddelay->Color = color;
@@ -662,6 +680,7 @@ void __fastcall TD3AssistantMainForm::btnLoadClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void TD3AssistantMainForm::Start()
 {
+    PageControl->ActivePage = KeySettingTabSheet;
 
 	if(ActiveControl)
 	{
@@ -825,9 +844,25 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
 		if(it!=keyStopMap.end())
 		{
-			Stop();
-			return;
-        }
+			keyStopRow *row = it->second;
+			if(row->type==0)
+			{
+				Stop();
+				return;
+			}
+			if(row->type==1)
+			{
+				bPause = !bPause;
+				checkColor();
+				return;
+			}
+			if(row->type==2)
+			{
+				bPause = true;
+				checkColor();
+				return;
+			}
+		}
     }
 
 
@@ -905,6 +940,22 @@ void TD3AssistantMainForm::OnKeyUpHook(String key)
 			}
 		}
 	}
+
+
+	{
+		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
+		if(it!=keyStopMap.end())
+		{
+			keyStopRow *row = it->second;
+			if(row->type==2)
+			{
+				bPause = false;
+				checkColor();
+				return;
+			}
+		}
+	}
+
 }
 
 bool TD3AssistantMainForm::OnMouseWheelHook(int delta)
