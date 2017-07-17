@@ -123,6 +123,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
         }
 		case WM_LBUTTONDOWN:
 			D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
+			if(D3AssistantMainForm->bStarted) return -1;
 			break;
 		case WM_LBUTTONUP:
 			D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
@@ -131,8 +132,9 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				ResetMouseDown();
 //				D3AssistantMainForm->MouseDown(mbLeft);
 			}
-
+			if(D3AssistantMainForm->bStarted) return -1;
 			break;
+
 		case WM_RBUTTONDOWN:
 			D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
 			break;

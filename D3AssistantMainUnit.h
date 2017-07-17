@@ -218,6 +218,7 @@ private:	// User declarations
 	TObject *MouseClickObject;
 	bool bPause;
 	bool bProtWindowFlag;
+	bool bLoading;
 
 
 

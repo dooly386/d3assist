@@ -38,82 +38,6 @@ HHOOK g_hMouseHook=0;
 bool pauseKbHook=false;
 bool pauseMouseHook = false;
 
-bool IsExistLeftDownMouse()
-{
-	for(int i=0;i<8;i++)
-	{
-		if(keyRows[i].key=="[mbLeft]")
-		{
-			if(keyRows[i].pushdown)
-			{
-				return true;
-			}
-        }
-	}
-	return false;
-}
-bool IsExistRightDownMouse()
-{
-	for(int i=0;i<8;i++)
-	{
-		if(keyRows[i].key=="[mbRight]")
-		{
-			if(keyRows[i].pushdown)
-			{
-				return true;
-			}
-		}
-	}
-	return false;
-}
-bool IsExistMiddleDownMouse()
-{
-	for(int i=0;i<8;i++)
-	{
-		if(keyRows[i].key=="[mbMiddle]")
-		{
-			if(keyRows[i].pushdown)
-			{
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-
-void PauseKeyMouseLeftDown()
-{
-	for(int i=0;i<8;i++)
-	{
-		if(keyRows[i].interval>0)
-		{
-			if(keyRows[i].pausekey=="[mbLeft]")
-			{
-				keyRows[i].timer->Enabled = false;
-				D3AssistantMainForm->checkColor();
-			}
-		}
-	}
-
-}
-
-void ResetMouseDown()
-{
-	for(int i=0;i<8;i++)
-	{
-		if(keyRows[i].interval>0)
-		{
-			if(keyRows[i].pushdown && keyRows[i].toggle->Checked && keyRows[i].activekey.Length()==0)
-			{
-				keyRows[i].pushdown = false;
-				keyRows[i].timer->Enabled = false;
-				keyRows[i].timer->Interval = 1;
-				keyRows[i].timer->Enabled = true;
-			}
-        }
-	}
-}
 
 
 void DBG(String s)
@@ -134,6 +58,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	pauseKbHook = false;
 	pauseMouseHook = false;
 	MouseClickObject = 0;
+	bLoading = false;
 
 
 	for(int i=0;i<ComponentCount;i++)
@@ -149,13 +74,6 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	prepareKeyRows();
 	//--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	// start hook keyboard and mouse
-	HINSTANCE app = GetModuleHandle(NULL);
-
-	g_hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, app, 0);
-	g_hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, app, 0);
-	//--------------------------------------------------------------------------
 
 	//--------------------------------------------------------------------------
 	// load configuration ini
@@ -209,8 +127,17 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 
 	PageControl->TabIndex = 0;
 
-
 	UpdateRecentlyLb();
+
+
+	//--------------------------------------------------------------------------
+	// start hook keyboard and mouse
+	HINSTANCE app = GetModuleHandle(NULL);
+
+	g_hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, app, 0);
+	g_hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, app, 0);
+	//--------------------------------------------------------------------------
+
 
 
 }
@@ -475,6 +402,8 @@ void TD3AssistantMainForm::UpdateRecentlyLb()
 
 void TD3AssistantMainForm::SaveIni(String filename)
 {
+//    prepareKeyRows();
+
 	TIniFile *ini = new TIniFile(filename);
 	std::list<DWORD>::iterator it = editlist.begin();
 	while(it!=editlist.end())
@@ -490,7 +419,7 @@ void TD3AssistantMainForm::SaveIni(String filename)
 	{
 		bool b = keyRows[i].toggle->Checked;
 		ini->WriteBool("Items",keyRows[i].toggle->Name,b);
-    }
+	}
 
 	delete ini;
 
@@ -503,11 +432,15 @@ void TD3AssistantMainForm::SaveIni(String filename)
 	stBar->SimpleText = String("Saved ")+filename;
 
 
+
 }
 void TD3AssistantMainForm::LoadIni(String filename)
 {
 
 	if(FileExists(filename)==false) return;
+
+	bLoading = true;
+
 	TIniFile *ini = new TIniFile(filename);
 	std::list<DWORD>::iterator it = editlist.begin();
 	while(it!=editlist.end())
@@ -531,7 +464,7 @@ void TD3AssistantMainForm::LoadIni(String filename)
 		{
 			keyRows[i].toggle->Checked = ini->ReadBool("Items",keyRows[i].toggle->Name,false);
 		}
-    }
+	}
 
 
 	delete ini;
@@ -542,6 +475,10 @@ void TD3AssistantMainForm::LoadIni(String filename)
 	bModified = false;
 
 	stBar->SimpleText = String("Load ")+filename;
+
+	bLoading = false;
+
+//	prepareKeyRows();
 
 }
 //---------------------------------------------------------------------------
@@ -733,11 +670,11 @@ void TD3AssistantMainForm::Start()
 
 		if(row.pausekey.Length())
 		{
-			keyPauseMap[row.pausekey] = &row;
+			keyPauseMap[row.pausekey].push_back(&row);
 		}
 		if(row.activekey.Length())
 		{
-			keyActiveMap[row.activekey] = &row;
+			keyActiveMap[row.activekey].push_back(&row);
 		}
 	}
 
@@ -880,33 +817,51 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 
 
 
+	std::map<String,std::list<keyRow *>>::iterator itpause = keyPauseMap.find(key);
+	std::map<String,std::list<keyRow *>>::iterator itactive = keyActiveMap.find(key);
+
+	if(itpause!=keyPauseMap.end())
 	{
-		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
-		if(it!=keyPauseMap.end())
+		std::list<keyRow *> &items = itpause->second;
+		std::list<keyRow *>::iterator it = items.begin();
+		while(it!=items.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
+			keyRow &row = **(it);
+			if(row.timer->Tag==0)
+			{
+				it++;
+				continue;
+			}
 			if(row.timer->Enabled)
 			{
 				row.timer->Enabled = false;
 				checkColor();
 			}
+			it++;
 		}
 	}
-
+	if(itactive!=keyActiveMap.end())
 	{
-		std::map<String,keyRow *>::iterator it = keyActiveMap.find(key);
-		if(it!=keyActiveMap.end())
+
+		std::list<keyRow *> &items = itactive->second;
+		std::list<keyRow *>::iterator it = items.begin();
+		while(it!=items.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
+			keyRow &row = **(it);
+			if(row.timer->Tag==0)
+			{
+				it++;
+				continue;
+			}
 			if(row.timer->Enabled==false || row.toggle->Checked)
 			{
 				row.timer->Enabled = false;
 				row.timer->Enabled = true;
 				checkColor();
 			}
+			it++;
 		}
+
 	}
 
 }
@@ -922,34 +877,52 @@ void TD3AssistantMainForm::OnKeyUpHook(String key)
 	if(bStarted==false) return;
 
 	{
-		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
+		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
 		if(it!=keyPauseMap.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
-			if(row.timer->Enabled==false)
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
 			{
-				row.timer->Enabled = true;
-				checkColor();
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled==false)
+				{
+					row.timer->Enabled = true;
+					checkColor();
+				}
+				it2++;
 			}
 		}
 	}
 
 	{
-		std::map<String,keyRow *>::iterator it = keyActiveMap.find(key);
+		std::map<String,std::list<keyRow *>>::iterator it = keyActiveMap.find(key);
 		if(it!=keyActiveMap.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
-			if(row.timer->Enabled)
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
 			{
-				if(row.pushdown && row.toggle->Checked)
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
 				{
-                    checkColor();
-					return;
+					it2++;
+					continue;
 				}
-				row.timer->Enabled = false;
-				checkColor();
+				if(row.timer->Enabled)
+				{
+					if(row.pushdown && row.toggle->Checked)
+					{
+						checkColor();
+						return;
+					}
+					row.timer->Enabled = false;
+					checkColor();
+				}
+				it2++;
 			}
 		}
 	}
@@ -1054,14 +1027,14 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 	if(key==edStart->Text && bStarted==false)
 	{
-		bStarted = true;
 		Start();
+		bStarted = true;
 		return;
 	}
 	if(key==edStop->Text && bStarted)
 	{
-		bStarted = false;
 		Stop();
+		bStarted = false;
 		return;
 	}
 
@@ -1095,15 +1068,24 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 
 	{
-		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
+		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
 		if(it!=keyPauseMap.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
-			if(row.timer->Enabled)
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
 			{
-				row.timer->Enabled = false;
-				checkColor();
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled)
+				{
+					row.timer->Enabled = false;
+					checkColor();
+				}
+				it2++;
 			}
 		}
 	}
@@ -1111,30 +1093,48 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 
 	{
-		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
+		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
 		if(it!=keyPauseMap.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
-			if(row.timer->Enabled)
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
 			{
-				row.timer->Enabled = false;
-				checkColor();
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled)
+				{
+					row.timer->Enabled = false;
+					checkColor();
+				}
+				it2++;
 			}
 		}
 	}
 
 	{
-		std::map<String,keyRow *>::iterator it = keyActiveMap.find(key);
+		std::map<String,std::list<keyRow *>>::iterator it = keyActiveMap.find(key);
 		if(it!=keyActiveMap.end())
 		{
-			keyRow &row = *(it->second);
-			if(row.timer->Tag==0) return;
-			if(row.timer->Enabled==false || row.toggle->Checked)
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
 			{
-				row.timer->Enabled = false;
-				row.timer->Enabled = true;
-				checkColor();
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled==false || row.toggle->Checked)
+				{
+					row.timer->Enabled = false;
+					row.timer->Enabled = true;
+					checkColor();
+				}
+                it2++;
 			}
 		}
 	}
@@ -1144,30 +1144,52 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 void TD3AssistantMainForm::ProcessMouseUp(String key)
 {
 
-
-	std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
-	if(it!=keyPauseMap.end())
 	{
-		keyRow &row = *(it->second);
-		if(row.timer->Tag==0) return;
-		if(row.timer->Enabled==false)
+		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
+		if(it!=keyPauseMap.end())
 		{
-			row.timer->Enabled = true;
-			checkColor();
+			std::list<keyRow *>::iterator it2=it->second.begin();
+			while(it2!=it->second.end())
+			{
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled==false)
+				{
+					row.timer->Enabled = true;
+					checkColor();
+				}
+				it2++;
+			}
 		}
 	}
 
-	std::map<String,keyRow *>::iterator it2 = keyActiveMap.find(key);
-	if(it2!=keyActiveMap.end())
 	{
-		keyRow &row = *(it2->second);
-		if(row.timer->Tag==0) return;
-		if(row.timer->Enabled)
+		std::map<String,std::list<keyRow *>>::iterator it = keyActiveMap.find(key);
+		if(it!=keyActiveMap.end())
 		{
-			row.timer->Enabled = false;
-			checkColor();
+			std::list<keyRow *>::iterator it2=it->second.begin();
+			while(it2!=it->second.end())
+			{
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled==true)
+				{
+					row.timer->Enabled = false;
+					checkColor();
+				}
+				it2++;
+			}
 		}
 	}
+
 
 	{
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
@@ -1768,12 +1790,21 @@ void __fastcall TD3AssistantMainForm::DeleteRecentlyFileMenuClick(TObject *Sende
 void __fastcall TD3AssistantMainForm::edStartChange(TObject *Sender)
 {
 	bModified = true;
+	if(!bLoading)
+	{
+		prepareKeyRows();
+	}
+
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::cbToggle1Click(TObject *Sender)
 {
 	bModified = true;
+	if(!bLoading)
+	{
+		prepareKeyRows();
+    }
 }
 //---------------------------------------------------------------------------
 

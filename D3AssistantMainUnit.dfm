@@ -4,7 +4,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   ActiveControl = GroupBox1
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 419
-  ClientWidth = 410
+  ClientWidth = 515
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -118,11 +118,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object stBar: TStatusBar
     Left = 0
     Top = 400
-    Width = 410
+    Width = 515
     Height = 19
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
+    ExplicitWidth = 410
   end
   object PageControl: TPageControl
     Left = -1

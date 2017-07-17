@@ -4,6 +4,7 @@
 #define KeyRowsH
 //---------------------------------------------------------------------------
 #include <map>
+#include <list>
 
 struct keyRow
 {
@@ -64,8 +65,9 @@ extern struct keyStopRow keyStopRows[16];
 
 
 extern std::map<TTimer *,keyRow *> keyTimerMap;
-extern std::map<String,keyRow *> keyPauseMap;
-extern std::map<String,keyRow *> keyActiveMap;
+
+extern std::map<String,std::list<keyRow *>> keyPauseMap;
+extern std::map<String,std::list<keyRow *>> keyActiveMap;
 
 extern std::map<String,keyStopRow *> keyStopMap;
 
