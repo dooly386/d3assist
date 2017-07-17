@@ -165,7 +165,7 @@ __published:	// IDE-managed Components
 	TListBox *lbRecentlyFilesFullPath;
 	TPopupMenu *PopupMenu1;
 	TMenuItem *DeleteRecentlyFileMenu;
-	TCheckBox *cbCheckUpdateOnStart;
+	TCheckBox *cbMinimizeWhenStart;
 	TIdHTTP *IdHTTP;
 	TMenuItem *DeleteAllRecentlyFileMenu;
 	TLabel *Label13;

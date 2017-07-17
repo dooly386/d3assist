@@ -102,9 +102,9 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 		{
 			edOnlyWindow->Text = ini->ReadString("Setup","OnlyWindowCaption","디아블로 III");
 		}
-		if(ini->ValueExists("Setup","CheckUpdateOnStart"))
+		if(ini->ValueExists("Setup","MinimizeWhenStart"))
 		{
-			cbCheckUpdateOnStart->Checked = ini->ReadBool("Setup","CheckUpdateOnStart",true);
+			cbMinimizeWhenStart->Checked = ini->ReadBool("Setup","MinimizeWhenStart",false);
 		}
 
 		delete ini;
@@ -478,7 +478,7 @@ void TD3AssistantMainForm::LoadIni(String filename)
 
 	bLoading = false;
 
-//	prepareKeyRows();
+	prepareKeyRows();
 
 }
 //---------------------------------------------------------------------------
@@ -706,10 +706,19 @@ void TD3AssistantMainForm::Start()
 	checkColor();
 	setBlend();
 
+	if(cbMinimizeWhenStart->Checked)
+	{
+        WindowState = wsMinimized;
+    }
+
 
 }
 void TD3AssistantMainForm::Stop()
 {
+	if(WindowState==wsMinimized)
+	{
+        WindowState = wsNormal;
+    }
 	if(ActiveControl)
 	{
 		TComponent *comp = (TComponent *)ActiveControl;
@@ -725,6 +734,7 @@ void TD3AssistantMainForm::Stop()
 	if(bStarted)
 	{
 		ProtectionAreaManagerForm->Visible = bProtWindowFlag;
+        bProtWindowFlag = false;
     }
 
 	bStarted = false;
@@ -736,6 +746,7 @@ void TD3AssistantMainForm::Stop()
 		keyRows[i].timer->Tag = 0;
 
 		keyRows[i].pushdown = false;
+		/*
 		if(keyRows[i].key.Length())
 		{
 			char vc = keyRows[i].key[1];
@@ -745,6 +756,7 @@ void TD3AssistantMainForm::Stop()
 			MouseUp(mbRight);
 			MouseUp(mbMiddle);
 		}
+        */
 	}
 
 	StatusPanel->Caption = "Stop";
@@ -1576,7 +1588,7 @@ void __fastcall TD3AssistantMainForm::FormClose(TObject *Sender, TCloseAction &A
 		ini->WriteString("Setup","AlphaValue",edAlphaValue->Text);
         ini->WriteBool("Setup","OnlyD3",cbOnlyD3->Checked);
 		ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
-		ini->WriteBool("Setup","CheckUpdateOnStart",cbCheckUpdateOnStart->Checked);
+		ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
 		delete ini;
 	}
 

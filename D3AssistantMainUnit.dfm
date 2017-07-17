@@ -4,7 +4,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   ActiveControl = GroupBox1
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 419
-  ClientWidth = 515
+  ClientWidth = 413
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -118,7 +118,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object stBar: TStatusBar
     Left = 0
     Top = 400
-    Width = 515
+    Width = 413
     Height = 19
     Panels = <>
     SimplePanel = True
@@ -130,7 +130,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 111
     Width = 409
     Height = 290
-    ActivePage = KeySettingTabSheet
+    ActivePage = TabSheet1
     TabOrder = 6
     OnChange = PageControlChange
     object KeySettingTabSheet: TTabSheet
@@ -1420,12 +1420,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabOrder = 3
         Text = '200'
       end
-      object cbCheckUpdateOnStart: TCheckBox
+      object cbMinimizeWhenStart: TCheckBox
         Left = 3
         Top = 96
         Width = 177
         Height = 17
-        Caption = 'Check Update on Start'
+        Caption = 'Minimize when start'
         TabOrder = 4
       end
     end
