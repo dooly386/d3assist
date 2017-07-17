@@ -6,6 +6,7 @@
 */
 //---------------------------------------------------------------------------
 #include <vcl.h>
+#include <list>
 
 #pragma hdrstop
 
@@ -20,6 +21,7 @@ extern bool pauseMouseHook;
 
 extern HHOOK g_hKeyHook;
 extern HHOOK g_hMouseHook;
+extern std::list<RECT> gProtArea;
 
 
 bool IsExistLeftDownMouse();
@@ -65,6 +67,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 
 void PauseKeyMouseLeftDown();
+bool InsideProtArea(POINT &pt);
 
 
 LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -77,6 +80,14 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 	LRESULT r;
 	if(pauseMouseHook)
 	{
+		if(wParam==WM_LBUTTONDOWN && D3AssistantMainForm->bStarted)
+		{
+			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+			if(InsideProtArea(p->pt))
+			{
+				return -1;
+			}
+		}
 		r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 		return r;
 	}
@@ -86,6 +97,14 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
   if (nCode >= 0)
   {
+	if(wParam==WM_LBUTTONDOWN && D3AssistantMainForm->bStarted)
+	{
+		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+		if(InsideProtArea(p->pt))
+		{
+			return -1;
+		}
+	}
 	switch(wParam)
 	{
 		case WM_XBUTTONDOWN:

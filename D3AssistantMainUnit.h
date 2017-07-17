@@ -169,6 +169,8 @@ __published:	// IDE-managed Components
 	TIdHTTP *IdHTTP;
 	TMenuItem *DeleteAllRecentlyFileMenu;
 	TLabel *Label13;
+	TMenuItem *P1;
+	TMenuItem *MenuOpenProtectionAreaManager;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -205,16 +207,17 @@ __published:	// IDE-managed Components
 	void __fastcall edStopName1Change(TObject *Sender);
 	void __fastcall edKey1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
+	void __fastcall MenuOpenProtectionAreaManagerClick(TObject *Sender);
 
 
 private:	// User declarations
 	bool bModified;
 	String OpenFileName;
-	bool bStarted;
 	std::list<DWORD> editlist;
 	HWND targetHwnd;
 	TObject *MouseClickObject;
 	bool bPause;
+	bool bProtWindowFlag;
 
 
 
@@ -249,6 +252,8 @@ private:	// User declarations
 
 
 public:		// User declarations
+	bool bStarted;
+
 	void checkColor();
 
 	void PushDownKey(int vcode,int scancode);

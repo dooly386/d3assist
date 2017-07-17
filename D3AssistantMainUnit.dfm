@@ -1373,10 +1373,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1544,6 +1540,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object menuClose: TMenuItem
         Caption = 'Close'
+      end
+    end
+    object P1: TMenuItem
+      Caption = 'Protection'
+      object MenuOpenProtectionAreaManager: TMenuItem
+        Caption = 'Open Protection Area Manager'
+        OnClick = MenuOpenProtectionAreaManagerClick
       end
     end
     object Y1: TMenuItem

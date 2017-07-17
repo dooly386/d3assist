@@ -17,6 +17,7 @@
 #include "ABOUT.h"
 #include "CallbackFunctions.h"
 #include "KeyRows.h"
+#include "ProtectionAreaManagerFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -680,6 +681,12 @@ void __fastcall TD3AssistantMainForm::btnLoadClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void TD3AssistantMainForm::Start()
 {
+	bProtWindowFlag = ProtectionAreaManagerForm->Visible;
+	if(ProtectionAreaManagerForm->Visible)
+	{
+		ProtectionAreaManagerForm->Visible = false;
+	}
+
     PageControl->ActivePage = KeySettingTabSheet;
 
 	if(ActiveControl)
@@ -777,6 +784,12 @@ void TD3AssistantMainForm::Stop()
 		}
 
 	}
+
+	if(bStarted)
+	{
+		ProtectionAreaManagerForm->Visible = bProtWindowFlag;
+    }
+
 	bStarted = false;
 	targetHwnd = 0;
 
@@ -1055,6 +1068,49 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 	if(bStarted==false) return;
 
 	{
+		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
+		if(it!=keyStopMap.end())
+		{
+			keyStopRow *row = it->second;
+			if(row->type==0)
+			{
+				Stop();
+				return;
+			}
+			if(row->type==1)
+			{
+				bPause = !bPause;
+				checkColor();
+				return;
+			}
+			if(row->type==2)
+			{
+				bPause = true;
+				checkColor();
+				return;
+			}
+		}
+    }
+
+
+
+	{
+		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
+		if(it!=keyPauseMap.end())
+		{
+			keyRow &row = *(it->second);
+			if(row.timer->Tag==0) return;
+			if(row.timer->Enabled)
+			{
+				row.timer->Enabled = false;
+				checkColor();
+			}
+		}
+	}
+
+
+
+	{
 		std::map<String,keyRow *>::iterator it = keyPauseMap.find(key);
 		if(it!=keyPauseMap.end())
 		{
@@ -1110,6 +1166,20 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 		{
 			row.timer->Enabled = false;
 			checkColor();
+		}
+	}
+
+	{
+		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
+		if(it!=keyStopMap.end())
+		{
+			keyStopRow *row = it->second;
+			if(row->type==2)
+			{
+				bPause = false;
+				checkColor();
+				return;
+			}
 		}
 	}
 
@@ -1771,6 +1841,15 @@ void __fastcall TD3AssistantMainForm::edKey1MouseUp(TObject *Sender, TMouseButto
 		ActiveControl = 0;
 		MouseClickObject = 0;
     }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TD3AssistantMainForm::MenuOpenProtectionAreaManagerClick(TObject *Sender)
+
+{
+	ProtectionAreaManagerForm->Show();
+
 }
 //---------------------------------------------------------------------------
 
