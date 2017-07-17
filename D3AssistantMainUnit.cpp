@@ -1027,8 +1027,13 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 			TComponent *comp = (TComponent *)ActiveControl;
 			if(comp->Tag==1)
 			{
-				//TEdit *te = (TEdit *)comp;
-				//te->Text = key;
+
+				if(key=="[XButton1]" || key=="[XButton2]")
+				{
+					TEdit *te = (TEdit *)comp;
+					te->Text = key;
+                }
+
 				ActiveControl = 0;
 				MouseClickObject = 0;
 				return;
