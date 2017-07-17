@@ -1162,6 +1162,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 	if(key==edStart->Text && bStarted==false)
 	{
+        if(key=="[mbLeft]") return;
 		Start();
 		bStarted = true;
 		return;
@@ -1969,8 +1970,8 @@ void __fastcall TD3AssistantMainForm::FormCloseQuery(TObject *Sender, bool &CanC
 
 String GetURLAsString(String aURL)
 {
-	String r = D3AssistantMainForm->IdHTTP->Get(aURL);
-    return r;
+//	String r = D3AssistantMainForm->IdHTTP->Get(aURL);
+//    return r;
 }
 
 void __fastcall TD3AssistantMainForm::MenuCheckUpdateClick(TObject *Sender)

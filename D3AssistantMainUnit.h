@@ -28,15 +28,8 @@
 class TD3AssistantMainForm : public TForm
 {
 __published:	// IDE-managed Components
-	TGroupBox *GroupBox1;
-	TLabel *Label1;
-	TLabel *Label2;
-	TEdit *edStart;
-	TEdit *edStop;
 	TMemo *Memo1;
 	TSaveDialog *SaveDialog;
-	TButton *btnSave;
-	TButton *btnLoad;
 	TOpenDialog *OpenDialog;
 	TTimer *Timer1;
 	TTimer *Timer2;
@@ -46,7 +39,6 @@ __published:	// IDE-managed Components
 	TTimer *Timer6;
 	TTimer *Timer7;
 	TTimer *Timer8;
-	TPanel *StatusPanel;
 	TMainMenu *MainMenu;
 	TMenuItem *F1;
 	TMenuItem *menuNew;
@@ -161,12 +153,9 @@ __published:	// IDE-managed Components
 	TCheckBox *cbToggle6;
 	TCheckBox *cbToggle7;
 	TCheckBox *cbToggle8;
-	TListBox *lbRecentlyFiles;
-	TListBox *lbRecentlyFilesFullPath;
 	TPopupMenu *PopupMenu1;
 	TMenuItem *DeleteRecentlyFileMenu;
 	TCheckBox *cbMinimizeWhenStart;
-	TIdHTTP *IdHTTP;
 	TMenuItem *DeleteAllRecentlyFileMenu;
 	TLabel *Label13;
 	TMenuItem *P1;
@@ -178,6 +167,17 @@ __published:	// IDE-managed Components
 	TLabel *Label14;
 	TEdit *edImmediatelyActive;
 	TTimer *TimerImmediately;
+	TPanel *Panel1;
+	TGroupBox *GroupBox1;
+	TLabel *Label1;
+	TLabel *Label2;
+	TEdit *edStart;
+	TEdit *edStop;
+	TButton *btnSave;
+	TButton *btnLoad;
+	TPanel *StatusPanel;
+	TListBox *lbRecentlyFiles;
+	TListBox *lbRecentlyFilesFullPath;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,

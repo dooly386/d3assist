@@ -1,10 +1,9 @@
 object D3AssistantMainForm: TD3AssistantMainForm
   Left = 0
   Top = 0
-  ActiveControl = GroupBox1
   Caption = 'D3Assist v1.0.0.1'
-  ClientHeight = 447
-  ClientWidth = 410
+  ClientHeight = 454
+  ClientWidth = 413
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,15 +23,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
   TextHeight = 13
   object PageControl: TPageControl
     Left = 0
-    Top = 110
-    Width = 410
-    Height = 318
+    Top = 113
+    Width = 413
+    Height = 322
     ActivePage = KeySettingTabSheet
-    Align = alBottom
-    TabOrder = 6
+    Align = alClient
+    TabOrder = 2
     OnChange = PageControlChange
     ExplicitTop = 111
     ExplicitWidth = 414
+    ExplicitHeight = 318
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       ExplicitWidth = 401
@@ -67,8 +67,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label8: TLabel
         Left = 0
-        Top = 277
-        Width = 402
+        Top = 281
+        Width = 405
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
@@ -1396,128 +1396,139 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
     end
   end
-  object GroupBox1: TGroupBox
-    Left = 0
-    Top = 0
-    Width = 169
-    Height = 105
-    Caption = 'Start/Stop'
-    TabOrder = 0
-    object Label1: TLabel
-      Left = 16
-      Top = 32
-      Width = 45
-      Height = 13
-      Caption = 'Start Key'
-    end
-    object Label2: TLabel
-      Left = 16
-      Top = 64
-      Width = 43
-      Height = 13
-      Caption = 'Stop Key'
-    end
-    object edStart: TEdit
-      Tag = 1
-      Left = 67
-      Top = 34
-      Width = 81
-      Height = 21
-      TabStop = False
-      Alignment = taCenter
-      TabOrder = 0
-      OnChange = edStartChange
-      OnContextPopup = edStartContextPopup
-      OnKeyDown = edStartKeyDown
-      OnKeyPress = edStartKeyPress
-      OnMouseDown = edKey1MouseDown
-      OnMouseUp = edKey1MouseUp
-    end
-    object edStop: TEdit
-      Tag = 1
-      Left = 67
-      Top = 61
-      Width = 81
-      Height = 21
-      TabStop = False
-      Alignment = taCenter
-      TabOrder = 1
-      OnChange = edStartChange
-      OnContextPopup = edStartContextPopup
-      OnKeyDown = edStartKeyDown
-      OnKeyPress = edStartKeyPress
-      OnMouseDown = edKey1MouseDown
-      OnMouseUp = edKey1MouseUp
-    end
-  end
   object Memo1: TMemo
-    Left = 561
-    Top = 8
-    Width = 262
-    Height = 359
+    Left = 592
+    Top = 137
+    Width = 207
+    Height = 136
     ScrollBars = ssVertical
-    TabOrder = 1
+    TabOrder = 0
     Visible = False
-  end
-  object btnSave: TButton
-    Left = 175
-    Top = 8
-    Width = 75
-    Height = 25
-    Caption = 'Save'
-    TabOrder = 2
-    TabStop = False
-    OnClick = btnSaveClick
-  end
-  object btnLoad: TButton
-    Left = 175
-    Top = 39
-    Width = 75
-    Height = 25
-    Caption = 'Load'
-    TabOrder = 3
-    TabStop = False
-    OnClick = btnLoadClick
-  end
-  object StatusPanel: TPanel
-    Left = 175
-    Top = 70
-    Width = 75
-    Height = 23
-    BevelOuter = bvNone
-    Caption = 'Stop'
-    Color = clRed
-    ParentBackground = False
-    TabOrder = 4
   end
   object stBar: TStatusBar
     Left = 0
-    Top = 428
-    Width = 410
+    Top = 435
+    Width = 413
     Height = 19
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
     ExplicitTop = 400
+    ExplicitWidth = 410
   end
-  object lbRecentlyFiles: TListBox
-    Left = 261
-    Top = 8
-    Width = 145
-    Height = 97
-    ItemHeight = 13
-    PopupMenu = PopupMenu1
-    TabOrder = 7
-    OnDblClick = lbRecentlyFilesDblClick
-  end
-  object lbRecentlyFilesFullPath: TListBox
-    Left = 298
-    Top = 24
-    Width = 145
-    Height = 97
-    ItemHeight = 13
-    TabOrder = 8
-    Visible = False
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 413
+    Height = 113
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 3
+    ExplicitWidth = 637
+    object GroupBox1: TGroupBox
+      Left = 0
+      Top = 0
+      Width = 169
+      Height = 105
+      Caption = 'Start/Stop'
+      TabOrder = 0
+      object Label1: TLabel
+        Left = 16
+        Top = 32
+        Width = 45
+        Height = 13
+        Caption = 'Start Key'
+      end
+      object Label2: TLabel
+        Left = 16
+        Top = 64
+        Width = 43
+        Height = 13
+        Caption = 'Stop Key'
+      end
+      object edStart: TEdit
+        Tag = 1
+        Left = 67
+        Top = 34
+        Width = 81
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 0
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyDown = edStartKeyDown
+        OnKeyPress = edStartKeyPress
+        OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
+      end
+      object edStop: TEdit
+        Tag = 1
+        Left = 67
+        Top = 61
+        Width = 81
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 1
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyDown = edStartKeyDown
+        OnKeyPress = edStartKeyPress
+        OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
+      end
+    end
+    object btnSave: TButton
+      Left = 175
+      Top = 8
+      Width = 75
+      Height = 25
+      Caption = 'Save'
+      TabOrder = 1
+      TabStop = False
+      OnClick = btnSaveClick
+    end
+    object btnLoad: TButton
+      Left = 175
+      Top = 39
+      Width = 75
+      Height = 25
+      Caption = 'Load'
+      TabOrder = 2
+      TabStop = False
+      OnClick = btnLoadClick
+    end
+    object StatusPanel: TPanel
+      Left = 175
+      Top = 70
+      Width = 75
+      Height = 23
+      BevelOuter = bvNone
+      Caption = 'Stop'
+      Color = clRed
+      ParentBackground = False
+      TabOrder = 3
+    end
+    object lbRecentlyFiles: TListBox
+      Left = 261
+      Top = 8
+      Width = 145
+      Height = 97
+      ItemHeight = 13
+      PopupMenu = PopupMenu1
+      TabOrder = 4
+      OnDblClick = lbRecentlyFilesDblClick
+    end
+    object lbRecentlyFilesFullPath: TListBox
+      Left = 412
+      Top = 8
+      Width = 145
+      Height = 97
+      ItemHeight = 13
+      TabOrder = 5
+      Visible = False
+    end
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.ini'
@@ -1687,23 +1698,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
       Caption = 'Delete All'
       OnClick = DeleteAllRecentlyFileMenuClick
     end
-  end
-  object IdHTTP: TIdHTTP
-    AllowCookies = True
-    ProxyParams.BasicAuthentication = False
-    ProxyParams.ProxyPort = 0
-    Request.ContentLength = -1
-    Request.ContentRangeEnd = -1
-    Request.ContentRangeStart = -1
-    Request.ContentRangeInstanceLength = -1
-    Request.Accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-    Request.BasicAuthentication = False
-    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
-    Request.Ranges.Units = 'bytes'
-    Request.Ranges = <>
-    HTTPOptions = [hoForceEncodeParams]
-    Left = 488
-    Top = 72
   end
   object TimerImmediately: TTimer
     Enabled = False
