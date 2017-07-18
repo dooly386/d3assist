@@ -112,6 +112,7 @@ int str2vkey(String s)
 
 		strvkeymap["[SHIFT]"] = VK_SHIFT;
 		strvkeymap["[CONTROL]"] = VK_CONTROL;
+        strvkeymap["[ALT]"] = 0xa4;
 
 
 	}
@@ -126,6 +127,7 @@ String vk2str(WORD key)
 	switch(key)
 	{
 
+		case 0xa4: return "[ALT]";
 		case VK_SHIFT:
 			return "[SHIFT]";
 		case VK_CONTROL:
@@ -283,6 +285,8 @@ char* translate(int vk, int up)
 		case VK_SHIFT: strcpy(buf,"[SHIFT]"); return buf;
         case 0xa2:
 		case VK_CONTROL: strcpy(buf,"[CONTROL]"); return buf;
+		case 0xa4: strcpy(buf,"[ALT]"); return buf;
+
 	}
 
 

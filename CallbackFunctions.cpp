@@ -89,6 +89,15 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			D3AssistantMainForm->OnKeyDownHook(str);
 		}
 	}
+	else if (wParam==0x104  && kb->vkCode==0xa4) // alt key down
+	{
+		str = translate(kb->vkCode, 0);
+		if(str && str[0])
+		{
+			D3AssistantMainForm->OnKeyDownHook(str);
+		}
+
+    }
 
 	return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 }
