@@ -39,8 +39,16 @@ UninstallFilesDir={app}\uninst
 Name: "{app}"; Permissions: everyone-full
 
 [Files]
-Source: "..\Final\*"; DestDir: "{app}";
+Source: "..\Final\D3Assist32.exe"; DestDir: "{app}";
+Source: "..\Final\D3Assist64.exe"; DestDir: "{app}";
+Source: "..\Final\YoloMouse32.exe"; DestDir: "{app}";
+Source: "..\Final\YoloMouse64.exe"; DestDir: "{app}";
+Source: "..\Final\Yolo32.dll"; DestDir: "{app}";
+Source: "..\Final\Yolo64.dll"; DestDir: "{app}";
+
 Source: "..\Final\Cursors\Default\*"; DestDir: "{app}\Cursors\Default";
+Source: "..\styles\*.*"; DestDir: "{app}\styles";
+
 Source: "..\readme.htm"; DestDir: "{app}";
 Source: "..\LICENSE"; DestDir: "{app}";
 

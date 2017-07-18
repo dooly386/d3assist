@@ -9,7 +9,7 @@
 
 [Setup]
 AppName=d3assist
-AppVersion=1.0.1.xx
+AppVersion=1.0.2.xx
 AppPublisher=DoYoung Kang  (dooly386@gmail.com)
 AppPublisherURL=https://github.com/dooly386/d3assist
 DefaultDirName={pf}\d3assist
@@ -38,11 +38,21 @@ UninstallFilesDir={app}\uninst
 [Dirs]
 Name: "{app}"; Permissions: everyone-full
 
+
 [Files]
-Source: "..\Final\*"; DestDir: "{app}";
+Source: "..\Final\D3Assist32.exe"; DestDir: "{app}";
+Source: "..\Final\D3Assist64.exe"; DestDir: "{app}";
+Source: "..\Final\YoloMouse32.exe"; DestDir: "{app}";
+Source: "..\Final\YoloMouse64.exe"; DestDir: "{app}";
+Source: "..\Final\Yolo32.dll"; DestDir: "{app}";
+Source: "..\Final\Yolo64.dll"; DestDir: "{app}";
+
 Source: "..\Final\Cursors\Default\*"; DestDir: "{app}\Cursors\Default";
+Source: "..\styles\*.*"; DestDir: "{app}\styles";
+
 Source: "..\readme.htm"; DestDir: "{app}";
 Source: "..\LICENSE"; DestDir: "{app}";
+
 
 
 [Languages]

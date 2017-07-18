@@ -1919,6 +1919,7 @@ void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject
 void __fastcall TD3AssistantMainForm::FormShow(TObject *Sender)
 {
 	ActiveControl = 0;
+
 }
 //---------------------------------------------------------------------------
 
@@ -2132,4 +2133,5 @@ void __fastcall TD3AssistantMainForm::MenuOpenTTSManagerClick(TObject *Sender)
 	form->Show();
 }
 //---------------------------------------------------------------------------
+
 
