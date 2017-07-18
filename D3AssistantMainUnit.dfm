@@ -1760,6 +1760,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 56
   end
   object MainMenu: TMainMenu
+    AutoHotkeys = maManual
+    AutoLineReduction = maManual
     Left = 280
     Top = 8
     object F1: TMenuItem
@@ -1839,6 +1841,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Help'
         OnClick = MenuHelpClick
       end
+      object N6: TMenuItem
+        Caption = '-'
+      end
       object MenuHomePage: TMenuItem
         Caption = 'Home Page'
         OnClick = MenuHomePageClick
@@ -1852,6 +1857,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = MenuReleaseNoteClick
       end
       object N1: TMenuItem
+        Caption = '-'
+      end
+      object SkinsMenuGroup: TMenuItem
+        Caption = 'Skins'
+        object MenuSkinDefault: TMenuItem
+          Caption = 'Default'
+          OnClick = MenuSkinDefaultClick
+        end
+      end
+      object N7: TMenuItem
         Caption = '-'
       end
       object MenuAboutDlg: TMenuItem

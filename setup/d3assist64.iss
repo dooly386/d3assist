@@ -48,7 +48,7 @@ Source: "..\Final\Yolo32.dll"; DestDir: "{app}";
 Source: "..\Final\Yolo64.dll"; DestDir: "{app}";
 
 Source: "..\Final\Cursors\Default\*"; DestDir: "{app}\Cursors\Default";
-Source: "..\styles\*.*"; DestDir: "{app}\styles";
+Source: "..\Final\styles2\*.*"; DestDir: "{app}\styles2";
 
 Source: "..\readme.htm"; DestDir: "{app}";
 Source: "..\LICENSE"; DestDir: "{app}";

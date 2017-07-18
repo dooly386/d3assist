@@ -94,6 +94,20 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	StartHook();
 
 
+	std::list<String> files;
+	GetAllFileNames("styles2\\*.vsf",files);
+
+	std::list<String>::iterator it = files.begin();
+	while(it!=files.end())
+	{
+		TMenuItem *p = new TMenuItem(this);
+		p->OnClick = MenuSkinDefault->OnClick;
+		p->Caption = *it;
+		SkinsMenuGroup->Add(p);
+		it++;
+	}
+
+	SetSkin(SkinName);
 
 }
 
@@ -155,6 +169,10 @@ void TD3AssistantMainForm::LoadEnv()
 		{
 			cbMinimizeWhenStart->Checked = ini->ReadBool("Setup","MinimizeWhenStart",false);
 		}
+		if(ini->ValueExists("Setup","SkinName"))
+		{
+			SkinName = ini->ReadString("Setup","SkinName","Windows");
+		}
 
 		delete ini;
 		LoadIni(openfilename);
@@ -165,16 +183,15 @@ void TD3AssistantMainForm::LoadEnv()
 void TD3AssistantMainForm::SaveEnv()
 {
 	String filename = ChangeFileExt(Application->ExeName,".ini");
-	if(OpenFileName.Length())
-	{
-		TIniFile *ini = new TIniFile(filename);
-		ini->WriteString("Setup","OpenFileName",OpenFileName);
-		ini->WriteString("Setup","AlphaValue",edAlphaValue->Text);
-        ini->WriteBool("Setup","OnlyD3",cbOnlyD3->Checked);
-		ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
-		ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
-		delete ini;
-	}
+
+	TIniFile *ini = new TIniFile(filename);
+	ini->WriteString("Setup","OpenFileName",OpenFileName);
+	ini->WriteString("Setup","AlphaValue",edAlphaValue->Text);
+	ini->WriteBool("Setup","OnlyD3",cbOnlyD3->Checked);
+	ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
+	ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
+	ini->WriteString("Setup","SkinName",SkinName);
+	delete ini;
 
 }
 
@@ -2134,4 +2151,24 @@ void __fastcall TD3AssistantMainForm::MenuOpenTTSManagerClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TD3AssistantMainForm::MenuSkinDefaultClick(TObject *Sender)
+{
+//
+	TMenuItem *p = (TMenuItem *)Sender;
+	String name = p->Caption;
+	if(name=="Default")
+	{
+		TStyleManager::TrySetStyle("Windows");
+		SkinName = "Windows";
+	}
+	else
+	{
+		SkinName = name;
+	}
+    SetSkin(SkinName);
+
+
+
+}
+//---------------------------------------------------------------------------
 

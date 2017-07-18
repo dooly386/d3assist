@@ -60,7 +60,7 @@
     <PropertyGroup Condition="'$(Base)'!=''">
         <IncludePath>C:\Users\kdyoffice\Documents\Embarcadero\Studio\18.0\Imports\;$(IncludePath)</IncludePath>
         <ILINK_LibraryPath>C:\Users\kdyoffice\Documents\Embarcadero\Studio\18.0\Imports\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Build>58</VerInfo_Build>
+        <VerInfo_Build>61</VerInfo_Build>
         <VerInfo_Release>2</VerInfo_Release>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <ILINK_LinkwithSSLandCrypto>true</ILINK_LinkwithSSLandCrypto>
@@ -68,7 +68,7 @@
         <RunBCCOutOfProcess>true</RunBCCOutOfProcess>
         <BCC_UseClassicCompiler>false</BCC_UseClassicCompiler>
         <SubProcessesNumber>8</SubProcessesNumber>
-        <VerInfo_Keys>CompanyName=In Jeju;FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=In Jeju;FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <VerInfo_Locale>1042</VerInfo_Locale>
         <Multithreaded>true</Multithreaded>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
@@ -90,7 +90,7 @@
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)32$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
@@ -104,7 +104,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <ILINK_LibraryPath>D:\devhome10\D3Assistant\SSL\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <PostBuildEvent><![CDATA[copy /B "$(OutputPath)" "Final\$(OutputName)64$(OutputExt)"
 $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
@@ -138,29 +138,31 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon4.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <VerInfo_Build>61</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=In Jeju;FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon1.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.58;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
+        <VerInfo_Keys>FileDescription=$(MSBuildProjectName);FileVersion=1.0.2.61;ProgramID=dooly386.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;CompanyName=In Jeju;LegalCopyright=Copyright(c) 2017 dooly386@gmail.com;Comments=Programmed by DoYoung Kang</VerInfo_Keys>
         <LinkPackageStatics>rtl.lib;vcl.lib;dxGDIPlusRS24.lib;dxCoreRS24.lib;IndySystem.lib;IndyProtocols.lib;IndyCore.lib</LinkPackageStatics>
         <Icon_MainIcon>D3Assistant_Icon3.ico</Icon_MainIcon>
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -258,7 +260,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="releasenote.html" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="readme.htm" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -350,33 +352,18 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="readme.htm" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="releasenote.html" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win64">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -755,12 +742,27 @@ $(PostBuildEvent)]]></PostBuildEvent>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>

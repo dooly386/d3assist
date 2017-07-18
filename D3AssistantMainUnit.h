@@ -181,6 +181,10 @@ __published:	// IDE-managed Components
 	TMenuItem *T1;
 	TMenuItem *MenuOpenTTSManager;
 	TCheckBox *cbDoNotStart;
+	TMenuItem *N6;
+	TMenuItem *N7;
+	TMenuItem *SkinsMenuGroup;
+	TMenuItem *MenuSkinDefault;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -221,6 +225,7 @@ __published:	// IDE-managed Components
 	void __fastcall MenuLoadFromAreaFileClick(TObject *Sender);
 	void __fastcall TimerImmediatelyTimer(TObject *Sender);
 	void __fastcall MenuOpenTTSManagerClick(TObject *Sender);
+	void __fastcall MenuSkinDefaultClick(TObject *Sender);
 
 
 private:	// User declarations
@@ -233,6 +238,7 @@ private:	// User declarations
 	bool bProtWindowFlag;
 	bool bLoading;
 	int  iForceMode;
+	String SkinName;
 
 	BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(CM_DIALOGKEY, TMessage, CMDialogKey)

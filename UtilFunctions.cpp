@@ -7,6 +7,7 @@
 //---------------------------------------------------------------------------
 #include <vcl.h>
 #include <map>
+#include <list>
 #include <Tlhelp32.h>
 
 #pragma hdrstop
@@ -344,4 +345,60 @@ char* translate(int vk, int up)
 }
 
 
+
+void GetAllFileNames(String path,std::list<String> &ret)
+{
+	TSearchRec rec;
+	int attr = 0;
+	int r = FindFirst(path,attr,rec);
+	while(r==0)
+	{
+		if(rec.Name!="." && rec.Name!="..")
+		{
+			String name = ChangeFileExt(rec.Name,"");
+			ret.push_back(name);
+		}
+		r = FindNext(rec);
+	}
+	FindClose(rec);
+}
+
+
+bool IsValidStyle(String style)
+{
+	for(int i=0;i<TStyleManager::StyleNames.Length;i++)
+	{
+		String kkk = TStyleManager::StyleNames[i];
+		if(kkk==style)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void SetSkin(String name)
+{
+	if(name=="Windows")
+	{
+		TStyleManager::TrySetStyle("Windows");
+        return;
+    }
+	String path = ExtractFilePath(Application->ExeName);
+	if(IsValidStyle(name)==false)
+	{
+		String filename = path+"\\styles2\\"+name+".vsf";
+		if(FileExists(filename))
+		{
+			TStyleManager_TStyleServicesHandle h = TStyleManager::LoadFromFile(filename);
+
+        }
+	}
+	if(IsValidStyle(name))
+	{
+		TStyleManager::TrySetStyle(name);
+		TStyleManager::SystemHooks = TStyleManager::SystemHooks - (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
+		TStyleManager::SystemHooks = TStyleManager::SystemHooks >> TStyleManager::TSystemHook::shDialogs;
+	}
+}
 
