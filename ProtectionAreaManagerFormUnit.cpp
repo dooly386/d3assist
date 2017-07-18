@@ -58,6 +58,8 @@ __fastcall TProtectionAreaManagerForm::TProtectionAreaManagerForm(TComponent* Ow
 {
 	bMoveStart = false;
 	bAreaPanelMoveStart = false;
+
+	BoundsRect = Screen->PrimaryMonitor->BoundsRect;
 }
 //---------------------------------------------------------------------------
 void __fastcall TProtectionAreaManagerForm::FormMouseDown(TObject *Sender, TMouseButton Button,
@@ -342,15 +344,17 @@ void __fastcall TProtectionAreaManagerForm::MenuLoadAreaFromFileClick(TObject *S
 	std::list<RECT>::iterator it = gProtArea.begin();
 
 	int left,top,right,bottom;
+	bool flag = false;
 	while(true)
 	{
 		int a = fscanf(fp,"window %d,%d,%d,%d\n",&left,&top,&right,&bottom);
-		if(a==4)
+		if(a==4 && flag==false)
 		{
 			Left = left;
 			Top = top;
 			Width = right;
 			Height = bottom;
+			flag = true;
         }
 		a = fscanf(fp,"%d,%d,%d,%d\n",&left,&top,&right,&bottom);
 		if(a!=4)

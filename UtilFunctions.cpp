@@ -113,9 +113,31 @@ int str2vkey(String s)
 
 		strvkeymap["[SHIFT]"] = VK_SHIFT;
 		strvkeymap["[CONTROL]"] = VK_CONTROL;
-        strvkeymap["[ALT]"] = 0xa4;
+		strvkeymap["[ALT]"] = 0xa4;
+		strvkeymap["[BACK]"] = VK_BACK;
 
+		strvkeymap["[LEFT]"] = VK_LEFT;
+		strvkeymap["[UP]"] = VK_UP;
+		strvkeymap["[RIGHT]"] = VK_RIGHT;
+		strvkeymap["[DOWN]"] = VK_DOWN;
 
+		strvkeymap["[NUMLOCK]"] = VK_NUMLOCK;
+
+		strvkeymap["[0]"] = 0x60;
+		strvkeymap["[1]"] = 0x61;
+		strvkeymap["[2]"] = 0x62;
+		strvkeymap["[3]"] = 0x63;
+		strvkeymap["[4]"] = 0x64;
+		strvkeymap["[5]"] = 0x65;
+		strvkeymap["[6]"] = 0x66;
+		strvkeymap["[7]"] = 0x67;
+		strvkeymap["[8]"] = 0x68;
+		strvkeymap["[9]"] = 0x69;
+
+		strvkeymap["[+]"] = 0x6b;
+		strvkeymap["[-]"] = 0x6d;
+
+		strvkeymap["[=]"] = 0xbb;
 	}
 
 	std::map<String,int>::iterator it = strvkeymap.find(s);
@@ -127,6 +149,79 @@ String vk2str(WORD key)
 {
 	switch(key)
 	{
+		case 0x08:
+			return "[BACK]";
+		case 0xdc:
+		case 0x5c:
+			return "\\";
+		case 0xdb:
+		case 0x5b:
+			return "[";
+		case 0xdd:
+		case 0x5d:
+			return "]";
+
+		case 0xbc:
+		case 0x2c:
+			return ",";
+
+		case 0xbe:
+		case 0x2e:
+			return ".";
+
+		case 0xbf:
+		case 0x2f:
+			return "/";
+
+		case 0xba:
+		case 0x2a:
+			return ";";
+
+		case 0xde:
+			return "'";
+
+		case 0x25:
+			return "[LEFT]";
+		case 0x26:
+			return "[UP]";
+		case 0x27:
+			return "[RIGHT]";
+		case 0x28:
+			return "[DOWN]";
+
+		case 0x90:
+			return "[NUMLOCK]";
+
+		case 0x60:
+			return "[0]";
+		case 0x61:
+			return "[1]";
+		case 0x62:
+			return "[2]";
+		case 0x63:
+			return "[3]";
+		case 0x64:
+			return "[4]";
+		case 0x65:
+			return "[5]";
+		case 0x66:
+			return "[6]";
+		case 0x67:
+			return "[7]";
+		case 0x68:
+			return "[8]";
+		case 0x69:
+			return "[9]";
+		case 0x6b:
+			return "[+]";
+
+		case 0x6d:
+		case 0xbd:
+			return "[-]";
+
+		case 0xbb:
+			return "[=]";
+
 
 		case 0xa4: return "[ALT]";
 		case VK_SHIFT:
@@ -232,7 +327,7 @@ String vk2str(WORD key)
 	if(key==VK_RETURN)
 	{
         return "[ENTER]";
-    }
+	}
 	return "";
 
 }
@@ -265,13 +360,13 @@ char* translate(int vk, int up)
 
 	switch (vk)
 	{
-		case VK_BACK: strcpy(buf, "[BS]"); return buf;
+		case VK_BACK: strcpy(buf, "[BKSP]"); return buf;
 		case VK_TAB: strcpy(buf, "[TAB]"); return buf;
 		case VK_RETURN: strcpy(buf, "[ENTER]"); return buf;
-		case VK_LEFT: strcpy(buf, "[LT]"); return buf;
+		case VK_LEFT: strcpy(buf, "[LEFT]"); return buf;
 		case VK_UP: strcpy(buf, "[UP]"); return buf;
-		case VK_RIGHT: strcpy(buf, "[RT]"); return buf;
-		case VK_DOWN: strcpy(buf, "[DN]"); return buf;
+		case VK_RIGHT: strcpy(buf, "[RIGHT]"); return buf;
+		case VK_DOWN: strcpy(buf, "[DOWN]"); return buf;
 		case VK_ESCAPE: strcpy(buf, "[ESC]"); return buf;
 		case VK_DELETE: strcpy(buf,"[DEL]"); return buf;
 		case VK_INSERT: strcpy(buf,"[INS]"); return buf;
@@ -287,7 +382,24 @@ char* translate(int vk, int up)
         case 0xa2:
 		case VK_CONTROL: strcpy(buf,"[CONTROL]"); return buf;
 		case 0xa4: strcpy(buf,"[ALT]"); return buf;
+		case 0x60: strcpy(buf,"[0]"); return buf;
+		case 0x61: strcpy(buf,"[1]"); return buf;
+		case 0x62: strcpy(buf,"[2]"); return buf;
+		case 0x63: strcpy(buf,"[3]"); return buf;
+		case 0x64: strcpy(buf,"[4]"); return buf;
+		case 0x65: strcpy(buf,"[5]"); return buf;
+		case 0x66: strcpy(buf,"[6]"); return buf;
+		case 0x67: strcpy(buf,"[7]"); return buf;
+		case 0x68: strcpy(buf,"[8]"); return buf;
+		case 0x69: strcpy(buf,"[9]"); return buf;
+		case 0x90: strcpy(buf,"[NUMLOCK]"); return buf;
 
+		case 0x6b: strcpy(buf,"[+]"); return buf;
+
+		case 0xbd:
+		case 0x6d: strcpy(buf,"[-]"); return buf;
+
+		case 0xbb: strcpy(buf,"[=]"); return buf;
 	}
 
 

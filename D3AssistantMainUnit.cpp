@@ -28,6 +28,7 @@ TD3AssistantMainForm *D3AssistantMainForm;
 //---------------------------------------------------------------------------
 
 //HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
+#define USESENDINPUT
 
 
 
@@ -559,6 +560,12 @@ void __fastcall TD3AssistantMainForm::edStartKeyDown(TObject *Sender, WORD &Key,
 {
 //	if(ActiveControl==0) return;
 
+	/*
+	String s;
+	s.printf(L"%02x",Key);
+	Caption = s;
+    */
+
 	if(MouseClickObject==Sender)
 	{
 		if(ActiveControl==Sender && ActiveControl->Tag==1)
@@ -804,12 +811,9 @@ void TD3AssistantMainForm::Stop()
 	{
 		ProtectionAreaManagerForm->Visible = bProtWindowFlag;
         bProtWindowFlag = false;
-    }
+	}
 
 	bStarted = false;
-	targetHwnd = 0;
-
-	StopAllTTS();
 
 	for(int i=0;i<8;i++)
 	{
@@ -820,14 +824,17 @@ void TD3AssistantMainForm::Stop()
 			{
 				MouseUp(mbLeft);
 			}
+			else
 			if(key=="[mbRight]")
 			{
 				MouseUp(mbRight);
 			}
+			else
 			if(key=="[mbMiddle]")
 			{
 				MouseUp(mbMiddle);
 			}
+			else
 			if(key.Length()>1)
 			{
 				char vc = str2vkey(key);
@@ -837,6 +844,7 @@ void TD3AssistantMainForm::Stop()
 					PushUpKey(vc,sc);
 				}
 			}
+			else
 			if(key.Length()==1)
 			{
 				char vc = key[1];
@@ -850,6 +858,9 @@ void TD3AssistantMainForm::Stop()
 		keyRows[i].pushdown = false;
 
 	}
+	targetHwnd = 0;
+
+	StopAllTTS();
 
 	StatusPanel->Caption = "Stop";
 	StatusPanel->Color = clLtGray;
@@ -1073,13 +1084,9 @@ void TD3AssistantMainForm::OnKeyUpHook(String key)
 					it2++;
 					continue;
 				}
-				if(row.timer->Enabled)
+
+				if(row.timer->Enabled==true && pauseMouseHook==false)
 				{
-					if(row.pushdown && row.toggle->Checked)
-					{
-						checkColor();
-						return;
-					}
 					row.timer->Enabled = false;
 					checkColor();
 				}
@@ -1271,7 +1278,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
     }
 
 
-
+	/*
 	{
 		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
 		if(it!=keyPauseMap.end())
@@ -1294,6 +1301,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 			}
 		}
 	}
+    */
 
 
 
@@ -1385,7 +1393,8 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 					it2++;
 					continue;
 				}
-				if(row.timer->Enabled==true)
+
+				if(row.timer->Enabled==true && pauseMouseHook==false)
 				{
 					row.timer->Enabled = false;
 					checkColor();
@@ -1469,85 +1478,174 @@ void TD3AssistantMainForm::OnMouseUpHook(int b,WPARAM wParam,LPARAM lParam)
 
 }
 
+
 void TD3AssistantMainForm::PushDownKey(int vcode,int scancode)
 {
 	if(bPause) return;
+
 	pauseKbHook = true;
+#ifndef USESENDINPUT
 	keybd_event(vcode,scancode,0,0);
+#else
+	INPUT input;
+	::ZeroMemory(&input, sizeof(input));
+	input.type = INPUT_KEYBOARD;
+	input.ki.wVk  = vcode;
+	//  input.ki.dwFlags = KEYEVENTF_KEYUP;
+	::SendInput(1, &input, sizeof(INPUT));
+#endif
 	pauseKbHook = false;
+
 }
 
 void TD3AssistantMainForm::PushUpKey(int vcode,int scancode)
 {
 	if(bPause) return;
 	pauseKbHook = true;
+#ifndef USESENDINPUT
 	keybd_event(vcode,scancode,KEYEVENTF_KEYUP,0);
+#else
+	INPUT input;
+	::ZeroMemory(&input, sizeof(input));
+	input.type = INPUT_KEYBOARD;
+	input.ki.wVk  = vcode;
+	input.ki.dwFlags = KEYEVENTF_KEYUP;
+	::SendInput(1, &input, sizeof(INPUT));
+#endif
 	pauseKbHook = false;
 }
 
 void TD3AssistantMainForm::PressKey(int vcode,int scancode)
 {
 	if(bPause) return;
-
-	//	keybd_event(0x31,0x02,0,0);
-//	Sleep(500);
-//	keybd_event(0x31,0x02,KEYEVENTF_KEYUP,0);
 	pauseKbHook = true;
+#ifndef USESENDINPUT
 	keybd_event(vcode,scancode,0,0);
 	keybd_event(vcode,scancode,KEYEVENTF_KEYUP,0);
+#else
+	INPUT input[2];
+	::ZeroMemory(input, sizeof(input));
+	input[0].type = input[1].type = INPUT_KEYBOARD;
+	input[0].ki.wVk  = input[1].ki.wVk = vcode;;
+	input[1].ki.dwFlags = KEYEVENTF_KEYUP;
+	::SendInput(2, input, sizeof(INPUT));
+#endif
 	pauseKbHook = false;
-
 }
+
+
 
 void TD3AssistantMainForm::MouseDown(TMouseButton button)
 {
 	if(bPause) return;
 
 	pauseMouseHook = true;
+
+#ifndef USESENDINPUT
 	if(button==mbLeft)
 	{
 		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
 		pauseMouseHook = false;
-		return;
 	}
+	else
 	if(button==mbRight)
 	{
 		mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
 		pauseMouseHook = false;
-		return;
 	}
+	else
 	if(button==mbMiddle)
 	{
 		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
 		pauseMouseHook = false;
-		return;
+	}
+#else
+  INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	if(button==mbLeft)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_LEFTDOWN;
+		::SendInput(1,&input,sizeof(INPUT));
+	}
+	else
+	if(button==mbRight)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_RIGHTDOWN;
+		::SendInput(1,&input,sizeof(INPUT));
+
+	}
+	else
+	if(button==mbMiddle)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_MIDDLEDOWN;
+		::SendInput(1,&input,sizeof(INPUT));
+
 	}
 
+
+#endif
+
+	pauseMouseHook = false;
 }
 void TD3AssistantMainForm::MouseUp(TMouseButton button)
 {
 	if(bPause) return;
 
 	pauseMouseHook = true;
+
+#ifndef USESENDINPUT
 	if(button==mbLeft)
 	{
 		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
 		pauseMouseHook = false;
-		return;
 	}
+	else
 	if(button==mbRight)
 	{
 		mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
 		pauseMouseHook = false;
-		return;
 	}
+	else
 	if(button==mbMiddle)
 	{
 		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
 		pauseMouseHook = false;
-		return;
+	}
+#else
+	INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	if(button==mbLeft)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_LEFTUP;
+		::SendInput(1,&input,sizeof(INPUT));
+	}
+	else
+	if(button==mbRight)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_RIGHTUP;
+		::SendInput(1,&input,sizeof(INPUT));
+
+	}
+	else
+	if(button==mbMiddle)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_MIDDLEUP;
+		::SendInput(1,&input,sizeof(INPUT));
+
 	}
 
+
+#endif
+
+	pauseMouseHook = false;
 }
 
 void TD3AssistantMainForm::MouseClick(TMouseButton button)
@@ -1555,27 +1653,55 @@ void TD3AssistantMainForm::MouseClick(TMouseButton button)
 	if(bPause) return;
 
 	pauseMouseHook = true;
+#ifndef USESENDINPUT
 	if(button==mbLeft)
 	{
 		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
 		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-		pauseMouseHook = false;
-		return;
-	}
+	}else
 	if(button==mbRight)
 	{
 		mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
 		mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
-		pauseMouseHook = false;
-		return;
-	}
+	}else
 	if(button==mbMiddle)
 	{
 		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
 		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
-		pauseMouseHook = false;
-		return;
 	}
+#else
+	INPUT    input[2];
+	::ZeroMemory(input, sizeof(input));
+
+	if(button==mbLeft)
+	{
+		input[0].type = input[1].type = INPUT_MOUSE;
+		input[0].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+		input[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
+		::SendInput(2,input,sizeof(INPUT));
+	}
+	else
+	if(button==mbRight)
+	{
+		input[0].type = input[1].type = INPUT_MOUSE;
+		input[0].mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
+		input[1].mi.dwFlags = MOUSEEVENTF_RIGHTUP;
+		::SendInput(2,input,sizeof(INPUT));
+
+	}
+	else
+	if(button==mbMiddle)
+	{
+		input[0].type = input[1].type = INPUT_MOUSE;
+		input[0].mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
+		input[1].mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
+		::SendInput(2,input,sizeof(INPUT));
+
+	}
+
+#endif
+
+	pauseMouseHook = false;
 }
 
 void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
@@ -1677,16 +1803,18 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 			{
 				row.pushdown = true;
 				MouseDown(btn);
+				checkColor();
 			}
 			else
 			{
 				if(row.activekey.Length())
 				{
 					row.timer->Enabled = false;
-                }
+				}
 				row.pushdown = false;
 				row.timer->Interval = 1;
 				MouseUp(btn);
+				checkColor();
 			}
 		}
 		else
@@ -1702,7 +1830,7 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		if(row.key.Length()>1)
 		{
 			vc = str2vkey(row.key);
-            if(vc==0) return;
+			if(vc==0) return;
 		}
 
 		unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
@@ -1712,11 +1840,16 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 			{
 				PushDownKey(vc,sc);
 				row.pushdown = true;
+
+				checkColor();
 			}
 			else
 			{
 				PushUpKey(vc,sc);
-				row.timer->Enabled = false;
+				if(row.activekey.Length())
+				{
+					row.timer->Enabled = false;
+                }
 				row.timer->Interval = 1;
 				row.pushdown = false;
 				checkColor();
@@ -1726,6 +1859,7 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		else
 		{
 			PressKey(vc,sc);
+			checkColor();
 		}
 		return;
 	}
@@ -2171,4 +2305,5 @@ void __fastcall TD3AssistantMainForm::MenuSkinDefaultClick(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+
 

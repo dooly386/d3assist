@@ -8,6 +8,7 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
   ClientHeight = 579
   ClientWidth = 835
   Color = clBtnFace
+  DefaultMonitor = dmPrimary
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,6 +18,7 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
   FormStyle = fsStayOnTop
   OldCreateOrder = False
   PopupMenu = MainPopupMenu
+  Position = poScreenCenter
   OnMouseDown = FormMouseDown
   OnMouseMove = FormMouseMove
   OnMouseUp = FormMouseUp

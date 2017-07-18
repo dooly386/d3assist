@@ -65,10 +65,12 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 //    return -1;
 
-	if(pauseKbHook)
+
+	if(pauseKbHook && D3AssistantMainForm->bStarted)
 	{
 		return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 	}
+
 //	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
 	char *str=0;
 	if (wParam == WM_KEYUP)
@@ -126,84 +128,84 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 			{
 				return -1;
 			}
+			r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
+
+			return r;
 		}
-		r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-		return r;
 	}
 
 
 
-
-  if (nCode >= 0)
-  {
-	if((wParam==WM_LBUTTONDOWN || wParam==WM_RBUTTONDOWN || wParam==WM_MBUTTONDOWN) && D3AssistantMainForm->bStarted)
+	if (nCode >= 0)
 	{
-		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
-		if(InsideProtArea(p->pt))
+		if((wParam==WM_LBUTTONDOWN || wParam==WM_RBUTTONDOWN || wParam==WM_MBUTTONDOWN) && D3AssistantMainForm->bStarted)
 		{
-			return -1;
+			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+			if(InsideProtArea(p->pt))
+			{
+				return -1;
+			}
 		}
-	}
-	switch(wParam)
-	{
-		case WM_XBUTTONDOWN:
+		switch(wParam)
 		{
-			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
-			short a = HIWORD(p->mouseData);
-			D3AssistantMainForm->OnMouseXButtonDown(a);
-			break;
-		}
-		case WM_XBUTTONUP:
-		{
-			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
-			short a = HIWORD(p->mouseData);
-			D3AssistantMainForm->OnMouseXButtonUp(a);
-            break;
-        }
-		case WM_LBUTTONDOWN:
-			D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
-//			if(D3AssistantMainForm->bStarted) return -1;
-			break;
-		case WM_LBUTTONUP:
-			D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
-			if(IsExistLeftDownMouse())
-			{
-				ResetMouseDown();
-//				D3AssistantMainForm->MouseDown(mbLeft);
-			}
-//			if(D3AssistantMainForm->bStarted) return -1;
-			break;
+			case WM_XBUTTONDOWN:
+				{
+				MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+				short a = HIWORD(p->mouseData);
+				D3AssistantMainForm->OnMouseXButtonDown(a);
+				break;
+				}
+			case WM_XBUTTONUP:
+				{
+				MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+				short a = HIWORD(p->mouseData);
+				D3AssistantMainForm->OnMouseXButtonUp(a);
+				break;
+				}
+			case WM_LBUTTONDOWN:
+				D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
+				//			if(D3AssistantMainForm->bStarted) return -1;
+				break;
+			case WM_LBUTTONUP:
+				D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
+				if(IsExistLeftDownMouse() && D3AssistantMainForm->bStarted)
+				{
+					ResetMouseDown();
+				//				D3AssistantMainForm->MouseDown(mbLeft);
+				}
+				//			if(D3AssistantMainForm->bStarted) return -1;
+				break;
 
-		case WM_RBUTTONDOWN:
-			D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
-			break;
-		case WM_RBUTTONUP:
-			D3AssistantMainForm->OnMouseUpHook((int)mbRight,wParam,lParam);
-			if(IsExistRightDownMouse())
-			{
-				D3AssistantMainForm->MouseDown(mbRight);
-			}
-			break;
-		case WM_MBUTTONDOWN:
-			D3AssistantMainForm->OnMouseDownHook((int)mbMiddle,wParam,lParam);
-			break;
-		case WM_MBUTTONUP:
-			D3AssistantMainForm->OnMouseUpHook((int)mbMiddle,wParam,lParam);
-			if(IsExistMiddleDownMouse())
-			{
-				D3AssistantMainForm->MouseDown(mbMiddle);
-			}
+			case WM_RBUTTONDOWN:
+				D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
+				break;
+			case WM_RBUTTONUP:
+				D3AssistantMainForm->OnMouseUpHook((int)mbRight,wParam,lParam);
+				if(IsExistRightDownMouse()&& D3AssistantMainForm->bStarted)
+				{
+					D3AssistantMainForm->MouseDown(mbRight);
+				}
+				break;
+			case WM_MBUTTONDOWN:
+				D3AssistantMainForm->OnMouseDownHook((int)mbMiddle,wParam,lParam);
+				break;
+			case WM_MBUTTONUP:
+				D3AssistantMainForm->OnMouseUpHook((int)mbMiddle,wParam,lParam);
+				if(IsExistMiddleDownMouse()&& D3AssistantMainForm->bStarted)
+				{
+					D3AssistantMainForm->MouseDown(mbMiddle);
+				}
 
-			break;
-		case WM_MOUSEWHEEL:
-			{
-			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
-			short zDelta = HIWORD(p->mouseData); // -120 wheel down, 120 wheel up
-			//D3AssistantMainForm->Memo1->Lines->Add(zDelta);
-			D3AssistantMainForm->OnMouseWheelHook(zDelta);
+				break;
+			case WM_MOUSEWHEEL:
+				{
+				MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+				short zDelta = HIWORD(p->mouseData); // -120 wheel down, 120 wheel up
+				//D3AssistantMainForm->Memo1->Lines->Add(zDelta);
+				D3AssistantMainForm->OnMouseWheelHook(zDelta);
+				}
+				break;
 			}
-			break;
 	}
-  }
-  return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
+	return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 }

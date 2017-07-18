@@ -5,6 +5,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   ClientHeight = 454
   ClientWidth = 413
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -1795,7 +1796,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object P1: TMenuItem
       Caption = 'Protection'
       object MenuOpenProtectionAreaManager: TMenuItem
-        Caption = 'Open Protection Area Manager'
+        Caption = 'Open Protection Manager'
         OnClick = MenuOpenProtectionAreaManagerClick
       end
       object N5: TMenuItem
