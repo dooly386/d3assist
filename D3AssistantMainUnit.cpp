@@ -792,6 +792,8 @@ void TD3AssistantMainForm::Stop()
 	bStarted = false;
 	targetHwnd = 0;
 
+	StopAllTTS();
+
 	for(int i=0;i<8;i++)
 	{
 		if(keyRows[i].key.Length() && keyRows[i].pushdown && keyRows[i].timer->Enabled)
@@ -923,13 +925,7 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		return;
 	}
 
-	if(TTSManagerForm->Enabled())
-	{
-		if(TTSManagerForm->GetKey()==key)
-		{
-			TTSManagerForm->Play();
-		}
-    }
+	SendKeyToTTS(key);
 
 	{
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
@@ -2131,7 +2127,9 @@ void __fastcall TD3AssistantMainForm::TimerImmediatelyTimer(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::MenuOpenTTSManagerClick(TObject *Sender)
 {
-	TTSManagerForm->Show();
+//	TTSManagerForm->Show();
+	TTTSManagerForm *form = CreateNewTTSForm();
+	form->Show();
 }
 //---------------------------------------------------------------------------
 

@@ -2,7 +2,7 @@ object TTSManagerForm: TTTSManagerForm
   Left = 0
   Top = 0
   Caption = 'Text to Speech Manager'
-  ClientHeight = 419
+  ClientHeight = 418
   ClientWidth = 364
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,7 @@ object TTSManagerForm: TTTSManagerForm
   OnClose = FormClose
   DesignSize = (
     364
-    419)
+    418)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -41,7 +41,6 @@ object TTSManagerForm: TTTSManagerForm
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 0
     Text = #50504#45397#54616#49464#50836'.<silence msec="3000"/>'#48152#44049#49845#45768#45796'.'
-    ExplicitWidth = 261
   end
   object btnTTSTest: TButton
     Left = 281
@@ -53,13 +52,12 @@ object TTSManagerForm: TTTSManagerForm
     TabOrder = 1
     TabStop = False
     OnClick = btnTTSTestClick
-    ExplicitLeft = 275
   end
   object moTTS: TMemo
     Left = 8
     Top = 88
-    Width = 351
-    Height = 292
+    Width = 265
+    Height = 233
     TabStop = False
     Anchors = [akLeft, akTop, akRight, akBottom]
     Lines.Strings = (
@@ -80,12 +78,10 @@ object TTSManagerForm: TTTSManagerForm
     ScrollBars = ssVertical
     TabOrder = 2
     WordWrap = False
-    ExplicitWidth = 435
-    ExplicitHeight = 499
   end
   object btnPlayMemo: TButton
     Left = 8
-    Top = 386
+    Top = 366
     Width = 75
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -93,7 +89,6 @@ object TTSManagerForm: TTTSManagerForm
     TabOrder = 3
     TabStop = False
     OnClick = btnPlayMemoClick
-    ExplicitTop = 593
   end
   object edKey: TEdit
     Tag = 1
@@ -119,15 +114,95 @@ object TTSManagerForm: TTTSManagerForm
     TabOrder = 5
   end
   object btnTTSTagManual: TButton
-    Left = 89
-    Top = 386
-    Width = 168
+    Left = 170
+    Top = 366
+    Width = 113
     Height = 25
     Anchors = [akLeft, akBottom]
     Caption = 'TTS Tags Manual'
     TabOrder = 6
     TabStop = False
     OnClick = btnTTSTagManualClick
-    ExplicitTop = 593
+  end
+  object btnSaveToFile: TButton
+    Left = 281
+    Top = 86
+    Width = 75
+    Height = 25
+    Caption = 'Save'
+    TabOrder = 7
+    OnClick = btnSaveToFileClick
+  end
+  object btnLoadFromFile: TButton
+    Left = 281
+    Top = 117
+    Width = 75
+    Height = 25
+    Caption = 'Load'
+    TabOrder = 8
+    OnClick = btnLoadFromFileClick
+  end
+  object stBar: TEdit
+    Left = 0
+    Top = 397
+    Width = 364
+    Height = 21
+    Align = alBottom
+    ReadOnly = True
+    TabOrder = 9
+    ExplicitLeft = 144
+    ExplicitTop = 352
+    ExplicitWidth = 121
+  end
+  object btnStop: TButton
+    Left = 89
+    Top = 366
+    Width = 75
+    Height = 25
+    Anchors = [akLeft, akBottom]
+    Caption = 'Stop'
+    TabOrder = 10
+    TabStop = False
+    OnClick = btnStopClick
+  end
+  object cbRepeat: TCheckBox
+    Left = 8
+    Top = 328
+    Width = 97
+    Height = 17
+    Caption = 'Repeat'
+    TabOrder = 11
+  end
+  object btnHide: TButton
+    Left = 280
+    Top = 160
+    Width = 75
+    Height = 25
+    Caption = 'Hide'
+    TabOrder = 12
+    OnClick = btnHideClick
+  end
+  object btnClose: TButton
+    Left = 281
+    Top = 191
+    Width = 75
+    Height = 25
+    Caption = 'Close'
+    TabOrder = 13
+    OnClick = btnCloseClick
+  end
+  object OpenDialog: TOpenDialog
+    DefaultExt = '.ttsmemo'
+    Filter = 'TTS Memo Files|*.ttsmemo|All Files|*.*'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    Left = 176
+    Top = 216
+  end
+  object SaveDialog: TSaveDialog
+    DefaultExt = '.ttsmemo'
+    Filter = 'TTS Memo Files|*.ttsmemo|All Files|*.*'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
+    Left = 176
+    Top = 264
   end
 end

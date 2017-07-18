@@ -110,6 +110,10 @@ int str2vkey(String s)
 
 		strvkeymap["[ENTER]"] = VK_RETURN;
 
+		strvkeymap["[SHIFT]"] = VK_SHIFT;
+		strvkeymap["[CONTROL]"] = VK_CONTROL;
+
+
 	}
 
 	std::map<String,int>::iterator it = strvkeymap.find(s);
@@ -121,8 +125,13 @@ String vk2str(WORD key)
 {
 	switch(key)
 	{
+
+		case VK_SHIFT:
+			return "[SHIFT]";
+		case VK_CONTROL:
+			return "[CONTROL]";
 		case VK_SPACE:
-            return "[SPACE]";
+			return "[SPACE]";
 		case VK_F1:
 			return "[F1]";
 		case VK_F2:
@@ -245,7 +254,8 @@ char* translate(int vk, int up)
 		ctrl = 1;
 		return 0;
 	}
-    */
+	*/
+
 
 	static char buf[16];
 	memset(buf, 0, 16);
@@ -268,6 +278,11 @@ char* translate(int vk, int up)
 		case VK_NEXT: strcpy(buf,"[PGDN]"); return buf;
 		case VK_PAUSE: strcpy(buf,"[PAUSE]"); return buf;
 		case VK_SPACE: strcpy(buf,"[SPACE]"); return buf;
+		case 0xa0:
+		case 0xa1:
+		case VK_SHIFT: strcpy(buf,"[SHIFT]"); return buf;
+        case 0xa2:
+		case VK_CONTROL: strcpy(buf,"[CONTROL]"); return buf;
 	}
 
 

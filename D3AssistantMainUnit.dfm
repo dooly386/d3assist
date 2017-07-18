@@ -30,10 +30,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Align = alClient
     TabOrder = 2
     OnChange = PageControlChange
-    ExplicitWidth = 445
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
-      ExplicitWidth = 437
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -749,7 +747,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitWidth = 437
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1333,7 +1330,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitWidth = 437
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1407,7 +1403,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitWidth = 445
   end
   object Panel1: TPanel
     Left = 0
@@ -1417,7 +1412,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 3
-    ExplicitWidth = 445
     object GroupBox1: TGroupBox
       Left = 0
       Top = 0

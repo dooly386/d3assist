@@ -37,14 +37,15 @@ unsigned long keyRepeatCount[256];
 bool keyRepeatCountFlag = false;
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
+	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
+	/*
 	if(keyRepeatCountFlag==false)
 	{
-        ZeroMemory(keyRepeatCount,sizeof(unsigned long)*256);
+		ZeroMemory(keyRepeatCount,sizeof(unsigned long)*256);
 		keyRepeatCountFlag = true;
 	}
 
 
-	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
 	if(wParam==WM_KEYUP)
 	{
 		keyRepeatCount[kb->vkCode]=0;
@@ -59,6 +60,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		keyRepeatCount[kb->vkCode]++;
 	}
+    */
 //	DBG(kb->vkCode);
 
 //    return -1;
