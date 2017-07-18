@@ -69,8 +69,8 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\D3AssistantMainUnit.cpp
-CursorX=45
-CursorY=2159
+CursorX=1
+CursorY=2164
 TopLine=2120
 LeftCol=1
 Elisions=

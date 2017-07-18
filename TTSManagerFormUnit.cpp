@@ -234,10 +234,13 @@ void TTTSManagerForm::LoadFromFile(String filename)
 	{
 		filename = ChangeFileExt(Application->ExeName,".ttsmemo");
 	}
-	moTTS->Lines->LoadFromFile(filename);
-	stBar->Text = String("Load-"+filename);
+	if(FileExists(filename))
+	{
+		moTTS->Lines->LoadFromFile(filename);
+		stBar->Text = String("Load-"+filename);
 
-	OpenFileName = filename;
+		OpenFileName = filename;
+    }
 }
 
 void TTTSManagerForm::SaveEnv()
