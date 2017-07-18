@@ -1,0 +1,20 @@
+[tts]
+ttstest=Test speech.
+edkey=4
+cbenable=1
+motts=<volume level="50"/>
+1<silence msec="1000"/>
+2<silence msec="1000"/>
+3<silence msec="1000"/>
+<volume level="70"/>
+4<silence msec="1000"/>
+5<silence msec="1000"/>
+<volume level="90"/>
+6<silence msec="1000"/>
+7<silence msec="1000"/>
+<volume level="100"/>
+8<silence msec="1000"/>
+9<silence msec="1000"/>
+10<silence msec="1000"/>
+11
+

@@ -30,13 +30,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Align = alClient
     TabOrder = 2
     OnChange = PageControlChange
-    ExplicitTop = 111
-    ExplicitWidth = 414
-    ExplicitHeight = 318
+    ExplicitWidth = 445
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
-      ExplicitWidth = 401
-      ExplicitHeight = 262
+      ExplicitWidth = 437
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -72,7 +69,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
-        ExplicitTop = 249
         ExplicitWidth = 287
       end
       object Label15: TLabel
@@ -753,8 +749,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitWidth = 401
-      ExplicitHeight = 262
+      ExplicitWidth = 437
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1338,8 +1333,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitWidth = 401
-      ExplicitHeight = 262
+      ExplicitWidth = 437
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1397,8 +1391,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     end
   end
   object Memo1: TMemo
-    Left = 592
-    Top = 137
+    Left = 782
+    Top = 142
     Width = 207
     Height = 136
     ScrollBars = ssVertical
@@ -1413,8 +1407,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Panels = <>
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitTop = 400
-    ExplicitWidth = 410
+    ExplicitWidth = 445
   end
   object Panel1: TPanel
     Left = 0
@@ -1424,7 +1417,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 3
-    ExplicitWidth = 637
+    ExplicitWidth = 445
     object GroupBox1: TGroupBox
       Left = 0
       Top = 0
@@ -1434,14 +1427,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
       TabOrder = 0
       object Label1: TLabel
         Left = 16
-        Top = 32
+        Top = 43
         Width = 45
         Height = 13
         Caption = 'Start Key'
       end
       object Label2: TLabel
         Left = 16
-        Top = 64
+        Top = 70
         Width = 43
         Height = 13
         Caption = 'Stop Key'
@@ -1449,7 +1442,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStart: TEdit
         Tag = 1
         Left = 67
-        Top = 34
+        Top = 40
         Width = 81
         Height = 21
         TabStop = False
@@ -1465,7 +1458,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edStop: TEdit
         Tag = 1
         Left = 67
-        Top = 61
+        Top = 67
         Width = 81
         Height = 21
         TabStop = False
@@ -1477,6 +1470,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
         OnMouseUp = edKey1MouseUp
+      end
+      object cbDoNotStart: TCheckBox
+        Left = 16
+        Top = 16
+        Width = 97
+        Height = 17
+        Alignment = taLeftJustify
+        Caption = 'Do not start'
+        TabOrder = 2
       end
     end
     object btnSave: TButton
@@ -1534,64 +1536,64 @@ object D3AssistantMainForm: TD3AssistantMainForm
     DefaultExt = '.ini'
     Filter = 'Ini Files|*.ini|All Files|*.*'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
-    Left = 416
-    Top = 136
+    Left = 576
+    Top = 8
   end
   object OpenDialog: TOpenDialog
     DefaultExt = '.ini'
     Filter = 'Ini Files|*.ini|All Files|*.*'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
-    Left = 416
-    Top = 184
+    Left = 616
+    Top = 8
   end
   object Timer1: TTimer
     Enabled = False
     Interval = 100
     OnTimer = Timer1Timer
-    Left = 464
-    Top = 136
+    Left = 664
+    Top = 8
   end
   object Timer2: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 464
-    Top = 184
+    Left = 696
+    Top = 8
   end
   object Timer3: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 464
-    Top = 232
+    Left = 728
+    Top = 8
   end
   object Timer4: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 464
-    Top = 280
+    Left = 760
+    Top = 8
   end
   object Timer5: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 512
-    Top = 136
+    Left = 664
+    Top = 56
   end
   object Timer6: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 512
-    Top = 184
+    Left = 696
+    Top = 56
   end
   object Timer7: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 512
-    Top = 232
+    Left = 728
+    Top = 56
   end
   object Timer8: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 512
-    Top = 280
+    Left = 760
+    Top = 56
   end
   object MainMenu: TMainMenu
     Left = 280
@@ -1636,6 +1638,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object MenuLoadFromAreaFile: TMenuItem
         Caption = 'Load from Area File'
         OnClick = MenuLoadFromAreaFileClick
+      end
+    end
+    object T1: TMenuItem
+      Caption = 'TTS'
+      object MenuOpenTTSManager: TMenuItem
+        Caption = 'Open TTS Manager Form'
+        OnClick = MenuOpenTTSManagerClick
       end
     end
     object Y1: TMenuItem
@@ -1688,8 +1697,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 275
-    Top = 63
+    Left = 315
+    Top = 7
     object DeleteRecentlyFileMenu: TMenuItem
       Caption = 'Delete'
       OnClick = DeleteRecentlyFileMenuClick
@@ -1703,7 +1712,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Enabled = False
     Interval = 100
     OnTimer = TimerImmediatelyTimer
-    Left = 408
-    Top = 328
+    Left = 616
+    Top = 56
   end
 end

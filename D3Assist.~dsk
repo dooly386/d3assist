@@ -1,47 +1,52 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\ustring.h',0,1,135,1,172,0,0,,
-File_1=TSourceModule,'D:\github\d3assist\releasenote.html',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'D:\devhome10\D3Assistant\UtilFunctions.cpp',0,1,64,49,101,0,0,,
-File_3=TSourceModule,'D:\devhome10\D3Assistant\CallbackFunctions.cpp',0,1,1,1,1,0,0,,
-File_4=TSourceModule,'D:\devhome10\D3Assistant\D3AssistantMainUnit.cpp',0,1,505,66,536,0,0,,{1
-File_5=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.Dialogs.hpp',0,1,1381,143,1418,0,0,,
-File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.UITypes.hpp',0,1,45,59,82,0,0,,
-File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\sdk\winuser.h',0,1,2193,23,2237,0,0,,
-File_8=TSourceModule,'D:\Download\HookDLL.cpp',0,1,400,1,1,0,0,,
-File_9=TSourceModule,'D:\devhome10\D3Assistant\ABOUT.cpp',0,1,1,50,17,0,0,,
-File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.Controls.hpp',0,1,3229,1,3252,0,0,,
-File_11=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\sdk\Tlhelp32.h',0,1,1,1,34,0,0,,
-File_12=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.IniFiles.hpp',0,1,224,1,252,0,0,,
-File_13=TSourceModule,'D:\devhome10\D3Assistant\D3AssistantPCH1.h',0,1,1,1,1,0,0,,
-File_14=TSourceModule,'D:\devhome10\formdesign\objinspcontrols\ObjInsp_dproc_pcbpad.cpp',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\SOURCE\VCL\ustring.cpp',0,1,131,1,181,0,0,,
+File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\dinkumware64\list',0,1,1712,25,1743,0,0,,
+File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.Forms.hpp',0,1,1010,1,1041,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\ustring.h',0,1,135,1,172,0,0,,
+File_4=TSourceModule,'D:\github\d3assist\releasenote.html',0,1,1,1,1,0,0,,
+File_5=TSourceModule,'D:\devhome10\D3Assistant\UtilFunctions.cpp',0,1,64,49,101,0,0,,
+File_6=TSourceModule,'D:\devhome10\D3Assistant\CallbackFunctions.cpp',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'D:\devhome10\D3Assistant\D3AssistantMainUnit.cpp',0,1,505,66,536,0,0,,{1
+File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.Dialogs.hpp',0,1,1381,143,1418,0,0,,
+File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.UITypes.hpp',0,1,45,59,82,0,0,,
+File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\sdk\winuser.h',0,1,2193,23,2237,0,0,,
+File_11=TSourceModule,'D:\Download\HookDLL.cpp',0,1,400,1,1,0,0,,
+File_12=TSourceModule,'D:\devhome10\D3Assistant\ABOUT.cpp',0,1,1,50,17,0,0,,
+File_13=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.Controls.hpp',0,1,3229,1,3252,0,0,,
+File_14=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\sdk\Tlhelp32.h',0,1,1,1,34,0,0,,
 
 [Modules]
 Module0=D:\github\d3assist\D3AssistantMainUnit.cpp
-Module1=D:\github\d3assist\KeyRows.cpp
-Module2=D:\github\d3assist\UtilFunctions.cpp
+Module1=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
+Module2=D:\github\d3assist\KeyRows.cpp
 Module3=D:\github\d3assist\CallbackFunctions.cpp
-Count=4
+Module4=D:\github\d3assist\UtilFunctions.cpp
+Count=5
 EditWindowCount=1
 
 [D:\github\d3assist\D3AssistantMainUnit.cpp]
 ModuleType=TSourceModule
 
-[D:\github\d3assist\KeyRows.cpp]
+[D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp]
 ModuleType=TSourceModule
 
-[D:\github\d3assist\UtilFunctions.cpp]
+[D:\github\d3assist\KeyRows.cpp]
 ModuleType=TSourceModule
 
 [D:\github\d3assist\CallbackFunctions.cpp]
 ModuleType=TSourceModule
 
+[D:\github\d3assist\UtilFunctions.cpp]
+ModuleType=TSourceModule
+
 [EditWindow0]
-ViewCount=4
+ViewCount=5
 CurrentEditView=D:\github\d3assist\D3AssistantMainUnit.cpp
 View0=0
 View1=1
 View2=2
 View3=3
+View4=4
 PercentageSizes=1
 Create=1
 Visible=1
@@ -49,51 +54,62 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=6982
-Height=8673
+Width=6745
+Height=7707
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=6982
-ClientHeight=8673
+ClientWidth=6745
+ClientHeight=7707
 DockedToMainForm=1
 BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1016
 LeftPanelClients=DockSite3,DockSite4
-LeftPanelData=0000080001020100000009000000446F636B53697465330E0700000000000002182100000000000001000000000E07000009000000446F636B5369746534FFFFFFFF
+LeftPanelData=0000080001020100000009000000446F636B53697465330E0700000000000002691D00000000000001000000000E07000009000000446F636B5369746534FFFFFFFF
 RightPanelSize=990
 RightPanelClients=DockSite2
-RightPanelData=000008000101000000009E1200000000000001DE0300000000000001000000001821000009000000446F636B5369746532FFFFFFFF
+RightPanelData=000008000101000000008B1000000000000001DE030000000000000100000000691D000009000000446F636B5369746532FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=DockSite1
 BottomPanelData=0000080001000100000009000000446F636B5369746531982D00000000000000C905000000000000FFFFFFFF
-BottomMiddlePanelSize=480
+BottomMiddlePanelSize=1036
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel,MessageView
-BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965774B2200000000000002E00100000000000001000000004B2200000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E6756696577A420000000000000020C040000000000000100000000A42000000F0000004D65737361676556696577466F726DFFFFFFFF
 
 [View0]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\D3AssistantMainUnit.cpp
-CursorX=90
-CursorY=1349
-TopLine=1319
+CursorX=1
+CursorY=1166
+TopLine=1135
 LeftCol=1
 Elisions=
-Bookmarks={1,284,6}
-EditViewName=Borland.FormDesignerView
+Bookmarks={1,788,1}{2,1399,16}
+EditViewName=D:\github\d3assist\D3AssistantMainUnit.cpp
 
 [View1]
 CustomEditViewType=TEditView
+Module=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
+CursorX=55
+CursorY=86
+TopLine=79
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
+
+[View2]
+CustomEditViewType=TEditView
 Module=D:\github\d3assist\KeyRows.cpp
-CursorX=29
-CursorY=20
+CursorX=27
+CursorY=23
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\github\d3assist\KeyRows.h
 
-[View2]
+[View3]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\UtilFunctions.cpp
 CursorX=26
@@ -104,12 +120,12 @@ Elisions=
 Bookmarks=
 EditViewName=D:\github\d3assist\UtilFunctions.cpp
 
-[View3]
+[View4]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\CallbackFunctions.cpp
-CursorX=47
-CursorY=57
-TopLine=31
+CursorX=3
+CursorY=62
+TopLine=22
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -143,8 +159,7 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=1
-Breakpoint0='D:\github\d3assist\D3AssistantMainUnit.cpp',1227,'',0,1,'',1,0,0,'',1,'','','',0,''
+Count=0
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -158,15 +173,15 @@ Create=1
 Visible=1
 Docked=0
 State=0
-Left=1774
-Top=320
-Width=7035
-Height=9259
+Left=2773
+Top=723
+Width=6797
+Height=8294
 MaxLeft=-3
 MaxTop=-6
-ClientWidth=6982
-ClientHeight=9028
-BottomPanelSize=8472
+ClientWidth=6745
+ClientHeight=8063
+BottomPanelSize=7529
 BottomPanelClients=EditWindow0
 BottomPanelData=0000080000000000000000000000000000000000000000000000000100000000000000000C0000004564697457696E646F775F30FFFFFFFF
 
@@ -179,11 +194,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=8418
+Height=7453
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=8418
+ClientHeight=7453
 TBDockHeight=5900
 LRDockWidth=2350
 Dockable=1
@@ -197,13 +212,13 @@ Docked=1
 State=0
 Left=0
 Top=18
-Width=4938
-Height=385
+Width=4701
+Height=954
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=4938
-ClientHeight=385
-TBDockHeight=385
+ClientWidth=4701
+ClientHeight=954
+TBDockHeight=954
 LRDockWidth=2770
 Dockable=1
 StayOnTop=0
@@ -217,11 +232,11 @@ State=0
 Left=0
 Top=0
 Width=1016
-Height=4745
+Height=7453
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1016
-ClientHeight=4745
+ClientHeight=7453
 TBDockHeight=7150
 LRDockWidth=1999
 Dockable=1
@@ -252,8 +267,8 @@ Create=1
 Visible=0
 Docked=0
 State=0
-Left=0
-Top=0
+Left=-6250
+Top=1706
 Width=859
 Height=3039
 MaxLeft=-3
@@ -271,8 +286,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1051
-Top=-170
+Left=-829
+Top=-99
 Width=1846
 Height=3140
 MaxLeft=-1
@@ -331,21 +346,16 @@ State=0
 Left=0
 Top=0
 Width=1016
-Height=8418
+Height=7453
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1016
-ClientHeight=8418
+ClientHeight=7453
 TBDockHeight=7832
 LRDockWidth=964
 Dockable=1
 StayOnTop=0
-SplitPos=130
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Text,ActivePage
-ExpandedItems=Constraints=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,StyleElements=0
+SplitPos=118
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -356,11 +366,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=4745
+Height=6528
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=4745
+ClientHeight=6528
 TBDockHeight=5960
 LRDockWidth=2510
 Dockable=1
@@ -372,8 +382,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-2468
-Top=-38
+Left=-2402
+Top=33
 Width=2845
 Height=6203
 MaxLeft=-1
@@ -391,8 +401,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1043
-Top=420
+Left=-821
+Top=491
 Width=273
 Height=361
 MaxLeft=-1
@@ -580,11 +590,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=4745
+Height=6528
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=4745
+ClientHeight=6528
 TBDockHeight=4882
 LRDockWidth=7148
 Dockable=1
@@ -758,11 +768,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=4745
+Height=6528
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=4745
+ClientHeight=6528
 TBDockHeight=4882
 LRDockWidth=5309
 Dockable=1
@@ -868,11 +878,11 @@ State=0
 Left=0
 Top=18
 Width=990
-Height=8566
+Height=7601
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=8566
+ClientHeight=7601
 TBDockHeight=7832
 LRDockWidth=990
 Dockable=1
@@ -916,12 +926,12 @@ State=0
 Left=0
 Top=18
 Width=1016
-Height=8566
+Height=7601
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1016
-ClientHeight=8566
-TBDockHeight=8566
+ClientHeight=7601
+TBDockHeight=7601
 LRDockWidth=1016
 Dockable=1
 StayOnTop=0

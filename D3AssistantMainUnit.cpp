@@ -18,6 +18,9 @@
 #include "CallbackFunctions.h"
 #include "KeyRows.h"
 #include "ProtectionAreaManagerFormUnit.h"
+#include "SpeechLib_TLB.h"
+#include "SpeechLib_OCX.h"
+#include "TTSManagerFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -30,10 +33,6 @@ TD3AssistantMainForm *D3AssistantMainForm;
 
 HHOOK g_hKeyHook=0;
 HHOOK g_hMouseHook=0;
-
-
-
-
 
 bool pauseKbHook=false;
 bool pauseMouseHook = false;
@@ -51,7 +50,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	: TForm(Owner)
 {
 	bModified = false;
-    bPause = false;
+	bPause = false;
 	targetHwnd = 0;
 	OpenFileName = "";
 	bStarted = false;
@@ -71,10 +70,60 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	}
 
 	//--------------------------------------------------------------------------
-	prepareKeyRows();
+	PrepareKeyRows();
+	//--------------------------------------------------------------------------
+
+	//--------------------------------------------------------------------------
+	// set version caption
+	String ver = GetFileVersionString(Application->ExeName);
+	Caption = String("D3Assist v")+ver;
+
+#ifdef _WIN64
+	Caption = Caption + " x64";
+#else
+	Caption = Caption + " win32";
+#endif
 	//--------------------------------------------------------------------------
 
 
+	PageControl->TabIndex = 0;
+
+
+	LoadEnv();
+	UpdateRecentlyLb();
+	StartHook();
+
+
+
+}
+
+void TD3AssistantMainForm::StartHook()
+{
+	if(g_hKeyHook) return;
+	//--------------------------------------------------------------------------
+	// start hook keyboard and mouse
+	HINSTANCE app = GetModuleHandle(NULL);
+	g_hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, app, 0);
+	g_hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, app, 0);
+	//--------------------------------------------------------------------------
+
+}
+
+void TD3AssistantMainForm::StopHook()
+{
+	if(g_hKeyHook)
+	{
+		UnhookWindowsHookEx(g_hKeyHook);
+	}
+	if(g_hMouseHook)
+	{
+		UnhookWindowsHookEx(g_hMouseHook);
+	}
+	g_hKeyHook = 0;
+	g_hMouseHook = 0;
+}
+void TD3AssistantMainForm::LoadEnv()
+{
 	//--------------------------------------------------------------------------
 	// load configuration ini
 	String filename = ChangeFileExt(Application->ExeName,".ini");
@@ -112,37 +161,24 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	}
 	//--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	// set version caption
-	String ver = GetFileVersionString(Application->ExeName);
-	Caption = String("D3Assist v")+ver;
-
-#ifdef _WIN64
-	Caption = Caption + " x64";
-#else
-	Caption = Caption + " win32";
-#endif
-	//--------------------------------------------------------------------------
-
-
-	PageControl->TabIndex = 0;
-
-	UpdateRecentlyLb();
-
-
-	//--------------------------------------------------------------------------
-	// start hook keyboard and mouse
-	HINSTANCE app = GetModuleHandle(NULL);
-
-	g_hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, app, 0);
-	g_hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, app, 0);
-	//--------------------------------------------------------------------------
-
-
+}
+void TD3AssistantMainForm::SaveEnv()
+{
+	String filename = ChangeFileExt(Application->ExeName,".ini");
+	if(OpenFileName.Length())
+	{
+		TIniFile *ini = new TIniFile(filename);
+		ini->WriteString("Setup","OpenFileName",OpenFileName);
+		ini->WriteString("Setup","AlphaValue",edAlphaValue->Text);
+        ini->WriteBool("Setup","OnlyD3",cbOnlyD3->Checked);
+		ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
+		ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
+		delete ini;
+	}
 
 }
 
-void TD3AssistantMainForm::prepareKeyRows()
+void TD3AssistantMainForm::PrepareKeyRows()
 {
 	keyTimerMap.clear();
 	keyPauseMap.clear();
@@ -415,7 +451,7 @@ void TD3AssistantMainForm::UpdateRecentlyLb()
 
 void TD3AssistantMainForm::SaveIni(String filename)
 {
-//    prepareKeyRows();
+//    PrepareKeyRows();
 
 	TIniFile *ini = new TIniFile(filename);
 	std::list<DWORD>::iterator it = editlist.begin();
@@ -491,7 +527,7 @@ void TD3AssistantMainForm::LoadIni(String filename)
 
 	bLoading = false;
 
-	prepareKeyRows();
+	PrepareKeyRows();
 
 }
 //---------------------------------------------------------------------------
@@ -631,6 +667,8 @@ void __fastcall TD3AssistantMainForm::btnLoadClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void TD3AssistantMainForm::Start()
 {
+	if(cbDoNotStart->Checked) return;
+
 	bProtWindowFlag = ProtectionAreaManagerForm->Visible;
 	if(ProtectionAreaManagerForm->Visible)
 	{
@@ -658,10 +696,11 @@ void TD3AssistantMainForm::Start()
 		Stop();
 	}
 
+
 	bStarted = true;
 	targetHwnd = 0;
 
-	prepareKeyRows();
+	PrepareKeyRows();
 
 	for(int i=0;i<8;i++)
 	{
@@ -809,6 +848,7 @@ void TD3AssistantMainForm::Stop()
 
 void TD3AssistantMainForm::StartImmediately(String key)
 {
+	if(cbDoNotStart->Checked) return;
 	if(IsForegroundWindow(Handle)) return;
 	if(key==edImmediatelyActive->Text)
 	{
@@ -858,6 +898,7 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 
 	if(key==edStart->Text && bStarted==false)
 	{
+		if(cbDoNotStart->Checked) return;
 		Start();
 		return;
 	}
@@ -871,6 +912,7 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 
 	if(bStarted==false)
 	{
+		if(cbDoNotStart->Checked) return;
 		StartImmediately(key);
 		return;
 	}
@@ -880,6 +922,14 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		Stop();
 		return;
 	}
+
+	if(TTSManagerForm->Enabled())
+	{
+		if(TTSManagerForm->GetKey()==key)
+		{
+			TTSManagerForm->Play();
+		}
+    }
 
 	{
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
@@ -1058,6 +1108,7 @@ bool TD3AssistantMainForm::OnMouseWheelHook(int delta)
 
 	if(key==edStart->Text && bStarted==false)
 	{
+		if(cbDoNotStart->Checked) return false;
 		bStarted = true;
 		Start();
 		return true;
@@ -1162,7 +1213,8 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 	if(key==edStart->Text && bStarted==false)
 	{
-        if(key=="[mbLeft]") return;
+		if(cbDoNotStart->Checked) return;
+		if(key=="[mbLeft]") return;
 		Start();
 		bStarted = true;
 		return;
@@ -1702,26 +1754,8 @@ void __fastcall TD3AssistantMainForm::WMActivate(TWMActivate &Message)
 void __fastcall TD3AssistantMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 
 {
-	if(g_hKeyHook)
-	{
-		UnhookWindowsHookEx(g_hKeyHook);
-	}
-	if(g_hMouseHook)
-	{
-		UnhookWindowsHookEx(g_hMouseHook);
-    }
-
-	String filename = ChangeFileExt(Application->ExeName,".ini");
-	if(OpenFileName.Length())
-	{
-		TIniFile *ini = new TIniFile(filename);
-		ini->WriteString("Setup","OpenFileName",OpenFileName);
-		ini->WriteString("Setup","AlphaValue",edAlphaValue->Text);
-        ini->WriteBool("Setup","OnlyD3",cbOnlyD3->Checked);
-		ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
-		ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
-		delete ini;
-	}
+	StopHook();
+	SaveEnv();
 
 	killYolo();
 
@@ -1935,7 +1969,7 @@ void __fastcall TD3AssistantMainForm::edStartChange(TObject *Sender)
 	bModified = true;
 	if(!bLoading)
 	{
-		prepareKeyRows();
+		PrepareKeyRows();
 	}
 
 }
@@ -1946,7 +1980,7 @@ void __fastcall TD3AssistantMainForm::cbToggle1Click(TObject *Sender)
 	bModified = true;
 	if(!bLoading)
 	{
-		prepareKeyRows();
+		PrepareKeyRows();
     }
 }
 //---------------------------------------------------------------------------
@@ -2092,6 +2126,12 @@ void __fastcall TD3AssistantMainForm::TimerImmediatelyTimer(TObject *Sender)
 	}
 
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::MenuOpenTTSManagerClick(TObject *Sender)
+{
+	TTSManagerForm->Show();
 }
 //---------------------------------------------------------------------------
 
