@@ -2372,6 +2372,13 @@ void __fastcall TD3AssistantMainForm::actionStartRecordExecute(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::actionStopRecordExecute(TObject *Sender)
 {
+	if(bRecordStarted)
+	{
+		keyMacro *p = new keyMacro;
+		p->s = "[pause]";
+        p->wParam = 0;
+        AddRecord(p);
+    }
 	bRecordStarted = false;
 	bPlayStarted = false;
 	RecordPlayTimer->Enabled = false;
@@ -2438,6 +2445,7 @@ void __fastcall TD3AssistantMainForm::RecordPlayTimerTimer(TObject *Sender)
 		::SetCursorPos(p->mouse.pt.x,p->mouse.pt.y);
 		MouseUp(mbRight);
 	}
+
 	idx++;
 	if(idx==lbRecord->Items->Count)
 	{
@@ -2452,13 +2460,28 @@ void __fastcall TD3AssistantMainForm::RecordPlayTimerTimer(TObject *Sender)
 		bPlayStarted = false;
 		return;
 	}
+
 	lbRecord->ItemIndex = idx;
 
-	keyMacro *p2 = (keyMacro *)lbRecord->Items->Objects[idx];
-	int d = p2->mouse.time-p->mouse.time;
-	double f = 100.0/edPlaySpeed->Text.ToDouble();
-
-	RecordPlayTimer->Interval = (int)d*f;;
+	if(p->wParam)
+	{
+		keyMacro *p2 = (keyMacro *)lbRecord->Items->Objects[idx];
+		if(p2->wParam==0)
+		{
+			RecordPlayTimer->Interval = 300;
+		}
+		else
+		{
+			int d = p2->mouse.time-p->mouse.time;
+            if(d<0) d = 300;
+			double f = 100.0/edPlaySpeed->Text.ToDouble();
+			RecordPlayTimer->Interval = (int)d*f;;
+		}
+	}
+	if(p->wParam==0) // pause
+	{
+		RecordPlayTimer->Interval = 300;
+	}
 
 	RecordPlayTimer->Enabled = true;
 
@@ -2523,7 +2546,10 @@ void TD3AssistantMainForm::LoadMacro(String filename)
 		{
 			p2->s.printf(L"WM_RBUTTONUP %d %d %d",p2->mouse.pt.x,p2->mouse.pt.y,p2->mouse.time);
 		}
-
+		if(p2->wParam==0)
+		{
+			p2->s = "[pause]";
+		}
 
 		AddRecord(p2);
 	}

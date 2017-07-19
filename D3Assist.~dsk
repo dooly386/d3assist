@@ -13,17 +13,17 @@ File_10=TSourceModule,'D:\test.xml',0,1,1,23,9,0,0,,
 File_11=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\dinkumware64\list',0,1,1712,25,1743,0,0,,
 
 [Modules]
-Module0=D:\github\d3assist\CallbackFunctions.cpp
-Module1=D:\github\d3assist\D3AssistantMainUnit.cpp
+Module0=D:\github\d3assist\D3AssistantMainUnit.cpp
+Module1=D:\github\d3assist\CallbackFunctions.cpp
 Module2=D:\github\d3assist\UtilFunctions.cpp
 Module3=D:\github\d3assist\KeyRows.cpp
 Count=4
 EditWindowCount=1
 
-[D:\github\d3assist\CallbackFunctions.cpp]
+[D:\github\d3assist\D3AssistantMainUnit.cpp]
 ModuleType=TSourceModule
 
-[D:\github\d3assist\D3AssistantMainUnit.cpp]
+[D:\github\d3assist\CallbackFunctions.cpp]
 ModuleType=TSourceModule
 
 [D:\github\d3assist\UtilFunctions.cpp]
@@ -34,7 +34,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=4
-CurrentEditView=D:\github\d3assist\CallbackFunctions.cpp
+CurrentEditView=D:\github\d3assist\D3AssistantMainUnit.cpp
 View0=0
 View1=1
 View2=2
@@ -71,9 +71,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\D3AssistantMainUnit.cpp
-CursorX=1
-CursorY=574
-TopLine=540
+CursorX=17
+CursorY=2410
+TopLine=2392
 LeftCol=1
 Elisions=
 Bookmarks={1,1100,1}{2,1404,1}
@@ -82,9 +82,9 @@ EditViewName=D:\github\d3assist\D3AssistantMainUnit.cpp
 [View1]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\UtilFunctions.cpp
-CursorX=65
-CursorY=209
-TopLine=172
+CursorX=18
+CursorY=524
+TopLine=491
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -93,9 +93,9 @@ EditViewName=D:\github\d3assist\UtilFunctions.cpp
 [View2]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\CallbackFunctions.cpp
-CursorX=12
-CursorY=78
-TopLine=52
+CursorX=73
+CursorY=215
+TopLine=164
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -340,7 +340,7 @@ SplitPos=143
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Caption,OnExecute
+SelectedItem=Name,CustomHint
 ExpandedItems=Anchors=1,BevelEdges=0,Constraints=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,StyleElements=0,Touch=0,ImageMargins=0,Menu=0,Action=0
 
 [frmDesignPreview]
