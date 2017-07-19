@@ -2367,16 +2367,14 @@ void TD3AssistantMainForm::AddRecord(keyMacro *p)
 void __fastcall TD3AssistantMainForm::actionStartRecordExecute(TObject *Sender)
 {
 	bRecordStarted = true;
-
-	MessageBeep(-1);
-
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::actionStopRecordExecute(TObject *Sender)
 {
 	bRecordStarted = false;
-	MessageBeep(-1);
+	bPlayStarted = false;
+	RecordPlayTimer->Enabled = false;
 }
 //---------------------------------------------------------------------------
 
