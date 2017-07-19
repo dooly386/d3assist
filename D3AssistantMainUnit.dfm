@@ -3,7 +3,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 470
-  ClientWidth = 411
+  ClientWidth = 482
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -25,7 +25,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object PageControl: TPageControl
     Left = 0
     Top = 113
-    Width = 411
+    Width = 482
     Height = 338
     ActivePage = KeySettingTabSheet
     Align = alClient
@@ -47,21 +47,21 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Key'
       end
       object Label4: TLabel
-        Left = 90
+        Left = 116
         Top = 8
-        Width = 59
+        Width = 109
         Height = 13
-        Caption = 'Delay(msec)'
+        Caption = 'Initial and Delay(msec)'
       end
       object Label5: TLabel
-        Left = 214
+        Left = 286
         Top = 8
         Width = 50
         Height = 13
         Caption = 'Pause Key'
       end
       object Label7: TLabel
-        Left = 308
+        Left = 380
         Top = 8
         Width = 51
         Height = 13
@@ -70,21 +70,21 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object Label8: TLabel
         Left = 0
         Top = 297
-        Width = 403
+        Width = 474
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
         ExplicitWidth = 287
       end
       object Label15: TLabel
-        Left = 165
+        Left = 237
         Top = 8
         Width = 35
         Height = 13
         Caption = 'Holding'
       end
       object Label14: TLabel
-        Left = 168
+        Left = 200
         Top = 256
         Width = 112
         Height = 13
@@ -92,7 +92,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive1: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 24
         Width = 88
         Height = 19
@@ -112,7 +112,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause1: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 24
         Width = 88
         Height = 19
@@ -132,7 +132,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay1: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 24
         Width = 66
         Height = 19
@@ -202,7 +202,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay2: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 51
         Width = 66
         Height = 19
@@ -220,7 +220,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause2: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 51
         Width = 88
         Height = 19
@@ -240,7 +240,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive2: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 51
         Width = 88
         Height = 19
@@ -260,7 +260,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive3: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 78
         Width = 88
         Height = 19
@@ -280,7 +280,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause3: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 78
         Width = 88
         Height = 19
@@ -300,7 +300,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay3: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 78
         Width = 66
         Height = 19
@@ -474,7 +474,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay8: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 213
         Width = 66
         Height = 19
@@ -492,7 +492,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay7: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 186
         Width = 66
         Height = 19
@@ -510,7 +510,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay6: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 159
         Width = 66
         Height = 19
@@ -528,7 +528,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay5: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 132
         Width = 66
         Height = 19
@@ -546,7 +546,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edDelay4: TEdit
         Tag = 2
-        Left = 90
+        Left = 162
         Top = 105
         Width = 66
         Height = 19
@@ -564,7 +564,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause4: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 105
         Width = 88
         Height = 19
@@ -584,7 +584,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause5: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 132
         Width = 88
         Height = 19
@@ -602,7 +602,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause6: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 159
         Width = 88
         Height = 19
@@ -620,7 +620,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause7: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 186
         Width = 88
         Height = 19
@@ -638,7 +638,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause8: TEdit
         Tag = 1
-        Left = 214
+        Left = 286
         Top = 213
         Width = 88
         Height = 19
@@ -656,7 +656,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive8: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 213
         Width = 88
         Height = 19
@@ -674,7 +674,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive7: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 186
         Width = 88
         Height = 19
@@ -692,7 +692,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive6: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 159
         Width = 88
         Height = 19
@@ -710,7 +710,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive5: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 132
         Width = 88
         Height = 19
@@ -728,7 +728,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive4: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 105
         Width = 88
         Height = 19
@@ -747,7 +747,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnMouseUp = edKey1MouseUp
       end
       object cbToggle1: TCheckBox
-        Left = 171
+        Left = 243
         Top = 27
         Width = 17
         Height = 17
@@ -757,7 +757,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle2: TCheckBox
-        Left = 171
+        Left = 243
         Top = 53
         Width = 17
         Height = 17
@@ -767,7 +767,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle3: TCheckBox
-        Left = 171
+        Left = 243
         Top = 80
         Width = 17
         Height = 17
@@ -777,7 +777,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle4: TCheckBox
-        Left = 171
+        Left = 243
         Top = 107
         Width = 17
         Height = 17
@@ -787,7 +787,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle5: TCheckBox
-        Left = 171
+        Left = 243
         Top = 134
         Width = 17
         Height = 17
@@ -797,7 +797,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle6: TCheckBox
-        Left = 171
+        Left = 243
         Top = 161
         Width = 17
         Height = 17
@@ -807,7 +807,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle7: TCheckBox
-        Left = 171
+        Left = 243
         Top = 188
         Width = 17
         Height = 17
@@ -817,7 +817,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = cbToggle1Click
       end
       object cbToggle8: TCheckBox
-        Left = 171
+        Left = 243
         Top = 215
         Width = 17
         Height = 17
@@ -872,7 +872,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edImmediatelyActive: TEdit
         Tag = 1
-        Left = 308
+        Left = 380
         Top = 250
         Width = 88
         Height = 19
@@ -889,6 +889,150 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyPress = edStartKeyPress
         OnMouseDown = edKey1MouseDown
         OnMouseUp = edKey1MouseUp
+      end
+      object edInit1: TEdit
+        Tag = 2
+        Left = 92
+        Top = 24
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 43
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit2: TEdit
+        Tag = 2
+        Left = 92
+        Top = 51
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 44
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit3: TEdit
+        Tag = 2
+        Left = 92
+        Top = 78
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 45
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit4: TEdit
+        Tag = 2
+        Left = 92
+        Top = 105
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 46
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit5: TEdit
+        Tag = 2
+        Left = 92
+        Top = 132
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 47
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit6: TEdit
+        Tag = 2
+        Left = 92
+        Top = 159
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 48
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit7: TEdit
+        Tag = 2
+        Left = 92
+        Top = 186
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 49
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edInit8: TEdit
+        Tag = 2
+        Left = 92
+        Top = 213
+        Width = 66
+        Height = 19
+        TabStop = False
+        Alignment = taCenter
+        Ctl3D = False
+        DoubleBuffered = True
+        NumbersOnly = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 50
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
       end
     end
     object EnvironmentTabSheet: TTabSheet
@@ -1539,7 +1683,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       ImageIndex = 3
       ExplicitWidth = 399
       DesignSize = (
-        403
+        474
         310)
       object Label16: TLabel
         Left = 3
@@ -1606,7 +1750,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object lbRecord: TListBox
         Left = 171
         Top = 8
-        Width = 220
+        Width = 291
         Height = 273
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
@@ -1638,7 +1782,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edMacroFileName: TEdit
         Left = 0
         Top = 289
-        Width = 403
+        Width = 474
         Height = 21
         Align = alBottom
         ReadOnly = True
@@ -1650,7 +1794,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object stBar: TStatusBar
     Left = 0
     Top = 451
-    Width = 411
+    Width = 482
     Height = 19
     DoubleBuffered = True
     Panels = <>
@@ -1662,14 +1806,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 411
+    Width = 482
     Height = 113
     Align = alTop
-    Caption = 'Panel1'
     TabOrder = 2
     ExplicitWidth = 407
     DesignSize = (
-      411
+      482
       113)
     object lbRecentlyFilesFullPath: TListBox
       Left = 412
@@ -1797,7 +1940,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object lbRecentlyFiles: TListBox
       Left = 261
       Top = 8
-      Width = 146
+      Width = 217
       Height = 97
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
@@ -2018,8 +2161,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
   end
   object ActionListMacro: TActionList
     OnUpdate = ActionListMacroUpdate
-    Left = 180
-    Top = 161
+    Left = 276
+    Top = 57
     object actionStartRecord: TAction
       Caption = 'Record (F11)'
       Enabled = False
@@ -2054,21 +2197,21 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object RecordPlayTimer: TTimer
     Enabled = False
     OnTimer = RecordPlayTimerTimer
-    Left = 200
-    Top = 240
+    Left = 312
+    Top = 56
   end
   object OpenDialogMacro: TOpenDialog
     DefaultExt = '.assmac'
     Filter = 'Macro Files|*.assmac|All Files|*.*'
     Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
-    Left = 264
-    Top = 304
+    Left = 392
+    Top = 56
   end
   object SaveDialogMacro: TSaveDialog
     DefaultExt = '.assmac'
     Filter = 'Macro Files|*.assmac|All Files|*.*'
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
-    Left = 200
-    Top = 304
+    Left = 352
+    Top = 56
   end
 end

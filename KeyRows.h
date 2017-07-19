@@ -9,6 +9,7 @@
 struct keyRow
 {
 	TEdit *edkey;
+    TEdit *edinit;
 	TEdit *eddelay;
 	TEdit *edpause;
 	TEdit *edactive;
@@ -16,7 +17,8 @@ struct keyRow
 	TCheckBox *toggle;
 
 	String key;
-	int interval;
+	int initial; // inital interval
+	int interval; // seq interval
 	String pausekey;
 	String activekey;
 
@@ -25,11 +27,15 @@ struct keyRow
 	keyRow()
 	{
 		edkey = 0;
+		edinit = 0;
 		eddelay = 0;
 		edpause = 0;
 		edactive = 0;
 		timer = 0;
 		toggle = 0;
+
+		initial = 0;
+		interval = 0;
 
         pushdown = false;
 

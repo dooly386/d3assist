@@ -39,11 +39,6 @@ HHOOK g_hMouseHook=0;
 bool pauseKbHook=false;
 bool pauseMouseHook = false;
 
-
-
-
-
-
 __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	: TForm(Owner)
 {
@@ -220,6 +215,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 	for(int i=0;i<8;i++)
 	{
 		String keyname = String("edKey")+(i+1);
+		String initname = String("edInit")+(i+1);
 		String delayname = String("edDelay")+(i+1);
 		String poname = String("edPause")+(i+1);
 		String activekey = String("edActive")+(i+1);
@@ -228,6 +224,16 @@ void TD3AssistantMainForm::PrepareKeyRows()
 
 		keyRows[i].edkey = (TEdit *)FindComponent(keyname);
 		keyRows[i].key = keyRows[i].edkey->Text;
+
+		keyRows[i].edinit = (TEdit *)FindComponent(initname);
+		if(keyRows[i].edinit->Text.Length())
+		{
+			keyRows[i].initial = keyRows[i].edinit->Text.ToInt();
+		}
+		else
+		{
+			keyRows[i].initial = 0;
+		}
 
 		keyRows[i].eddelay = (TEdit *)FindComponent(delayname);
 		if(keyRows[i].eddelay->Text.Length())
@@ -333,6 +339,7 @@ void TD3AssistantMainForm::enableRecord(int i)
 	keyRows[i].edpause->Enabled = true;
 	keyRows[i].edactive->Enabled = true;
 	keyRows[i].toggle->Enabled = true;
+	keyRows[i].edinit->Enabled = true;
 
 
 }
@@ -344,6 +351,7 @@ void TD3AssistantMainForm::disableRecord(int i)
 	keyRows[i].edpause->Enabled = false;
 	keyRows[i].edactive->Enabled = false;
 	keyRows[i].toggle->Enabled = false;
+	keyRows[i].edinit->Enabled = false;
 
 }
 
@@ -377,6 +385,7 @@ void TD3AssistantMainForm::checkColor()
 		row.eddelay->Color = color;
 		row.edpause->Color = color;
 		row.edactive->Color = color;
+        row.edinit->Color = color;
 	}
 }
 
@@ -745,7 +754,14 @@ void TD3AssistantMainForm::Start()
 		keyRow &row = keyRows[i];
 		if(row.key.Length() && row.interval>0)
 		{
-			row.timer->Interval = row.interval;
+			if(row.initial)
+			{
+				row.timer->Interval = row.initial;
+			}
+			else
+			{
+				row.timer->Interval = 1;
+            }
 			row.timer->Tag = 10;
 		}
 	}
@@ -776,11 +792,6 @@ void TD3AssistantMainForm::Start()
 		if(row.timer->Tag==0) continue;
 		if(row.timer->Interval==0) continue;
 
-		if(row.toggle->Checked)
-		{
-			row.timer->Interval = 1;
-
-        }
 		if(row.activekey.Length()==0)
 		{
 			row.timer->Enabled = true;
@@ -932,7 +943,6 @@ void TD3AssistantMainForm::StopImmediately(String key)
 
 void TD3AssistantMainForm::OnKeyDownHook(String key)
 {
-//    stBar->SimpleText = key;
 	if(ActiveControl)
 	{
 		if(ActiveControl->Tag==1)
@@ -1035,6 +1045,14 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 			}
 			if(row.timer->Enabled==false || row.toggle->Checked)
 			{
+				if(row.initial)
+				{
+					row.timer->Interval = row.initial;
+				}
+				else
+				{
+					row.timer->Interval = 1;
+				}
 				row.timer->Enabled = false;
 				row.timer->Enabled = true;
 				checkColor();
@@ -1358,6 +1376,14 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 				}
 				if(row.timer->Enabled==false || row.toggle->Checked)
 				{
+					if(row.initial)
+					{
+						row.timer->Interval = row.initial;
+					}
+					else
+					{
+                        row.timer->Interval = 1;
+                    }
 					row.timer->Enabled = false;
 					row.timer->Enabled = true;
 					checkColor();
@@ -1725,31 +1751,32 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 	{
 		HWND hwnd = GetForegroundWindow();
 
+		if(targetHwnd && hwnd!=targetHwnd)
+		{
+            return;
+        }
 		if(hwnd && targetHwnd==0)
 		{
 			char str[255];
 			GetWindowText(hwnd,str,255);
 			String s = str;
-			if(s!=edOnlyWindow->Text)
+			if(s==edOnlyWindow->Text)
 			{
 				targetHwnd = hwnd;
-				return;
 			}
 		}
-		if(hwnd==targetHwnd)
+		if(targetHwnd==0)
 		{
             return;
         }
 	}
 
+
 	TTimer *timer = (TTimer *)Sender;
 	keyRow *lprow = keyTimerMap[timer];
 	keyRow &row = *lprow;
-	if(row.toggle->Checked)
-	{
-		row.timer->Interval = row.interval;
-	}
 
+	row.timer->Interval = row.interval;
 
 	if(row.key=="[mbLeft]")
 	{

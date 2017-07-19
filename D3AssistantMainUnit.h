@@ -212,6 +212,14 @@ __published:	// IDE-managed Components
 	TSaveDialog *SaveDialogMacro;
 	TEdit *edMacroFileName;
 	TMenuItem *MenuDebugWindow;
+	TEdit *edInit1;
+	TEdit *edInit2;
+	TEdit *edInit3;
+	TEdit *edInit4;
+	TEdit *edInit5;
+	TEdit *edInit6;
+	TEdit *edInit7;
+	TEdit *edInit8;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
