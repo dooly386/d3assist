@@ -6,7 +6,7 @@
 	2017.7.17
 */
 #include <map>
-
+#include <stdio.h>
 #include <vcl.h>
 #include <IniFiles.hpp>
 #include <Tlhelp32.h>
@@ -60,6 +60,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	MouseClickObject = 0;
 	bLoading = false;
 	bRecordStarted = false;
+	bPlayStarted = false;
 
 
 	for(int i=0;i<ComponentCount;i++)
@@ -175,6 +176,16 @@ void TD3AssistantMainForm::LoadEnv()
 		{
 			SkinName = ini->ReadString("Setup","SkinName","Windows");
 		}
+		if(ini->ValueExists("Setup","edPlayCount"))
+		{
+			edPlayCount->Text = ini->ReadString("Setup","edPlayCount","1");
+		}
+		if(ini->ValueExists("Setup","edPlaySpeed"))
+		{
+			edPlaySpeed->Text = ini->ReadString("Setup","edPlaySpeed","100");
+		}
+
+
 
 		delete ini;
 		LoadIni(openfilename);
@@ -193,6 +204,9 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
 	ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
 	ini->WriteString("Setup","SkinName",SkinName);
+	ini->WriteString("Setup","edPlayCount",edPlayCount->Text);
+	ini->WriteString("Setup","edPlaySpeed",edPlaySpeed->Text);
+
 	delete ini;
 
 }
@@ -1907,6 +1921,8 @@ void __fastcall TD3AssistantMainForm::FormClose(TObject *Sender, TCloseAction &A
 
 	killYolo();
 
+	actionClearRecordExecute(Sender);
+
 	Action = caFree;
 }
 //---------------------------------------------------------------------------
@@ -2310,27 +2326,29 @@ void __fastcall TD3AssistantMainForm::MenuSkinDefaultClick(TObject *Sender)
 void __fastcall TD3AssistantMainForm::ActionListMacroUpdate(TBasicAction *Action,
           bool &Handled)
 {
+/*
 	Handled = true;
 
 	return;
-	if(bRecordStarted)
+*/
+	actionStopRecord->Enabled = bPlayStarted || bRecordStarted;
+	if(bRecordStarted || bPlayStarted)
 	{
 		actionStartRecord->Enabled = false;
-		actionStopRecord->Enabled = true;
 		actionPlayRecord->Enabled = false;
 		actionClearRecord->Enabled = false;
 		actionSaveRecord->Enabled = false;
 		actionLoadRecord->Enabled = false;
+		lbRecord->Enabled = false;
 	}
 	else
 	{
 		actionStartRecord->Enabled = true;
-		actionStopRecord->Enabled = false;
 		actionPlayRecord->Enabled = true;
 		actionClearRecord->Enabled = true;
 		actionSaveRecord->Enabled = true;
 		actionLoadRecord->Enabled = true;
-
+		lbRecord->Enabled = true;
 	}
     Handled = true;
 
@@ -2350,25 +2368,192 @@ void __fastcall TD3AssistantMainForm::actionStartRecordExecute(TObject *Sender)
 {
 	bRecordStarted = true;
 
+	MessageBeep(-1);
+
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::actionStopRecordExecute(TObject *Sender)
 {
 	bRecordStarted = false;
+	MessageBeep(-1);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::actionPlayRecordExecute(TObject *Sender)
 {
+	if(lbRecord->Items->Count==0) return;
+
+	bPlayStarted = true;
+
+//	int delay = edPlayDelay->Text.ToInt();
+
+	CurrentPlayCount = 0;
+	lbRecord->ItemIndex = 0;
+
+	RecordPlayTimer->Interval = 300;
+	RecordPlayTimer->Enabled = false;
+	RecordPlayTimer->Enabled = true;
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::actionClearRecordExecute(TObject *Sender)
+{
 	for(int i=0;i<lbRecord->Items->Count;i++)
 	{
 		keyMacro *p = (keyMacro *)lbRecord->Items->Objects[i];
-		if(p->data.flags==WM_LBUTTONDOWN)
-		{
+		delete p;
+	}
+	lbRecord->Items->Clear();
 
-        }
-    }
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::RecordPlayTimerTimer(TObject *Sender)
+{
+	RecordPlayTimer->Enabled = false;
+
+	int idx = lbRecord->ItemIndex;
+	if(idx<0) return;
+	keyMacro *p = (keyMacro *)lbRecord->Items->Objects[idx];
+
+	if(p->wParam==WM_LBUTTONDOWN)
+	{
+		::SetCursorPos(p->mouse.pt.x,p->mouse.pt.y);
+		MouseDown(mbLeft);
+	}
+	if(p->wParam==WM_LBUTTONUP)
+	{
+		::SetCursorPos(p->mouse.pt.x,p->mouse.pt.y);
+		MouseUp(mbLeft);
+	}
+	if(p->wParam==WM_RBUTTONDOWN)
+	{
+		::SetCursorPos(p->mouse.pt.x,p->mouse.pt.y);
+		MouseDown(mbRight);
+	}
+	if(p->wParam==WM_RBUTTONUP)
+	{
+		::SetCursorPos(p->mouse.pt.x,p->mouse.pt.y);
+		MouseUp(mbRight);
+	}
+	idx++;
+	if(idx==lbRecord->Items->Count)
+	{
+		CurrentPlayCount++;
+		if(CurrentPlayCount<edPlayCount->Text.ToInt())
+		{
+			lbRecord->ItemIndex = 0;
+			RecordPlayTimer->Interval = 300;
+			RecordPlayTimer->Enabled = true;
+			return;
+		}
+		bPlayStarted = false;
+		return;
+	}
+	lbRecord->ItemIndex = idx;
+
+	keyMacro *p2 = (keyMacro *)lbRecord->Items->Objects[idx];
+	int d = p2->mouse.time-p->mouse.time;
+	double f = 100.0/edPlaySpeed->Text.ToDouble();
+
+	RecordPlayTimer->Interval = (int)d*f;;
+
+	RecordPlayTimer->Enabled = true;
+
+
+
+
+}
+//---------------------------------------------------------------------------
+void TD3AssistantMainForm::SaveMacro(String filename)
+{
+	FILE *fp = _wfopen(filename.c_str(),L"w");
+	if(fp==0) return; // error
+	int count = lbRecord->Items->Count;
+
+	fwrite(&count,sizeof(count),1,fp);
+
+	for(int i=0;i<count;i++)
+	{
+		keyMacro *p2 = (keyMacro *)lbRecord->Items->Objects[i];
+		fwrite(&p2->mouse,sizeof(MSLLHOOKSTRUCT),1,fp);
+		fwrite(&p2->keybd,sizeof(KBDLLHOOKSTRUCT),1,fp);
+		fwrite(&p2->wParam,sizeof(WPARAM),1,fp);
+		fwrite(&p2->lParam,sizeof(LPARAM),1,fp);
+
+	}
+
+
+	fclose(fp);
+	edMacroFileName->Text = String("Save-")+filename;
+}
+void TD3AssistantMainForm::LoadMacro(String filename)
+{
+	FILE *fp = _wfopen(filename.c_str(),L"r");
+	if(fp==0) return; // error
+
+	actionClearRecordExecute(0);
+
+	int count;
+	fread(&count,sizeof(count),1,fp);
+
+	for(int i=0;i<count;i++)
+	{
+		keyMacro *p2 = new keyMacro;
+		fread(&p2->mouse,sizeof(MSLLHOOKSTRUCT),1,fp);
+		fread(&p2->keybd,sizeof(KBDLLHOOKSTRUCT),1,fp);
+		fread(&p2->wParam,sizeof(WPARAM),1,fp);
+		fread(&p2->lParam,sizeof(LPARAM),1,fp);
+
+		if(p2->wParam==WM_LBUTTONDOWN)
+		{
+			p2->s.printf(L"WM_LBUTTONDOWN %d %d %d",p2->mouse.pt.x,p2->mouse.pt.y,p2->mouse.time);
+		}
+		if(p2->wParam==WM_LBUTTONUP)
+		{
+			p2->s.printf(L"WM_LBUTTONUP %d %d %d",p2->mouse.pt.x,p2->mouse.pt.y,p2->mouse.time);
+		}
+		if(p2->wParam==WM_RBUTTONDOWN)
+		{
+			p2->s.printf(L"WM_RBUTTONDOWN %d %d %d",p2->mouse.pt.x,p2->mouse.pt.y,p2->mouse.time);
+		}
+		if(p2->wParam==WM_RBUTTONUP)
+		{
+			p2->s.printf(L"WM_RBUTTONUP %d %d %d",p2->mouse.pt.x,p2->mouse.pt.y,p2->mouse.time);
+		}
+
+
+		AddRecord(p2);
+	}
+
+
+
+	fclose(fp);
+	edMacroFileName->Text = String("Load-")+filename;
+}
+
+void __fastcall TD3AssistantMainForm::actionSaveRecordExecute(TObject *Sender)
+{
+	bool r = SaveDialogMacro->Execute();
+	if(r==false) return;
+	String filename = SaveDialogMacro->FileName;
+	SaveMacro(filename);
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::actionLoadRecordExecute(TObject *Sender)
+{
+	bool r = OpenDialogMacro->Execute();
+	if(r==false) return;
+	String filename = OpenDialogMacro->FileName;
+    LoadMacro(filename);
+
 }
 //---------------------------------------------------------------------------
 

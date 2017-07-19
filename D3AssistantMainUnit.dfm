@@ -2,7 +2,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Left = 0
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
-  ClientHeight = 454
+  ClientHeight = 470
   ClientWidth = 404
   Color = clBtnFace
   DoubleBuffered = True
@@ -26,19 +26,19 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Left = 0
     Top = 113
     Width = 404
-    Height = 322
+    Height = 338
     ActivePage = TabSheetMacro
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
     TabOrder = 2
     OnChange = PageControlChange
-    ExplicitWidth = 413
+    ExplicitHeight = 322
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
-      ExplicitWidth = 405
+      ExplicitHeight = 294
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -69,11 +69,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label8: TLabel
         Left = 0
-        Top = 281
+        Top = 297
         Width = 396
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
+        ExplicitTop = 281
         ExplicitWidth = 287
       end
       object Label15: TLabel
@@ -894,7 +895,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitWidth = 405
+      ExplicitHeight = 294
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1478,7 +1479,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitWidth = 405
+      ExplicitHeight = 294
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1537,14 +1538,28 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetMacro: TTabSheet
       Caption = 'Macro'
       ImageIndex = 3
-      ExplicitWidth = 405
+      ExplicitHeight = 294
       DesignSize = (
         396
-        294)
+        310)
+      object Label16: TLabel
+        Left = 3
+        Top = 192
+        Width = 52
+        Height = 13
+        Caption = 'Play Count'
+      end
+      object Label17: TLabel
+        Left = 3
+        Top = 235
+        Width = 52
+        Height = 13
+        Caption = 'Speed (%)'
+      end
       object btnStartRecord: TButton
         Left = 3
         Top = 3
-        Width = 106
+        Width = 141
         Height = 25
         Action = actionStartRecord
         TabOrder = 0
@@ -1552,7 +1567,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object btnStopRecord: TButton
         Left = 3
         Top = 34
-        Width = 106
+        Width = 141
         Height = 25
         Action = actionStopRecord
         TabOrder = 1
@@ -1560,7 +1575,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object btnPlayRecord: TButton
         Left = 3
         Top = 65
-        Width = 106
+        Width = 141
         Height = 25
         Action = actionPlayRecord
         TabOrder = 2
@@ -1568,7 +1583,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object btnClearRecord: TButton
         Left = 3
         Top = 96
-        Width = 106
+        Width = 141
         Height = 25
         Action = actionClearRecord
         TabOrder = 3
@@ -1576,7 +1591,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object btnSaveRecord: TButton
         Left = 3
         Top = 127
-        Width = 106
+        Width = 141
         Height = 25
         Action = actionSaveRecord
         TabOrder = 4
@@ -1584,20 +1599,54 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object btnLoadRecord: TButton
         Left = 3
         Top = 158
-        Width = 106
+        Width = 141
         Height = 25
         Action = actionLoadRecord
         TabOrder = 5
       end
       object lbRecord: TListBox
-        Left = 136
+        Left = 171
         Top = 8
-        Width = 248
-        Height = 281
+        Width = 213
+        Height = 273
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
         TabOrder = 6
-        ExplicitWidth = 257
+        ExplicitHeight = 257
+      end
+      object edPlayCount: TEdit
+        Left = 3
+        Top = 208
+        Width = 106
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 7
+        Text = '1'
+      end
+      object edPlaySpeed: TEdit
+        Left = 3
+        Top = 254
+        Width = 106
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 8
+        Text = '100'
+      end
+      object edMacroFileName: TEdit
+        Left = 0
+        Top = 289
+        Width = 396
+        Height = 21
+        Align = alBottom
+        ReadOnly = True
+        TabOrder = 9
+        ExplicitLeft = 128
+        ExplicitTop = 280
+        ExplicitWidth = 121
       end
     end
   end
@@ -1612,7 +1661,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   end
   object stBar: TStatusBar
     Left = 0
-    Top = 435
+    Top = 451
     Width = 404
     Height = 19
     DoubleBuffered = True
@@ -1620,7 +1669,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitWidth = 413
+    ExplicitTop = 435
   end
   object Panel1: TPanel
     Left = 0
@@ -1630,7 +1679,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 3
-    ExplicitWidth = 413
     object GroupBox1: TGroupBox
       Left = 0
       Top = 0
@@ -1975,31 +2023,54 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Left = 180
     Top = 161
     object actionStartRecord: TAction
-      Caption = 'Start Record'
+      Caption = 'Record (F11)'
       Enabled = False
       OnExecute = actionStartRecordExecute
     end
     object actionStopRecord: TAction
-      Caption = 'Stop Record'
+      Caption = 'Stop (F12)'
       Enabled = False
       OnExecute = actionStopRecordExecute
     end
     object actionPlayRecord: TAction
-      Caption = 'Play Record'
+      Caption = 'Play (F9)'
       Enabled = False
       OnExecute = actionPlayRecordExecute
     end
     object actionClearRecord: TAction
       Caption = 'Clear Record'
       Enabled = False
+      OnExecute = actionClearRecordExecute
     end
     object actionSaveRecord: TAction
       Caption = 'Save Record'
       Enabled = False
+      OnExecute = actionSaveRecordExecute
     end
     object actionLoadRecord: TAction
       Caption = 'Load Record'
       Enabled = False
+      OnExecute = actionLoadRecordExecute
     end
+  end
+  object RecordPlayTimer: TTimer
+    Enabled = False
+    OnTimer = RecordPlayTimerTimer
+    Left = 200
+    Top = 240
+  end
+  object OpenDialogMacro: TOpenDialog
+    DefaultExt = '.assmac'
+    Filter = 'Macro Files|*.assmac|All Files|*.*'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    Left = 264
+    Top = 304
+  end
+  object SaveDialogMacro: TSaveDialog
+    DefaultExt = '.assmac'
+    Filter = 'Macro Files|*.assmac|All Files|*.*'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
+    Left = 200
+    Top = 304
   end
 end

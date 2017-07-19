@@ -516,3 +516,13 @@ void SetSkin(String name)
 	}
 }
 
+
+BYTE state[256];
+
+#define KEY_PRESSED(key) (state[key] & 0x80)
+
+bool IsKeyPressed(int key)    // key = 'A' ,,, VK_SHIFT ...
+{
+	GetKeyboardState(state);
+	return KEY_PRESSED(key);
+}

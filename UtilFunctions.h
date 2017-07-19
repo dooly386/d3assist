@@ -11,5 +11,6 @@ String GetFileVersionString(const String &filename);
 void GetAllFileNames(String path,std::list<String> &ret);
 bool IsValidStyle(String style);
 void SetSkin(String name);
+bool IsKeyPressed(int key);//    // key = 'A' ,,, VK_SHIFT ...
 
 #endif

@@ -61,7 +61,10 @@ struct keyStopRow
 
 struct keyMacro
 {
-	MSLLHOOKSTRUCT data;
+	MSLLHOOKSTRUCT mouse;
+	KBDLLHOOKSTRUCT keybd;
+	WPARAM wParam;
+    LPARAM lParam;
     String s;
 };
 

@@ -204,6 +204,14 @@ __published:	// IDE-managed Components
 	TAction *actionClearRecord;
 	TAction *actionSaveRecord;
 	TAction *actionLoadRecord;
+	TEdit *edPlayCount;
+	TLabel *Label16;
+	TTimer *RecordPlayTimer;
+	TLabel *Label17;
+	TEdit *edPlaySpeed;
+	TOpenDialog *OpenDialogMacro;
+	TSaveDialog *SaveDialogMacro;
+	TEdit *edMacroFileName;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -249,6 +257,10 @@ __published:	// IDE-managed Components
 	void __fastcall actionStartRecordExecute(TObject *Sender);
 	void __fastcall actionStopRecordExecute(TObject *Sender);
 	void __fastcall actionPlayRecordExecute(TObject *Sender);
+	void __fastcall actionClearRecordExecute(TObject *Sender);
+	void __fastcall RecordPlayTimerTimer(TObject *Sender);
+	void __fastcall actionSaveRecordExecute(TObject *Sender);
+	void __fastcall actionLoadRecordExecute(TObject *Sender);
 
 
 private:	// User declarations
@@ -262,6 +274,7 @@ private:	// User declarations
 	bool bLoading;
 	int  iForceMode;
 	String SkinName;
+    int CurrentPlayCount;
 
 	BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(CM_DIALOGKEY, TMessage, CMDialogKey)
@@ -295,7 +308,11 @@ private:	// User declarations
 	void ProcessMouseUp(String key);
 
 	void StartImmediately(String key);
-    void StopImmediately(String key);
+	void StopImmediately(String key);
+
+	void SaveMacro(String filename);
+	void LoadMacro(String filename);
+
 
 
 	bool IsForegroundWindow(HWND hwnd);
@@ -306,6 +323,7 @@ private:	// User declarations
 public:		// User declarations
 	bool bStarted;
 	bool bRecordStarted;
+	bool bPlayStarted;
 
 	void checkColor();
 

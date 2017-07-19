@@ -12,6 +12,7 @@
 
 #include "CallbackFunctions.h"
 #include "D3AssistantMainUnit.h"
+#include "UtilFunctions.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
@@ -35,6 +36,7 @@ char* translate(int vk, int up);
 
 unsigned long keyRepeatCount[256];
 bool keyRepeatCountFlag = false;
+bool altdown = false;
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
@@ -60,11 +62,61 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		keyRepeatCount[kb->vkCode]++;
 	}
-    */
+	*/
 //	DBG(kb->vkCode);
 
 //    return -1;
 
+	/*
+	String s;
+	if(altdown)
+	{
+		s.printf(L"true,%x",kb->vkCode);
+	}
+	else
+	{
+		s.printf(L"false,%x",kb->vkCode);
+	}
+	D3AssistantMainForm->Caption = s;
+	*/
+
+	if(D3AssistantMainForm->PageControl->ActivePage==D3AssistantMainForm->TabSheetMacro)
+	{
+		if(wParam==WM_KEYDOWN)
+		{
+			if(kb->vkCode==0x78) // F9
+			{
+				if(D3AssistantMainForm->bRecordStarted==false)
+				{
+					D3AssistantMainForm->actionPlayRecord->Execute();
+					return -1;
+				}
+
+			}
+			if(kb->vkCode==0x79) // F10
+			{
+
+			}
+			if(kb->vkCode==0x7a) // F11
+			{
+				if(D3AssistantMainForm->bRecordStarted==false)
+				{
+					D3AssistantMainForm->actionStartRecord->Execute();
+					return -1;
+				}
+
+			}
+			if(kb->vkCode==0x7b) // F12
+			{
+				if(D3AssistantMainForm->bRecordStarted==true || D3AssistantMainForm->bPlayStarted)
+				{
+					D3AssistantMainForm->actionStopRecord->Execute();
+					return -1;
+				}
+
+			}
+		}
+	}
 	if(D3AssistantMainForm->bRecordStarted)
 	{
 		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
@@ -79,6 +131,10 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	char *str=0;
 	if (wParam == WM_KEYUP)
 	{
+		if(kb->vkCode==0xa4)
+		{
+			altdown = false;
+		}
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
@@ -97,6 +153,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	}
 	else if (wParam==0x104  && kb->vkCode==0xa4) // alt key down
 	{
+		altdown = true;
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
@@ -127,33 +184,37 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 		if(wParam==WM_LBUTTONDOWN)
 		{
 			keyMacro *k = new keyMacro;
-			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
-            k->data.flags = wParam;
-			k->s.printf(L"WM_LBUTTONDOWN %d %d",p->pt.x,p->pt.y);
+			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
+			k->wParam = wParam;
+			k->lParam = lParam;
+			k->s.printf(L"WM_LBUTTONDOWN %d %d %d",p->pt.x,p->pt.y,p->time);
 			D3AssistantMainForm->AddRecord(k);
 		}
 		if(wParam==WM_LBUTTONUP)
 		{
 			keyMacro *k = new keyMacro;
-			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
-            k->data.flags = wParam;
-			k->s.printf(L"WM_LBUTTONUP %d %d",p->pt.x,p->pt.y);
+			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
+			k->wParam = wParam;
+			k->lParam = lParam;
+			k->s.printf(L"WM_LBUTTONUP %d %d %d",p->pt.x,p->pt.y,p->time);
 			D3AssistantMainForm->AddRecord(k);
 		}
 		if(wParam==WM_RBUTTONDOWN)
 		{
 			keyMacro *k = new keyMacro;
-			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
-            k->data.flags = wParam;
-			k->s.printf(L"WM_RBUTTONDOWN %d %d",p->pt.x,p->pt.y);
+			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
+			k->wParam = wParam;
+			k->lParam = lParam;
+			k->s.printf(L"WM_RBUTTONDOWN %d %d %d",p->pt.x,p->pt.y,p->time);
 			D3AssistantMainForm->AddRecord(k);
 		}
 		if(wParam==WM_RBUTTONUP)
 		{
 			keyMacro *k = new keyMacro;
-			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
-            k->data.flags = wParam;
-			k->s.printf(L"WM_RBUTTONUP %d %d",p->pt.x,p->pt.y);
+			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
+			k->wParam = wParam;
+			k->lParam = lParam;
+			k->s.printf(L"WM_RBUTTONUP %d %d %d",p->pt.x,p->pt.y,p->time);
 			D3AssistantMainForm->AddRecord(k);
 		}
 		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
