@@ -59,6 +59,12 @@ struct keyStopRow
     }
 };
 
+struct keyMacro
+{
+	MSLLHOOKSTRUCT data;
+    String s;
+};
+
 
 extern struct keyRow keyRows[8];
 extern struct keyStopRow keyStopRows[16];

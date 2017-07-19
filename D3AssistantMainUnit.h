@@ -21,7 +21,10 @@
 #include <IdIOHandlerStack.hpp>
 #include <IdSSL.hpp>
 #include <IdSSLOpenSSL.hpp>
+#include <System.Actions.hpp>
+#include <Vcl.ActnList.hpp>
 //---------------------------------------------------------------------------
+#include <KeyRows.h>
 #include <string>
 #include <list>
 
@@ -185,6 +188,22 @@ __published:	// IDE-managed Components
 	TMenuItem *N7;
 	TMenuItem *SkinsMenuGroup;
 	TMenuItem *MenuSkinDefault;
+	TMenuItem *MenuGroupAddOn;
+	TTabSheet *TabSheetMacro;
+	TButton *btnStartRecord;
+	TButton *btnStopRecord;
+	TButton *btnPlayRecord;
+	TButton *btnClearRecord;
+	TButton *btnSaveRecord;
+	TButton *btnLoadRecord;
+	TListBox *lbRecord;
+	TActionList *ActionListMacro;
+	TAction *actionStartRecord;
+	TAction *actionStopRecord;
+	TAction *actionPlayRecord;
+	TAction *actionClearRecord;
+	TAction *actionSaveRecord;
+	TAction *actionLoadRecord;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -226,6 +245,10 @@ __published:	// IDE-managed Components
 	void __fastcall TimerImmediatelyTimer(TObject *Sender);
 	void __fastcall MenuOpenTTSManagerClick(TObject *Sender);
 	void __fastcall MenuSkinDefaultClick(TObject *Sender);
+	void __fastcall ActionListMacroUpdate(TBasicAction *Action, bool &Handled);
+	void __fastcall actionStartRecordExecute(TObject *Sender);
+	void __fastcall actionStopRecordExecute(TObject *Sender);
+	void __fastcall actionPlayRecordExecute(TObject *Sender);
 
 
 private:	// User declarations
@@ -282,8 +305,12 @@ private:	// User declarations
 
 public:		// User declarations
 	bool bStarted;
+	bool bRecordStarted;
 
 	void checkColor();
+
+	void AddRecord(keyMacro *p);
+
 
 	void PushDownKey(int vcode,int scancode);
 	void PushUpKey(int vcode,int scancode);

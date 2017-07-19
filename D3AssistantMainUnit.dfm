@@ -3,7 +3,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 454
-  ClientWidth = 413
+  ClientWidth = 404
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -25,18 +25,20 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object PageControl: TPageControl
     Left = 0
     Top = 113
-    Width = 413
+    Width = 404
     Height = 322
-    ActivePage = KeySettingTabSheet
+    ActivePage = TabSheetMacro
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
     TabOrder = 2
     OnChange = PageControlChange
+    ExplicitWidth = 413
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
+      ExplicitWidth = 405
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -68,7 +70,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object Label8: TLabel
         Left = 0
         Top = 281
-        Width = 405
+        Width = 396
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
@@ -892,6 +894,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
+      ExplicitWidth = 405
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1475,6 +1478,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitWidth = 405
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1530,6 +1534,72 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabOrder = 4
       end
     end
+    object TabSheetMacro: TTabSheet
+      Caption = 'Macro'
+      ImageIndex = 3
+      ExplicitWidth = 405
+      DesignSize = (
+        396
+        294)
+      object btnStartRecord: TButton
+        Left = 3
+        Top = 3
+        Width = 106
+        Height = 25
+        Action = actionStartRecord
+        TabOrder = 0
+      end
+      object btnStopRecord: TButton
+        Left = 3
+        Top = 34
+        Width = 106
+        Height = 25
+        Action = actionStopRecord
+        TabOrder = 1
+      end
+      object btnPlayRecord: TButton
+        Left = 3
+        Top = 65
+        Width = 106
+        Height = 25
+        Action = actionPlayRecord
+        TabOrder = 2
+      end
+      object btnClearRecord: TButton
+        Left = 3
+        Top = 96
+        Width = 106
+        Height = 25
+        Action = actionClearRecord
+        TabOrder = 3
+      end
+      object btnSaveRecord: TButton
+        Left = 3
+        Top = 127
+        Width = 106
+        Height = 25
+        Action = actionSaveRecord
+        TabOrder = 4
+      end
+      object btnLoadRecord: TButton
+        Left = 3
+        Top = 158
+        Width = 106
+        Height = 25
+        Action = actionLoadRecord
+        TabOrder = 5
+      end
+      object lbRecord: TListBox
+        Left = 136
+        Top = 8
+        Width = 248
+        Height = 281
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        ItemHeight = 13
+        TabOrder = 6
+        ExplicitWidth = 257
+      end
+    end
   end
   object Memo1: TMemo
     Left = 782
@@ -1543,22 +1613,24 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object stBar: TStatusBar
     Left = 0
     Top = 435
-    Width = 413
+    Width = 404
     Height = 19
     DoubleBuffered = True
     Panels = <>
     ParentDoubleBuffered = False
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
+    ExplicitWidth = 413
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 413
+    Width = 404
     Height = 113
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 3
+    ExplicitWidth = 413
     object GroupBox1: TGroupBox
       Left = 0
       Top = 0
@@ -1793,47 +1865,50 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Close'
       end
     end
-    object P1: TMenuItem
-      Caption = 'Protection'
-      object MenuOpenProtectionAreaManager: TMenuItem
-        Caption = 'Open Protection Manager'
-        OnClick = MenuOpenProtectionAreaManagerClick
+    object MenuGroupAddOn: TMenuItem
+      Caption = 'Addon'
+      object P1: TMenuItem
+        Caption = 'Protection'
+        object MenuOpenProtectionAreaManager: TMenuItem
+          Caption = 'Open Protection Manager'
+          OnClick = MenuOpenProtectionAreaManagerClick
+        end
+        object N5: TMenuItem
+          Caption = '-'
+        end
+        object MenuLoadFromAreaFile: TMenuItem
+          Caption = 'Load from Area File'
+          OnClick = MenuLoadFromAreaFileClick
+        end
       end
-      object N5: TMenuItem
-        Caption = '-'
+      object T1: TMenuItem
+        Caption = 'TTS'
+        object MenuOpenTTSManager: TMenuItem
+          Caption = 'Open TTS Manager Form'
+          OnClick = MenuOpenTTSManagerClick
+        end
       end
-      object MenuLoadFromAreaFile: TMenuItem
-        Caption = 'Load from Area File'
-        OnClick = MenuLoadFromAreaFileClick
-      end
-    end
-    object T1: TMenuItem
-      Caption = 'TTS'
-      object MenuOpenTTSManager: TMenuItem
-        Caption = 'Open TTS Manager Form'
-        OnClick = MenuOpenTTSManagerClick
-      end
-    end
-    object Y1: TMenuItem
-      Caption = 'YoloMouse'
-      object StartYoloMouseMenu: TMenuItem
-        Caption = 'Start YoloMouse'
-        OnClick = StartYoloMouseMenuClick
-      end
-      object StopYoloMouseMenu: TMenuItem
-        Caption = 'Stop YoloMouse'
-        OnClick = StopYoloMouseMenuClick
-      end
-      object MenuSetYoloMouseTargetProcess: TMenuItem
-        Caption = 'Set YoloMouse Target Process Name'
-        OnClick = MenuSetYoloMouseTargetProcessClick
-      end
-      object N4: TMenuItem
-        Caption = '-'
-      end
-      object YoloMouseHomePageMenu: TMenuItem
-        Caption = 'YoloMouse HomePage'
-        OnClick = YoloMouseHomePageMenuClick
+      object Y1: TMenuItem
+        Caption = 'YoloMouse'
+        object StartYoloMouseMenu: TMenuItem
+          Caption = 'Start YoloMouse'
+          OnClick = StartYoloMouseMenuClick
+        end
+        object StopYoloMouseMenu: TMenuItem
+          Caption = 'Stop YoloMouse'
+          OnClick = StopYoloMouseMenuClick
+        end
+        object MenuSetYoloMouseTargetProcess: TMenuItem
+          Caption = 'Set YoloMouse Target Process Name'
+          OnClick = MenuSetYoloMouseTargetProcessClick
+        end
+        object N4: TMenuItem
+          Caption = '-'
+        end
+        object YoloMouseHomePageMenu: TMenuItem
+          Caption = 'YoloMouse HomePage'
+          OnClick = YoloMouseHomePageMenuClick
+        end
       end
     end
     object H1: TMenuItem
@@ -1894,5 +1969,37 @@ object D3AssistantMainForm: TD3AssistantMainForm
     OnTimer = TimerImmediatelyTimer
     Left = 616
     Top = 56
+  end
+  object ActionListMacro: TActionList
+    OnUpdate = ActionListMacroUpdate
+    Left = 180
+    Top = 161
+    object actionStartRecord: TAction
+      Caption = 'Start Record'
+      Enabled = False
+      OnExecute = actionStartRecordExecute
+    end
+    object actionStopRecord: TAction
+      Caption = 'Stop Record'
+      Enabled = False
+      OnExecute = actionStopRecordExecute
+    end
+    object actionPlayRecord: TAction
+      Caption = 'Play Record'
+      Enabled = False
+      OnExecute = actionPlayRecordExecute
+    end
+    object actionClearRecord: TAction
+      Caption = 'Clear Record'
+      Enabled = False
+    end
+    object actionSaveRecord: TAction
+      Caption = 'Save Record'
+      Enabled = False
+    end
+    object actionLoadRecord: TAction
+      Caption = 'Load Record'
+      Enabled = False
+    end
   end
 end

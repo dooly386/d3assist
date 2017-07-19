@@ -59,6 +59,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	pauseMouseHook = false;
 	MouseClickObject = 0;
 	bLoading = false;
+	bRecordStarted = false;
 
 
 	for(int i=0;i<ComponentCount;i++)
@@ -2306,4 +2307,68 @@ void __fastcall TD3AssistantMainForm::MenuSkinDefaultClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TD3AssistantMainForm::ActionListMacroUpdate(TBasicAction *Action,
+          bool &Handled)
+{
+	Handled = true;
+
+	return;
+	if(bRecordStarted)
+	{
+		actionStartRecord->Enabled = false;
+		actionStopRecord->Enabled = true;
+		actionPlayRecord->Enabled = false;
+		actionClearRecord->Enabled = false;
+		actionSaveRecord->Enabled = false;
+		actionLoadRecord->Enabled = false;
+	}
+	else
+	{
+		actionStartRecord->Enabled = true;
+		actionStopRecord->Enabled = false;
+		actionPlayRecord->Enabled = true;
+		actionClearRecord->Enabled = true;
+		actionSaveRecord->Enabled = true;
+		actionLoadRecord->Enabled = true;
+
+	}
+    Handled = true;
+
+}
+//---------------------------------------------------------------------------
+
+void TD3AssistantMainForm::AddRecord(keyMacro *p)
+{
+	lbRecord->Items->BeginUpdate();
+	int idx = lbRecord->Items->AddObject(p->s,(TObject *)p);
+	lbRecord->ItemIndex = idx;
+	lbRecord->Items->EndUpdate();
+}
+
+
+void __fastcall TD3AssistantMainForm::actionStartRecordExecute(TObject *Sender)
+{
+	bRecordStarted = true;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::actionStopRecordExecute(TObject *Sender)
+{
+	bRecordStarted = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::actionPlayRecordExecute(TObject *Sender)
+{
+	for(int i=0;i<lbRecord->Items->Count;i++)
+	{
+		keyMacro *p = (keyMacro *)lbRecord->Items->Objects[i];
+		if(p->data.flags==WM_LBUTTONDOWN)
+		{
+
+        }
+    }
+}
+//---------------------------------------------------------------------------
 

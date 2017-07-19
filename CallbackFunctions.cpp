@@ -65,6 +65,10 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 //    return -1;
 
+	if(D3AssistantMainForm->bRecordStarted)
+	{
+		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
+	}
 
 	if(pauseKbHook && D3AssistantMainForm->bStarted)
 	{
@@ -117,6 +121,43 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 //	D3AssistantMainForm->Memo1->Lines->Add(GET_XBUTTON_WPARAM(wParam));
 //	D3AssistantMainForm->Memo1->Lines->Add(lParam);
 
+	if(D3AssistantMainForm->bRecordStarted)
+	{
+		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+		if(wParam==WM_LBUTTONDOWN)
+		{
+			keyMacro *k = new keyMacro;
+			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
+            k->data.flags = wParam;
+			k->s.printf(L"WM_LBUTTONDOWN %d %d",p->pt.x,p->pt.y);
+			D3AssistantMainForm->AddRecord(k);
+		}
+		if(wParam==WM_LBUTTONUP)
+		{
+			keyMacro *k = new keyMacro;
+			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
+            k->data.flags = wParam;
+			k->s.printf(L"WM_LBUTTONUP %d %d",p->pt.x,p->pt.y);
+			D3AssistantMainForm->AddRecord(k);
+		}
+		if(wParam==WM_RBUTTONDOWN)
+		{
+			keyMacro *k = new keyMacro;
+			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
+            k->data.flags = wParam;
+			k->s.printf(L"WM_RBUTTONDOWN %d %d",p->pt.x,p->pt.y);
+			D3AssistantMainForm->AddRecord(k);
+		}
+		if(wParam==WM_RBUTTONUP)
+		{
+			keyMacro *k = new keyMacro;
+			memcpy(&k->data,p,sizeof(MSLLHOOKSTRUCT));
+            k->data.flags = wParam;
+			k->s.printf(L"WM_RBUTTONUP %d %d",p->pt.x,p->pt.y);
+			D3AssistantMainForm->AddRecord(k);
+		}
+		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
+	}
 
 	LRESULT r;
 	if(pauseMouseHook)

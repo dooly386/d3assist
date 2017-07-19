@@ -223,7 +223,9 @@ String vk2str(WORD key)
 			return "[=]";
 
 
+		case 0x12:
 		case 0xa4: return "[ALT]";
+
 		case VK_SHIFT:
 			return "[SHIFT]";
 		case VK_CONTROL:
