@@ -42,6 +42,7 @@ bool pauseMouseHook = false;
 
 void DBG(String s)
 {
+	D3AssistantMainForm->Memo1->Visible = true;
 	D3AssistantMainForm->Memo1->Lines->Add(s);
 }
 
@@ -1922,7 +1923,7 @@ void __fastcall TD3AssistantMainForm::FormClose(TObject *Sender, TCloseAction &A
 	StopHook();
 	SaveEnv();
 
-	killYolo();
+	KillYolo();
 
 	actionClearRecordExecute(Sender);
 
@@ -2038,7 +2039,7 @@ void __fastcall TD3AssistantMainForm::YoloMouseHomePageMenuClick(TObject *Sender
 
 void __fastcall TD3AssistantMainForm::StartYoloMouseMenuClick(TObject *Sender)
 {
-	killYolo();
+	KillYolo();
 
 #ifdef _WIN64
 	AnsiString filename = ExtractFilePath(Application->ExeName)+"\\YoloMouse64.exe";
@@ -2057,7 +2058,7 @@ void __fastcall TD3AssistantMainForm::StartYoloMouseMenuClick(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::StopYoloMouseMenuClick(TObject *Sender)
 {
-	killYolo();
+	KillYolo();
 }
 //---------------------------------------------------------------------------
 

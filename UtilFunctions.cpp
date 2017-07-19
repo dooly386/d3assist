@@ -47,7 +47,64 @@ String GetFileVersionString(const String &filename)
 	return a;
 }
 
-void killProcessByName(const char *filename)
+ULONG ProcIDFromWnd(HWND hwnd) // 윈도우 핸들로 프로세스 아이디 얻기
+{
+    ULONG idProc;
+    GetWindowThreadProcessId( hwnd, &idProc );
+    return idProc;
+}
+
+HWND GetWinHandle(ULONG pid) // 프로세스 아이디로 윈도우 핸들 얻기
+{
+    HWND tempHwnd = FindWindow(NULL,NULL); // 최상위 윈도우 핸들 찾기
+
+    while( tempHwnd != NULL )
+    {
+       // 최상위 핸들인지 체크, 버튼 등도 핸들을 가질 수 있으므로 무시하기 위해
+       if( GetParent(tempHwnd) == NULL )
+       if( pid == ProcIDFromWnd(tempHwnd) )
+           return tempHwnd;
+       tempHwnd = GetWindow(tempHwnd, GW_HWNDNEXT); // 다음 윈도우 핸들 찾기
+    }
+    return NULL;
+}
+
+ULONG GetProcIDYolo()
+{
+	char filename[256];
+#ifdef _WIN64
+	strcpy(filename,"YoloMouse64.exe");
+#else
+	strcpy(filename,"YoloMouse32.exe");
+#endif
+
+	HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
+	PROCESSENTRY32 pEntry;
+	pEntry.dwSize = sizeof (pEntry);
+	BOOL hRes = Process32First(hSnapShot, &pEntry);
+	while (hRes)
+	{
+		if (strcmp(pEntry.szExeFile, filename) == 0)
+		{
+			CloseHandle(hSnapShot);
+			return pEntry.th32ProcessID;
+			/*
+			HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, 0,
+										  (DWORD) pEntry.th32ProcessID);
+			if (hProcess != NULL)
+			{
+				TerminateProcess(hProcess, 0);
+				CloseHandle(hProcess);
+			}
+            */
+		}
+		hRes = Process32Next(hSnapShot, &pEntry);
+	}
+	CloseHandle(hSnapShot);
+	return 0;
+
+}
+void KillProcessByName(const char *filename)
 {
 	HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
 	PROCESSENTRY32 pEntry;
@@ -70,13 +127,23 @@ void killProcessByName(const char *filename)
 	CloseHandle(hSnapShot);
 }
 
-void killYolo()
+void KillYolo()
 {
+/*
 #ifdef _WIN64
-	killProcessByName("YoloMouse64.exe");
+	KillProcessByName("YoloMouse64.exe");
 #else
-	killProcessByName("YoloMouse32.exe");
+	KillProcessByName("YoloMouse32.exe");
 #endif
+*/
+	ULONG pid = GetProcIDYolo();
+	if(pid==0) return;
+
+	HWND hwnd = GetWinHandle(pid);
+	if(hwnd==0) return;
+
+//    DBG((long)hwnd);
+	SendMessage(hwnd,WM_COMMAND,1000,0L);
 
 }
 
