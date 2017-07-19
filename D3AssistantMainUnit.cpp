@@ -6,6 +6,7 @@
 	2017.7.17
 */
 #include <map>
+#include <set>
 #include <stdio.h>
 #include <vcl.h>
 #include <IniFiles.hpp>
@@ -222,8 +223,12 @@ void TD3AssistantMainForm::PrepareKeyRows()
 		String timername = String("Timer")+(i+1);
 		String togglename = String("cbToggle")+(i+1);
 
+		keyRows[i].clear();
+
 		keyRows[i].edkey = (TEdit *)FindComponent(keyname);
-		keyRows[i].key = keyRows[i].edkey->Text;
+
+		keyRows[i].key = ParsingKeys(keyRows[i].edkey->Text,keyRows[i].keys);
+
 
 		keyRows[i].edinit = (TEdit *)FindComponent(initname);
 		if(keyRows[i].edinit->Text.Length())
@@ -250,10 +255,11 @@ void TD3AssistantMainForm::PrepareKeyRows()
         }
 
 		keyRows[i].edpause = (TEdit *)FindComponent(poname);
-		keyRows[i].pausekey = keyRows[i].edpause->Text;
+		keyRows[i].pausekey = ParsingKeys(keyRows[i].edpause->Text,keyRows[i].pausekeys);
 
 		keyRows[i].edactive = (TEdit *)FindComponent(activekey);
 		keyRows[i].activekey = keyRows[i].edactive->Text;
+		keyRows[i].activekey = ParsingKeys(keyRows[i].edactive->Text,keyRows[i].activekeys);
 
 		keyRows[i].timer = (TTimer *)FindComponent(timername);
 
@@ -579,13 +585,6 @@ void __fastcall TD3AssistantMainForm::edStartKeyPress(TObject *Sender, System::W
 void __fastcall TD3AssistantMainForm::edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
 
 {
-//	if(ActiveControl==0) return;
-
-	/*
-	String s;
-	s.printf(L"%02x",Key);
-	Caption = s;
-    */
 
 	if(MouseClickObject==Sender)
 	{
@@ -606,7 +605,14 @@ void __fastcall TD3AssistantMainForm::edStartKeyDown(TObject *Sender, WORD &Key,
 			{
 				if(str.Length())
 				{
-					te->Text = str;
+					if(te->Text.Length()==0 || cbMultiKey->Checked==false)
+					{
+						te->Text = str;
+					}
+					else
+					{
+                        te->Text = te->Text+'|'+str;
+                    }
 				}
 			}
 		}
@@ -620,13 +626,10 @@ void __fastcall TD3AssistantMainForm::edStartKeyDown(TObject *Sender, WORD &Key,
 void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseButton Button,
           TShiftState Shift, int X, int Y)
 {
-	/*
-	if(edStart==Sender || edStop==Sender)
+	if(Sender==edImmediatelyKey || Sender==edImmediatelyActive || Sender==edStart || Sender==edStop)
 	{
-		MouseClickObject = Sender;
-		return;
-	}
-	*/
+        cbMultiKey->Checked = false;
+    }
 	if(ActiveControl==0) return;
 
 	if(MouseClickObject==Sender)
@@ -637,17 +640,41 @@ void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseBut
 			if(Button==mbLeft)
 			{
 				TEdit *te = (TEdit *)Sender;
-				te->Text = "[mbLeft]";
+				if(te->Text.Length()==0 || cbMultiKey->Checked==false)
+				{
+					te->Text = "[mbLeft]";
+				}
+				else
+				{
+					te->Text = te->Text+"|"+"[mbLeft]";
+
+                }
 			}
 			if(Button==mbRight)
 			{
 				TEdit *te = (TEdit *)Sender;
-				te->Text = "[mbRight]";
+				if(te->Text.Length()==0 || cbMultiKey->Checked==false)
+				{
+					te->Text = "[mbRight]";
+				}
+				else
+				{
+					te->Text = te->Text+"|"+"[mbRight]";
+
+				}
 			}
 			if(Button==mbMiddle)
 			{
 				TEdit *te = (TEdit *)Sender;
-				te->Text = "[mbMiddle]";
+				if(te->Text.Length()==0 || cbMultiKey->Checked==false)
+				{
+					te->Text = "[mbMiddle]";
+				}
+				else
+				{
+					te->Text = te->Text+"|"+"[mbMiddle]";
+
+				}
 			}
 
 			MouseClickObject = 0;
@@ -777,10 +804,26 @@ void TD3AssistantMainForm::Start()
 		if(row.pausekey.Length())
 		{
 			keyPauseMap[row.pausekey].push_back(&row);
+
+			std::set<String>::iterator it = row.pausekeys.begin();
+			while(it!=row.pausekeys.end())
+			{
+				keyPauseMap[*it].push_back(&row);
+				it++;
+            }
+
+
 		}
 		if(row.activekey.Length())
 		{
 			keyActiveMap[row.activekey].push_back(&row);
+			std::set<String>::iterator it = row.activekeys.begin();
+			while(it!=row.activekeys.end())
+			{
+				keyActiveMap[*it].push_back(&row);
+				it++;
+            }
+
 		}
 	}
 
@@ -1253,7 +1296,14 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 				if(key=="[XButton1]" || key=="[XButton2]")
 				{
 					TEdit *te = (TEdit *)comp;
-					te->Text = key;
+					if(te->Text.Length()==0 || cbMultiKey->Checked==false)
+					{
+						te->Text = key;
+					}
+					else
+					{
+						te->Text = te->Text+"|"+key;
+					}
 				}
 
 				ActiveControl = 0;
@@ -1745,40 +1795,10 @@ void TD3AssistantMainForm::MouseClick(TMouseButton button)
 	pauseMouseHook = false;
 }
 
-void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
+void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 {
-	if(cbOnlyD3->Checked)
-	{
-		HWND hwnd = GetForegroundWindow();
 
-		if(targetHwnd && hwnd!=targetHwnd)
-		{
-            return;
-        }
-		if(hwnd && targetHwnd==0)
-		{
-			char str[255];
-			GetWindowText(hwnd,str,255);
-			String s = str;
-			if(s==edOnlyWindow->Text)
-			{
-				targetHwnd = hwnd;
-			}
-		}
-		if(targetHwnd==0)
-		{
-            return;
-        }
-	}
-
-
-	TTimer *timer = (TTimer *)Sender;
-	keyRow *lprow = keyTimerMap[timer];
-	keyRow &row = *lprow;
-
-	row.timer->Interval = row.interval;
-
-	if(row.key=="[mbLeft]")
+	if(key=="[mbLeft]")
 	{
 		TMouseButton btn = mbLeft;
 		if(row.toggle->Checked)
@@ -1807,7 +1827,7 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		}
 		return;
 	}
-	if(row.key=="[mbRight]")
+	if(key=="[mbRight]")
 	{
 		TMouseButton btn = mbRight;
 		if(row.toggle->Checked)
@@ -1836,7 +1856,7 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		}
 		return;
 	}
-	if(row.key=="[mbMiddle]")
+	if(key=="[mbMiddle]")
 	{
 		TMouseButton btn = mbMiddle;
 		if(row.toggle->Checked)
@@ -1866,12 +1886,12 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		return;
 	}
 
-	if(row.key.Length()>0)
+	if(key.Length()>0)
 	{
-		char vc = row.key[1];
-		if(row.key.Length()>1)
+		char vc = key[1];
+		if(key.Length()>1)
 		{
-			vc = str2vkey(row.key);
+			vc = str2vkey(key);
 			if(vc==0) return;
 		}
 
@@ -1905,6 +1925,49 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 		}
 		return;
 	}
+
+}
+void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
+{
+	if(cbOnlyD3->Checked)
+	{
+		HWND hwnd = GetForegroundWindow();
+
+		if(targetHwnd && hwnd!=targetHwnd)
+		{
+            return;
+        }
+		if(hwnd && targetHwnd==0)
+		{
+			char str[255];
+			GetWindowText(hwnd,str,255);
+			String s = str;
+			if(s==edOnlyWindow->Text)
+			{
+				targetHwnd = hwnd;
+			}
+		}
+		if(targetHwnd==0)
+		{
+            return;
+        }
+	}
+
+
+	TTimer *timer = (TTimer *)Sender;
+	keyRow *lprow = keyTimerMap[timer];
+	keyRow &row = *lprow;
+
+	row.timer->Interval = row.interval;
+
+	SendToAppKey(row,row.key);
+	std::list<String>::iterator it = row.keys.begin();
+	while(it!=row.keys.end())
+	{
+		SendToAppKey(row,*it);
+		it++;
+    }
+
 
 
 
@@ -2127,6 +2190,7 @@ void __fastcall TD3AssistantMainForm::PageControlChange(TObject *Sender)
 		PageControl->TabIndex = 0;
 	}
 */
+    cbMultiKey->Checked = false;
 }
 //---------------------------------------------------------------------------
 
@@ -2163,6 +2227,8 @@ void __fastcall TD3AssistantMainForm::edStartChange(TObject *Sender)
 	{
 		PrepareKeyRows();
 	}
+	TEdit *ed = (TEdit *)Sender;
+    ed->Hint = StringReplace(ed->Text,"|"," ",TReplaceFlags() << rfReplaceAll);
 
 }
 //---------------------------------------------------------------------------

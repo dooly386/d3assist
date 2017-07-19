@@ -5,6 +5,7 @@
 //---------------------------------------------------------------------------
 #include <map>
 #include <list>
+#include <set>
 
 struct keyRow
 {
@@ -17,10 +18,13 @@ struct keyRow
 	TCheckBox *toggle;
 
 	String key;
+    std::list<String> keys;
 	int initial; // inital interval
 	int interval; // seq interval
 	String pausekey;
+	std::set<String> pausekeys;
 	String activekey;
+	std::set<String> activekeys;
 
 	bool pushdown;
 
@@ -37,9 +41,14 @@ struct keyRow
 		initial = 0;
 		interval = 0;
 
-        pushdown = false;
-
+		pushdown = false;
 	}
+	void clear()
+	{
+		keys.clear();
+		pausekeys.clear();
+        activekeys.clear();
+    }
 
 } ;
 

@@ -67,7 +67,6 @@ __published:	// IDE-managed Components
 	TPageControl *PageControl;
 	TTabSheet *KeySettingTabSheet;
 	TTabSheet *EnvironmentTabSheet;
-	TLabel *Label3;
 	TLabel *Label4;
 	TLabel *Label5;
 	TLabel *Label7;
@@ -220,6 +219,7 @@ __published:	// IDE-managed Components
 	TEdit *edInit6;
 	TEdit *edInit7;
 	TEdit *edInit8;
+	TCheckBox *cbMultiKey;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -328,6 +328,8 @@ private:	// User declarations
 
 	void StartHook();
 	void StopHook();
+
+	void SendToAppKey(keyRow &row,String &key);
 
 public:		// User declarations
 	bool bStarted;

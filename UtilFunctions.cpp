@@ -8,6 +8,7 @@
 #include <vcl.h>
 #include <map>
 #include <list>
+#include <set>
 #include <Tlhelp32.h>
 
 #pragma hdrstop
@@ -592,4 +593,47 @@ bool IsKeyPressed(int key)    // key = 'A' ,,, VK_SHIFT ...
 {
 	GetKeyboardState(state);
 	return KEY_PRESSED(key);
+}
+
+String ParsingKeys(String s,std::list<String> &r)
+{
+    if(s.Length()==0) return "";
+	TStringList *t = new TStringList;
+	t->Delimiter = L'|';
+	t->DelimitedText = s;
+	if(t->Count==1)
+	{
+		delete t;
+		return s;
+	}
+
+	for(int i=1;i<t->Count;i++)
+	{
+		r.push_back(t->Strings[i]);
+	}
+	String rs = t->Strings[0];
+	delete t;
+	return rs;
+
+}
+String ParsingKeys(String s,std::set<String> &r)
+{
+    if(s.Length()==0) return "";
+	TStringList *t = new TStringList;
+	t->Delimiter = L'|';
+	t->DelimitedText = s;
+	if(t->Count==1)
+	{
+		delete t;
+		return s;
+	}
+
+	for(int i=1;i<t->Count;i++)
+	{
+		r.insert(t->Strings[i]);
+	}
+	String rs = t->Strings[0];
+	delete t;
+	return rs;
+
 }
