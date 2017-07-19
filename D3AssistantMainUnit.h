@@ -31,7 +31,6 @@
 class TD3AssistantMainForm : public TForm
 {
 __published:	// IDE-managed Components
-	TMemo *Memo1;
 	TSaveDialog *SaveDialog;
 	TOpenDialog *OpenDialog;
 	TTimer *Timer1;
@@ -212,6 +211,7 @@ __published:	// IDE-managed Components
 	TOpenDialog *OpenDialogMacro;
 	TSaveDialog *SaveDialogMacro;
 	TEdit *edMacroFileName;
+	TMenuItem *MenuDebugWindow;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -261,6 +261,7 @@ __published:	// IDE-managed Components
 	void __fastcall RecordPlayTimerTimer(TObject *Sender);
 	void __fastcall actionSaveRecordExecute(TObject *Sender);
 	void __fastcall actionLoadRecordExecute(TObject *Sender);
+	void __fastcall MenuDebugWindowClick(TObject *Sender);
 
 
 private:	// User declarations

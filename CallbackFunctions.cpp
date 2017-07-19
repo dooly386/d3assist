@@ -13,6 +13,7 @@
 #include "CallbackFunctions.h"
 #include "D3AssistantMainUnit.h"
 #include "UtilFunctions.h"
+#include "DebugWindowFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
@@ -29,7 +30,6 @@ bool IsExistLeftDownMouse();
 bool IsExistRightDownMouse();
 bool IsExistMiddleDownMouse();
 
-void ResetMouseDown();
 void DBG(String s);
 char* translate(int vk, int up);
 
@@ -80,6 +80,14 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	D3AssistantMainForm->Caption = s;
 	*/
 
+	if(DebugWindowForm->Visible && DebugWindowForm->cbKbdEvent->Checked)
+	{
+		String s;
+		s.printf(L"nCode=%d,wParam=%x,lParam=%x,vkCode=%x,scCode=%x",nCode,wParam,lParam,kb->vkCode,kb->scanCode);
+		DebugWindowForm->Memo1->Lines->Add(s);
+		DebugWindowForm->Memo1->SelStart = DebugWindowForm->Memo1->GetTextLen();
+		DebugWindowForm->Memo1->SelLength = 0;
+	}
 	if(D3AssistantMainForm->PageControl->ActivePage==D3AssistantMainForm->TabSheetMacro)
 	{
 		if(wParam==WM_KEYDOWN)
@@ -178,6 +186,19 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 //	D3AssistantMainForm->Memo1->Lines->Add(GET_XBUTTON_WPARAM(wParam));
 //	D3AssistantMainForm->Memo1->Lines->Add(lParam);
 
+	if(DebugWindowForm->Visible && DebugWindowForm->cbMouseEvent->Checked)
+	{
+		if(wParam!=WM_MOUSEMOVE)
+		{
+			String s;
+			s.printf(L"nCode=%d,wParam=%x,lParam=%x",nCode,wParam,lParam);
+			DebugWindowForm->Memo1->Lines->Add(s);
+			DebugWindowForm->Memo1->SelStart = DebugWindowForm->Memo1->GetTextLen();
+			DebugWindowForm->Memo1->SelLength = 0;
+
+
+		}
+    }
 	if(D3AssistantMainForm->bRecordStarted)
 	{
 		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
@@ -272,7 +293,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
 				if(IsExistLeftDownMouse() && D3AssistantMainForm->bStarted)
 				{
-					ResetMouseDown();
+//					ResetMouseDown();
 				//				D3AssistantMainForm->MouseDown(mbLeft);
 				}
 				//			if(D3AssistantMainForm->bStarted) return -1;

@@ -3,7 +3,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 470
-  ClientWidth = 407
+  ClientWidth = 411
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -25,20 +25,20 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object PageControl: TPageControl
     Left = 0
     Top = 113
-    Width = 407
+    Width = 411
     Height = 338
     ActivePage = KeySettingTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
-    TabOrder = 2
+    TabOrder = 1
     OnChange = PageControlChange
-    ExplicitWidth = 404
+    ExplicitWidth = 407
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
-      ExplicitWidth = 396
+      ExplicitWidth = 399
       object Label3: TLabel
         Left = 28
         Top = 8
@@ -70,7 +70,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object Label8: TLabel
         Left = 0
         Top = 297
-        Width = 399
+        Width = 403
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
@@ -894,7 +894,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitWidth = 396
+      ExplicitWidth = 399
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1478,7 +1478,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitWidth = 396
+      ExplicitWidth = 399
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1537,9 +1537,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetMacro: TTabSheet
       Caption = 'Macro'
       ImageIndex = 3
-      ExplicitWidth = 396
+      ExplicitWidth = 399
       DesignSize = (
-        399
+        403
         310)
       object Label16: TLabel
         Left = 3
@@ -1606,12 +1606,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object lbRecord: TListBox
         Left = 171
         Top = 8
-        Width = 216
+        Width = 220
         Height = 273
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
         TabOrder = 6
-        ExplicitWidth = 213
+        ExplicitWidth = 216
       end
       object edPlayCount: TEdit
         Left = 3
@@ -1638,47 +1638,38 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edMacroFileName: TEdit
         Left = 0
         Top = 289
-        Width = 399
+        Width = 403
         Height = 21
         Align = alBottom
         ReadOnly = True
         TabOrder = 9
-        ExplicitWidth = 396
+        ExplicitWidth = 399
       end
     end
-  end
-  object Memo1: TMemo
-    Left = 542
-    Top = 189
-    Width = 291
-    Height = 231
-    ScrollBars = ssVertical
-    TabOrder = 0
-    Visible = False
   end
   object stBar: TStatusBar
     Left = 0
     Top = 451
-    Width = 407
+    Width = 411
     Height = 19
     DoubleBuffered = True
     Panels = <>
     ParentDoubleBuffered = False
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitWidth = 404
+    ExplicitWidth = 407
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 407
+    Width = 411
     Height = 113
     Align = alTop
     Caption = 'Panel1'
-    TabOrder = 3
-    ExplicitWidth = 404
+    TabOrder = 2
+    ExplicitWidth = 407
     DesignSize = (
-      407
+      411
       113)
     object lbRecentlyFilesFullPath: TListBox
       Left = 412
@@ -1806,7 +1797,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object lbRecentlyFiles: TListBox
       Left = 261
       Top = 8
-      Width = 142
+      Width = 146
       Height = 97
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
@@ -1817,7 +1808,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       PopupMenu = PopupMenu1
       TabOrder = 4
       OnDblClick = lbRecentlyFilesDblClick
-      ExplicitWidth = 268
+      ExplicitWidth = 142
     end
   end
   object SaveDialog: TSaveDialog
@@ -1960,6 +1951,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
           Caption = 'YoloMouse HomePage'
           OnClick = YoloMouseHomePageMenuClick
         end
+      end
+      object MenuDebugWindow: TMenuItem
+        Caption = 'Debug Window'
+        OnClick = MenuDebugWindowClick
       end
     end
     object H1: TMenuItem

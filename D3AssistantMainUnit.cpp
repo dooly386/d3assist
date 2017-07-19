@@ -21,6 +21,7 @@
 #include "SpeechLib_TLB.h"
 #include "SpeechLib_OCX.h"
 #include "TTSManagerFormUnit.h"
+#include "DebugWindowFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -40,11 +41,6 @@ bool pauseMouseHook = false;
 
 
 
-void DBG(String s)
-{
-	D3AssistantMainForm->Memo1->Visible = true;
-	D3AssistantMainForm->Memo1->Lines->Add(s);
-}
 
 
 
@@ -2582,6 +2578,12 @@ void __fastcall TD3AssistantMainForm::actionLoadRecordExecute(TObject *Sender)
 	String filename = OpenDialogMacro->FileName;
     LoadMacro(filename);
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::MenuDebugWindowClick(TObject *Sender)
+{
+    DebugWindowForm->Show();
 }
 //---------------------------------------------------------------------------
 
