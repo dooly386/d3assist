@@ -34,12 +34,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     TabOrder = 1
     OnChange = PageControlChange
-    ExplicitWidth = 407
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
-      ExplicitWidth = 399
       object Label4: TLabel
         Left = 105
         Top = 8
@@ -1040,7 +1038,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 399
+      ExplicitHeight = 0
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1624,7 +1625,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 399
+      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1683,7 +1687,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetMacro: TTabSheet
       Caption = 'Macro'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 399
+      ExplicitHeight = 0
       DesignSize = (
         474
         310)
@@ -1757,7 +1764,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
         TabOrder = 6
-        ExplicitWidth = 216
       end
       object edPlayCount: TEdit
         Left = 3
@@ -1803,7 +1809,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitWidth = 407
   end
   object Panel1: TPanel
     Left = 0
@@ -1812,7 +1817,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Height = 113
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 407
     DesignSize = (
       482
       113)
@@ -1953,7 +1957,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
       PopupMenu = PopupMenu1
       TabOrder = 4
       OnDblClick = lbRecentlyFilesDblClick
-      ExplicitWidth = 142
     end
   end
   object SaveDialog: TSaveDialog
