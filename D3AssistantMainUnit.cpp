@@ -730,13 +730,15 @@ void TD3AssistantMainForm::Start()
 
 	MouseClickObject = 0;
 
-	if(bStarted)
+	if(bStarted || bPause)
 	{
 		Stop();
 	}
 
 
 	bStarted = true;
+	bPause = false;
+
 	targetHwnd = 0;
 
 	PrepareKeyRows();
@@ -829,6 +831,7 @@ void TD3AssistantMainForm::Stop()
 	}
 
 	bStarted = false;
+	bPause = false;
 
 	for(int i=0;i<8;i++)
 	{
@@ -941,13 +944,13 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		}
 	}
 
-	if(key==edStart->Text && bStarted==false)
+	if(key==edStart->Text && (bStarted==false || bPause))
 	{
 		if(cbDoNotStart->Checked) return;
 		Start();
 		return;
 	}
-	if(key==edStop->Text && bStarted)
+	if(key==edStop->Text && (bStarted || bPause))
 	{
 		Stop();
 		return;
@@ -975,18 +978,18 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		if(it!=keyStopMap.end())
 		{
 			keyStopRow *row = it->second;
-			if(row->type==0)
+			if(row->type==0) // force stop
 			{
 				Stop();
 				return;
 			}
-			if(row->type==1)
+			if(row->type==1) // pause toggle
 			{
 				bPause = !bPause;
 				checkColor();
 				return;
 			}
-			if(row->type==2)
+			if(row->type==2) // pause hold
 			{
 				bPause = true;
 				checkColor();

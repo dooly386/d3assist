@@ -33,11 +33,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     TabOrder = 2
     OnChange = PageControlChange
-    ExplicitHeight = 322
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 294
       object Label3: TLabel
         Left = 28
@@ -70,12 +72,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object Label8: TLabel
         Left = 0
         Top = 297
-        Width = 396
+        Width = 287
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
-        ExplicitTop = 281
-        ExplicitWidth = 287
       end
       object Label15: TLabel
         Left = 165
@@ -895,6 +895,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 294
       object Label9: TLabel
         Left = 3
@@ -1479,6 +1482,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 294
       object Label6: TLabel
         Left = 19
@@ -1538,7 +1544,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetMacro: TTabSheet
       Caption = 'Macro'
       ImageIndex = 3
-      ExplicitHeight = 294
       DesignSize = (
         396
         310)
@@ -1612,7 +1617,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
         TabOrder = 6
-        ExplicitHeight = 257
       end
       object edPlayCount: TEdit
         Left = 3
@@ -1644,9 +1648,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Align = alBottom
         ReadOnly = True
         TabOrder = 9
-        ExplicitLeft = 128
-        ExplicitTop = 280
-        ExplicitWidth = 121
       end
     end
   end
@@ -1669,7 +1670,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitTop = 435
   end
   object Panel1: TPanel
     Left = 0
