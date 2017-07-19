@@ -150,9 +150,6 @@ object TTSManagerForm: TTTSManagerForm
     Align = alBottom
     ReadOnly = True
     TabOrder = 9
-    ExplicitLeft = 144
-    ExplicitTop = 352
-    ExplicitWidth = 121
   end
   object btnStop: TButton
     Left = 89

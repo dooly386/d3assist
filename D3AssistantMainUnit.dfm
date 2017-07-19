@@ -1038,10 +1038,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 399
-      ExplicitHeight = 0
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1625,10 +1621,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 399
-      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -1687,10 +1679,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetMacro: TTabSheet
       Caption = 'Macro'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 399
-      ExplicitHeight = 0
       DesignSize = (
         474
         310)
@@ -1795,7 +1783,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Align = alBottom
         ReadOnly = True
         TabOrder = 9
-        ExplicitWidth = 399
       end
     end
   end

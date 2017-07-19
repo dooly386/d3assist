@@ -1021,7 +1021,10 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		return;
 	}
 
-	SendKeyToTTS(key);
+	if(pauseKbHook==false)
+	{
+		SendKeyToTTS(key);
+    }
 
 	{
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
@@ -1046,7 +1049,7 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 				return;
 			}
 		}
-    }
+	}
 
 
 
@@ -1078,7 +1081,7 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 					{
 						SendToAppKey(row,*it);
 						it++;
-                    }
+					}
 
 					pauseKbHook = false;
 					pauseMouseHook = false;
@@ -1365,6 +1368,11 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 	{
 		StartImmediately(key);
 		return;
+	}
+
+	if(pauseMouseHook==false)
+	{
+		SendKeyToTTS(key);
 	}
 
 	{

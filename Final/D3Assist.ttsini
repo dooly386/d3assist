@@ -1,6 +1,6 @@
 [tts]
 ttstest=Test speech  
-edkey=4
+edkey=[mbRight]
 cbenable=1
 motts=<volume level="50"/>
 1<silence msec="1000"/>

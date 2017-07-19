@@ -341,7 +341,35 @@ void __fastcall TTTSManagerForm::edKeyKeyPress(TObject *Sender, System::WideChar
 void __fastcall TTTSManagerForm::edKeyMouseDown(TObject *Sender, TMouseButton Button,
           TShiftState Shift, int X, int Y)
 {
-    MouseClickObject = Sender;
+	if(MouseClickObject==Sender)
+	{
+		TComponent *comp = (TComponent *)Sender;
+		if(ActiveControl==Sender && comp->Tag==1)
+		{
+			if(Button==mbLeft)
+			{
+				TEdit *te = (TEdit *)Sender;
+				te->Text = "[mbLeft]";
+			}
+			if(Button==mbRight)
+			{
+				TEdit *te = (TEdit *)Sender;
+				te->Text = "[mbRight]";
+			}
+			if(Button==mbMiddle)
+			{
+				TEdit *te = (TEdit *)Sender;
+				te->Text = "[mbMiddle]";
+			}
+
+			MouseClickObject = 0;
+			ActiveControl = 0;
+			return;
+		}
+		ActiveControl = 0;
+    }
+
+	MouseClickObject = Sender;
 }
 //---------------------------------------------------------------------------
 
