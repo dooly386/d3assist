@@ -13,10 +13,10 @@
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
 USEFORM("TTSManagerFormUnit.cpp", TTSManagerForm);
-USEFORM("ABOUT.cpp", AboutBox);
 USEFORM("ProtectionAreaManagerFormUnit.cpp", ProtectionAreaManagerForm);
-USEFORM("D3AssistantMainUnit.cpp", D3AssistantMainForm);
+USEFORM("ABOUT.cpp", AboutBox);
 USEFORM("DebugWindowFormUnit.cpp", DebugWindowForm);
+USEFORM("D3AssistantMainUnit.cpp", D3AssistantMainForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

@@ -191,14 +191,16 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 		if(wParam!=WM_MOUSEMOVE)
 		{
 			String s;
-			s.printf(L"nCode=%d,wParam=%x,lParam=%x",nCode,wParam,lParam);
+			MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
+			short a = HIWORD(p->mouseData);
+			s.printf(L"nCode=%d,wParam=%x,lParam=%x,mouseData=%d",nCode,wParam,lParam,a);
 			DebugWindowForm->Memo1->Lines->Add(s);
 			DebugWindowForm->Memo1->SelStart = DebugWindowForm->Memo1->GetTextLen();
 			DebugWindowForm->Memo1->SelLength = 0;
 
 
 		}
-    }
+	}
 	if(D3AssistantMainForm->bRecordStarted)
 	{
 		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;

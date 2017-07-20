@@ -1006,10 +1006,10 @@ void TD3AssistantMainForm::Stop()
 
 }
 
-void TD3AssistantMainForm::StartImmediately(String key)
+bool TD3AssistantMainForm::StartImmediately(String key)
 {
-	if(cbDoNotStart->Checked) return;
-	if(IsForegroundWindow(Handle)) return;
+	if(cbDoNotStart->Checked) return false;
+	if(IsForegroundWindow(Handle)) return false;
 	if(key==edImmediatelyActive->Text)
 	{
 		if(edImmediatelyDelay->Text.Length())
@@ -1022,10 +1022,12 @@ void TD3AssistantMainForm::StartImmediately(String key)
 			edImmediatelyDelay->Color = clLime;
 			edImmediatelyActive->Color = clLime;
 			targetHwnd = 0;
+            return true;
 
 		}
 
 	}
+	return false;
 
 }
 
@@ -1410,17 +1412,15 @@ void TD3AssistantMainForm::OnMouseXButtonDown(int btn)
 		{
 			if(btn==1)
 			{
-				StartImmediately("[XButton1]");
-				return;
+				if(StartImmediately("[XButton1]")) return;
 			}
 			if(btn==2)
 			{
-				StartImmediately("[XButton2]");
-				return;
+				if(StartImmediately("[XButton2]")) return;
 			}
 
 		}
-    }
+	}
 
 	if(btn==1)
 	{
@@ -1467,6 +1467,8 @@ void TD3AssistantMainForm::OnMouseXButtonUp(int btn)
 
 void TD3AssistantMainForm::ProcessMouseDown(String key)
 {
+//	MessageDlg(key,mtInformation,TMsgDlgButtons()<<mbOK,0);
+//    Memo1->Lines->Add(key);
 	if(bStarted==false)
 	{
 		if(ActiveControl && MouseClickObject==ActiveControl)
@@ -1506,26 +1508,47 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 	}
 
+//	String sss;
+//	sss.printf(L"1 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//	Memo1->Lines->Add(sss);
 	if(key==edStart->Text && bStarted==false)
 	{
 		if(cbDoNotStart->Checked) return;
 		if(key=="[mbLeft]") return;
+
 		Start();
 		bStarted = true;
+
+//		sss.printf(L"5 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//		Memo1->Lines->Add(sss);
 		return;
 	}
+
+//	sss.printf(L"2 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//	Memo1->Lines->Add(sss);
+
 	if(key==edStop->Text && bStarted)
 	{
 		Stop();
 		bStarted = false;
+//		sss.printf(L"6 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//		Memo1->Lines->Add(sss);
 		return;
 	}
+
+//	sss.printf(L"3 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//	Memo1->Lines->Add(sss);
 
 	if(bStarted==false)
 	{
 		StartImmediately(key);
+//		sss.printf(L"7 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//		Memo1->Lines->Add(sss);
 		return;
 	}
+//	sss.printf(L"4 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
+//	Memo1->Lines->Add(sss);
+
 
 	if(bDisableMouseHook==false)
 	{

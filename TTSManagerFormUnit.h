@@ -9,8 +9,6 @@
 #include <Vcl.Forms.hpp>
 #include <Vcl.Dialogs.hpp>
 //---------------------------------------------------------------------------
-#include "SpeechLib_OCX.h"
-#include "SpeechLib_TLB.h"
 
 class TTTSManagerForm : public TForm
 {
@@ -33,6 +31,8 @@ __published:	// IDE-managed Components
 	TCheckBox *cbRepeat;
 	TButton *btnHide;
 	TButton *btnClose;
+	TCheckBox *cbTTSToFile;
+	TEdit *edTTSFileName;
 	void __fastcall btnTTSTestClick(TObject *Sender);
 	void __fastcall btnPlayMemoClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
@@ -47,7 +47,9 @@ __published:	// IDE-managed Components
 	void __fastcall btnCloseClick(TObject *Sender);
 	void __fastcall btnHideClick(TObject *Sender);
 private:	// User declarations
-	Speechlib_tlb::TSpVoice *SpVoice1;
+	ISpVoice *SpVoice1;
+//	Speechlib_tlb::TSpFileStream *SpStream1;
+
     String OpenFileName;
 	String SpeakString;
 	TObject *MouseClickObject;

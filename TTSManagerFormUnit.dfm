@@ -188,6 +188,22 @@ object TTSManagerForm: TTTSManagerForm
     TabOrder = 13
     OnClick = btnCloseClick
   end
+  object cbTTSToFile: TCheckBox
+    Left = 120
+    Top = 328
+    Width = 65
+    Height = 17
+    Caption = 'To File'
+    TabOrder = 14
+  end
+  object edTTSFileName: TEdit
+    Left = 191
+    Top = 327
+    Width = 165
+    Height = 21
+    TabOrder = 15
+    Text = 'sample1'
+  end
   object OpenDialog: TOpenDialog
     DefaultExt = '.ttsmemo'
     Filter = 'TTS Memo Files|*.ttsmemo|All Files|*.*'

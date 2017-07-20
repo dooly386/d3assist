@@ -1,4 +1,6 @@
 //---------------------------------------------------------------------------
+#include <sapi.h>
+
 #include <list>
 
 #include <vcl.h>
@@ -84,7 +86,7 @@ __fastcall TTTSManagerForm::TTTSManagerForm(TComponent* Owner)
 	SpVoice1 = 0;
 	MouseClickObject = 0;
 	LoadEnv();
-    LoadFromFile(OpenFileName);
+	LoadFromFile(OpenFileName);
 }
 bool TTTSManagerForm::Enabled()
 {
@@ -99,55 +101,51 @@ void TTTSManagerForm::ReleaseVoiceModule()
 {
 	if(SpVoice1)
 	{
-		delete SpVoice1;
+		SpVoice1->Release();
 		SpVoice1 = 0;
 	}
 }
 void TTTSManagerForm::PrepareVoiceModule()
 {
 	if(SpVoice1) return;
-	try
-	{
-	SpVoice1 = new Speechlib_tlb::TSpVoice(this);
-	SpVoice1->OnEndStream = OnVoiceEndStream;
-	SpVoice1->OnWord = OnWord;
-	}
-	catch(...)
-	{
-		SpVoice1 = 0;
-	}
+	::CoInitialize(NULL);
+	HRESULT hr = CoCreateInstance(::CLSID_SpVoice, NULL, CLSCTX_ALL, ::IID_ISpVoice, (void **)&SpVoice1);
+
 }
 
 void TTTSManagerForm::Stop()
 {
 	if(SpVoice1==0) return;
-    SpVoice1->Skip(L"Sentence",MAXINT);
+	ReleaseVoiceModule();
+
 }
 
 
 void TTTSManagerForm::Speak()
 {
-	int opt = (int)SpeechVoiceSpeakFlags::SVSFlagsAsync;
-	opt = opt | (int)SpeechVoiceSpeakFlags::SVSFIsXML;
+	if(SpVoice1==0) return;
 
-	SpVoice1->Speak(SpeakString.c_str(),(SpeechVoiceSpeakFlags)opt);
+	if(cbTTSToFile->Checked)
+	{
+
+//		ISpStream *stm;
+//		ISpStream::BindToFile( L"d:\\ttstemp.wav",  SPFM_CREATE_ALWAYS, &stm, 0);
+
+		return;
+	}
+	SpVoice1->Speak(SpeakString.c_str(), ::SpeechVoiceSpeakFlags::SVSFlagsAsync, NULL);
+
 
 }
 
 void TTTSManagerForm::Play()
 {
-//	ReleaseVoiceModule();
-	Stop();
 	PrepareVoiceModule();
 	if(SpVoice1==0) return;
 
-	SpVoice1->Volume = 100;
-
-	int opt = (int)SpeechVoiceSpeakFlags::SVSFlagsAsync;
-	opt = opt | (int)SpeechVoiceSpeakFlags::SVSFIsXML;
-
 	SpeakString = moTTS->Lines->Text.Trim();
 	Speak();
+
 }
 
 void __fastcall TTTSManagerForm::OnVoiceEndStream(System::TObject * Sender,long StreamNumber,VARIANT StreamPosition)

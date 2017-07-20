@@ -222,6 +222,7 @@ __published:	// IDE-managed Components
 	TTabSheet *TabSheetSequenceKey;
 	TLabel *Label3;
 	TCheckBox *cbMultiKeyAndMode;
+	TLabel *Label7;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -319,7 +320,7 @@ private:	// User declarations
 	void ProcessMouseDown(String key);
 	void ProcessMouseUp(String key);
 
-	void StartImmediately(String key);
+	bool StartImmediately(String key);
 	void StopImmediately(String key);
 
 	void SaveMacro(String filename);

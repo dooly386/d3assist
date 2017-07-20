@@ -1046,6 +1046,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetSequenceKey: TTabSheet
       Caption = 'Sequence Key'
       ImageIndex = 4
+      object Label7: TLabel
+        Left = 8
+        Top = 16
+        Width = 75
+        Height = 13
+        Caption = 'not yet support'
+      end
     end
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
