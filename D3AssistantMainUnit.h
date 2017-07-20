@@ -69,7 +69,6 @@ __published:	// IDE-managed Components
 	TTabSheet *EnvironmentTabSheet;
 	TLabel *Label4;
 	TLabel *Label5;
-	TLabel *Label7;
 	TEdit *edActive1;
 	TEdit *edPause1;
 	TEdit *edDelay1;
@@ -220,6 +219,9 @@ __published:	// IDE-managed Components
 	TEdit *edInit7;
 	TEdit *edInit8;
 	TCheckBox *cbMultiKey;
+	TTabSheet *TabSheetSequenceKey;
+	TLabel *Label3;
+	TCheckBox *cbMultiKeyAndMode;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -283,7 +285,8 @@ private:	// User declarations
 	bool bLoading;
 	int  iForceMode;
 	String SkinName;
-    int CurrentPlayCount;
+	int CurrentPlayCount;
+    std::map<String,int> keyState;  //0 up, 1 down
 
 	BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(CM_DIALOGKEY, TMessage, CMDialogKey)
@@ -322,6 +325,9 @@ private:	// User declarations
 	void SaveMacro(String filename);
 	void LoadMacro(String filename);
 
+	int GetActiveKeyState(keyRow &row); // 0 up, 1 down, -1 no key assign
+	int GetPauseKeyState(keyRow &row); // 0 up, 1 down, -1 no key assign
+
 
 
 	bool IsForegroundWindow(HWND hwnd);
@@ -349,6 +355,12 @@ public:		// User declarations
 	void MouseDown(TMouseButton button);
 	void MouseUp(TMouseButton button);
 	void MouseClick(TMouseButton button);
+
+	void MouseDownX(int btn);
+	void MouseUpX(int btn);
+
+	void MouseWheel(int delta);
+
 
 
 	void OnKeyDownHook(String key);

@@ -3,7 +3,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 470
-  ClientWidth = 482
+  ClientWidth = 486
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -26,7 +26,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object PageControl: TPageControl
     Left = 0
     Top = 113
-    Width = 482
+    Width = 486
     Height = 338
     ActivePage = KeySettingTabSheet
     Align = alClient
@@ -46,23 +46,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Delay and Interval(msec)'
       end
       object Label5: TLabel
-        Left = 286
+        Left = 285
         Top = 8
         Width = 50
         Height = 13
         Caption = 'Pause Key'
       end
-      object Label7: TLabel
-        Left = 380
-        Top = 8
-        Width = 51
-        Height = 13
-        Caption = 'Active Key'
-      end
       object Label8: TLabel
         Left = 0
         Top = 297
-        Width = 474
+        Width = 478
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
@@ -77,16 +70,23 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label14: TLabel
         Left = 200
-        Top = 256
+        Top = 274
         Width = 112
         Height = 13
         Caption = '<<-- Immediately -->>'
       end
+      object Label3: TLabel
+        Left = 381
+        Top = 8
+        Width = 51
+        Height = 13
+        Caption = 'Active Key'
+      end
       object edActive1: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 24
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -104,9 +104,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause1: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 24
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -212,9 +212,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause2: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 51
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -232,9 +232,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive2: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 51
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -252,9 +252,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive3: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 78
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -272,9 +272,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause3: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 78
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -556,9 +556,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause4: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 105
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -576,9 +576,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause5: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 132
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -594,9 +594,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause6: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 159
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -612,9 +612,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause7: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 186
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -630,9 +630,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edPause8: TEdit
         Tag = 1
-        Left = 286
+        Left = 270
         Top = 213
-        Width = 88
+        Width = 75
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -648,9 +648,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive8: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 213
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -666,9 +666,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive7: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 186
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -684,9 +684,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive6: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 159
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -702,9 +702,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive5: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 132
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -720,9 +720,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edActive4: TEdit
         Tag = 1
-        Left = 380
+        Left = 348
         Top = 105
-        Width = 88
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -821,7 +821,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edImmediatelyKey: TEdit
         Tag = 1
         Left = 3
-        Top = 250
+        Top = 268
         Width = 96
         Height = 19
         TabStop = False
@@ -847,7 +847,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edImmediatelyDelay: TEdit
         Tag = 2
         Left = 105
-        Top = 250
+        Top = 268
         Width = 66
         Height = 19
         TabStop = False
@@ -864,9 +864,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edImmediatelyActive: TEdit
         Tag = 1
-        Left = 380
-        Top = 250
-        Width = 88
+        Left = 348
+        Top = 268
+        Width = 120
         Height = 19
         TabStop = False
         Alignment = taCenter
@@ -1028,12 +1028,24 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object cbMultiKey: TCheckBox
         Left = 28
-        Top = 4
+        Top = 6
         Width = 49
         Height = 17
         Caption = 'Key+'
         TabOrder = 51
       end
+      object cbMultiKeyAndMode: TCheckBox
+        Left = 270
+        Top = 238
+        Width = 205
+        Height = 17
+        Caption = 'Multikey AND Mode'
+        TabOrder = 52
+      end
+    end
+    object TabSheetSequenceKey: TTabSheet
+      Caption = 'Sequence Key'
+      ImageIndex = 4
     end
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
@@ -1680,7 +1692,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       Caption = 'Macro'
       ImageIndex = 3
       DesignSize = (
-        474
+        478
         310)
       object Label16: TLabel
         Left = 3
@@ -1747,7 +1759,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object lbRecord: TListBox
         Left = 171
         Top = 8
-        Width = 291
+        Width = 295
         Height = 273
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
@@ -1778,7 +1790,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edMacroFileName: TEdit
         Left = 0
         Top = 289
-        Width = 474
+        Width = 478
         Height = 21
         Align = alBottom
         ReadOnly = True
@@ -1789,7 +1801,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object stBar: TStatusBar
     Left = 0
     Top = 451
-    Width = 482
+    Width = 486
     Height = 19
     DoubleBuffered = True
     Panels = <>
@@ -1800,12 +1812,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 482
+    Width = 486
     Height = 113
     Align = alTop
     TabOrder = 2
     DesignSize = (
-      482
+      486
       113)
     object lbRecentlyFilesFullPath: TListBox
       Left = 412
@@ -1933,7 +1945,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object lbRecentlyFiles: TListBox
       Left = 261
       Top = 8
-      Width = 217
+      Width = 221
       Height = 97
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False

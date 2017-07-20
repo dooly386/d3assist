@@ -597,7 +597,8 @@ bool IsKeyPressed(int key)    // key = 'A' ,,, VK_SHIFT ...
 
 String ParsingKeys(String s,std::list<String> &r)
 {
-    if(s.Length()==0) return "";
+	if(s.Length()==0) return "";
+
 	TStringList *t = new TStringList;
 	t->Delimiter = L'|';
 	t->DelimitedText = s;
@@ -616,9 +617,32 @@ String ParsingKeys(String s,std::list<String> &r)
 	return rs;
 
 }
-String ParsingKeys(String s,std::set<String> &r)
+String ParsingKeys(String s,std::set<String> &r,std::set<String> &andr)
 {
-    if(s.Length()==0) return "";
+	if(s.Length()==0) return "";
+	if(s.Pos("&"))
+	{
+		TStringList *t = new TStringList;
+		t->Delimiter = L'&';
+		t->DelimitedText = s;
+		if(t->Count==1)
+		{
+			delete t;
+			return s;
+		}
+
+		for(int i=1;i<t->Count;i++)
+		{
+			andr.insert(t->Strings[i]);
+		}
+		String rs = t->Strings[0];
+		delete t;
+		return rs;
+
+	}
+
+
+
 	TStringList *t = new TStringList;
 	t->Delimiter = L'|';
 	t->DelimitedText = s;

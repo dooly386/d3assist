@@ -16,6 +16,6 @@ void SetSkin(String name);
 bool IsKeyPressed(int key);//    // key = 'A' ,,, VK_SHIFT ...
 void DBG(String s);
 String ParsingKeys(String s,std::list<String> &r);
-String ParsingKeys(String s,std::set<String> &r);
+String ParsingKeys(String s,std::set<String> &r,std::set<String> &andr);
 
 #endif

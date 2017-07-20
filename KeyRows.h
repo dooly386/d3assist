@@ -18,15 +18,21 @@ struct keyRow
 	TCheckBox *toggle;
 
 	String key;
-    std::list<String> keys;
+	std::list<String> keys;
+
 	int initial; // inital interval
 	int interval; // seq interval
 	String pausekey;
 	std::set<String> pausekeys;
+	std::set<String> pausekeysand;
+
 	String activekey;
 	std::set<String> activekeys;
+	std::set<String> activekeysand;
 
 	bool pushdown;
+	int pausecount;
+    int activecount;
 
 	keyRow()
 	{
@@ -40,14 +46,21 @@ struct keyRow
 
 		initial = 0;
 		interval = 0;
+		pausecount = 0;
 
 		pushdown = false;
 	}
 	void clear()
 	{
+		pausecount = 0;
+		activecount = 0;
+		pushdown = false;
+
 		keys.clear();
 		pausekeys.clear();
-        activekeys.clear();
+		activekeys.clear();
+		pausekeysand.clear();
+		activekeysand.clear();
     }
 
 } ;
