@@ -1,6 +1,4 @@
-//---------------------------------------------------------------------------
-#include <sapi.h>
-
+ï»¿//---------------------------------------------------------------------------
 #include <list>
 
 #include <vcl.h>
@@ -59,7 +57,7 @@ void SendKeyToTTS(String key)
 		{
 			if(form->edKey->Text==key)
 			{
-				form->Play();
+				form->btnPlayMemoClick(0);
 			}
 		}
 		it++;
@@ -87,7 +85,9 @@ __fastcall TTTSManagerForm::TTTSManagerForm(TComponent* Owner)
 	MouseClickObject = 0;
 	LoadEnv();
 	LoadFromFile(OpenFileName);
+
 }
+
 bool TTTSManagerForm::Enabled()
 {
 	return cbEnable->Checked;
@@ -101,21 +101,32 @@ void TTTSManagerForm::ReleaseVoiceModule()
 {
 	if(SpVoice1)
 	{
-		SpVoice1->Release();
+		delete SpVoice1;
 		SpVoice1 = 0;
 	}
 }
-void TTTSManagerForm::PrepareVoiceModule()
+bool TTTSManagerForm::PrepareVoiceModule()
 {
-	if(SpVoice1) return;
-	::CoInitialize(NULL);
-	HRESULT hr = CoCreateInstance(::CLSID_SpVoice, NULL, CLSCTX_ALL, ::IID_ISpVoice, (void **)&SpVoice1);
+	if(SpVoice1) return true;
+	try
+	{
+	SpVoice1 = new Speechlib_tlb::TSpVoice(this);
+	SpVoice1->OnEndStream = OnVoiceEndStream;
+	SpVoice1->OnWord = OnWord;
 
+	return true;
+	}
+	catch(...)
+	{
+		SpVoice1 = 0;
+	}
+	return false;
 }
 
 void TTTSManagerForm::Stop()
 {
-	if(SpVoice1==0) return;
+//	if(SpVoice1==0) return;
+//	SpVoice1->Skip(L"Sentence",MAXINT);
 	ReleaseVoiceModule();
 
 }
@@ -123,30 +134,22 @@ void TTTSManagerForm::Stop()
 
 void TTTSManagerForm::Speak()
 {
-	if(SpVoice1==0) return;
+	int opt = (int)SpeechVoiceSpeakFlags::SVSFlagsAsync;
+	opt = opt | (int)SpeechVoiceSpeakFlags::SVSFIsXML;
 
-	if(cbTTSToFile->Checked)
-	{
-
-//		ISpStream *stm;
-//		ISpStream::BindToFile( L"d:\\ttstemp.wav",  SPFM_CREATE_ALWAYS, &stm, 0);
-
-		return;
-	}
-	SpVoice1->Speak(SpeakString.c_str(), ::SpeechVoiceSpeakFlags::SVSFlagsAsync, NULL);
+	/*
+	opt = (int)SpeechVoiceSpeakFlags::SVSFDefault;
+	TSpFileStream *stream = new TSpFileStream(this);
+	stream->Open(L"d:\\test.wav",SpeechStreamFileMode::SSFMCreateForWrite,false);
+	SpVoice1->_set_AudioOutputStream((Speechlib_tlb::ISpeechBaseStream *)stream->GetDefaultInterface());
+	*/
 
 
-}
-
-void TTTSManagerForm::Play()
-{
-	PrepareVoiceModule();
-	if(SpVoice1==0) return;
-
-	SpeakString = moTTS->Lines->Text.Trim();
-	Speak();
+	SpVoice1->Speak(SpeakString.c_str(),(SpeechVoiceSpeakFlags)opt);
+//	stream->Close();
 
 }
+
 
 void __fastcall TTTSManagerForm::OnVoiceEndStream(System::TObject * Sender,long StreamNumber,VARIANT StreamPosition)
 {
@@ -165,38 +168,8 @@ void __fastcall  TTTSManagerForm::OnWord(System::TObject * Sender,
 												   long CharacterPosition/*[in]*/,
 												   long Length/*[in]*/)
 {
-//	Caption = CharacterPosition;
-
 	String word = SpeakString.SubString(CharacterPosition+1,Length);
-	/*
-	int L = SpeakString.Length();
-	String word;
-	int i = CharacterPosition+1;
-	while(true)
-	{
-		if(i>L) break;
-		WORD w = SpeakString[i];
-		if(w==0 || w==L' ' || w=='<' || w=='\r' || w=='\t' || w=='\n' ) break;
-		word = word + wchar_t(w);
-		i++;
-	}
-
-	if(word==L"repeat")
-	{
-		Stop();
-		Speak();
-	}
-	*/
-	if(cbRepeat->Checked)
-	{
-		long a = CharacterPosition+Length;
-		if(SpeakString.Length()==a)
-		{
-			Stop();
-			Speak();
-		}
-    }
-
+    stBar->Text = word;
 }
 
 
@@ -261,7 +234,7 @@ void TTTSManagerForm::LoadEnv()
 	if(FileExists(filename))
 	{
 		TIniFile *ini = new TIniFile(filename);
-		edTTSTest->Text = ini->ReadString("tts","ttstest","¾È³çÇÏ¼¼¿ä.<silence msec='3000'/>¹Ý°©½À´Ï´Ù.");
+		edTTSTest->Text = ini->ReadString("tts","ttstest","ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.<silence msec='3000'/>ï¿½Ý°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 		edKey->Text = ini->ReadString("tts","edkey","");
 		cbEnable->Checked = ini->ReadBool("tts","cbenable",false);
         OpenFileName = ini->ReadString("tts","OpenFileName","");
@@ -270,9 +243,35 @@ void TTTSManagerForm::LoadEnv()
 
 }
 //---------------------------------------------------------------------------
+void TTTSManagerForm::Play()
+{
+
+	Stop();
+	PrepareVoiceModule();
+	if(SpVoice1==0) return;
+
+	SpVoice1->Volume = 100;
+
+	int opt = (int)SpeechVoiceSpeakFlags::SVSFlagsAsync;
+	opt = opt | (int)SpeechVoiceSpeakFlags::SVSFIsXML;
+
+	SpeakString = moTTS->Lines->Text.Trim();
+	Speak();
+}
+
 void __fastcall TTTSManagerForm::btnPlayMemoClick(TObject *Sender)
 {
-	Play();
+	Stop();
+	RepeatTimer->Enabled = false;
+	if(cbRepeat->Checked==false)
+	{
+		Play();
+		return;
+	}
+
+	RepeatTimer->Interval = 1;
+    RepeatTimer->Enabled = true;
+
 
 }
 //---------------------------------------------------------------------------
@@ -391,6 +390,7 @@ void __fastcall TTTSManagerForm::btnLoadFromFileClick(TObject *Sender)
 
 void __fastcall TTTSManagerForm::btnStopClick(TObject *Sender)
 {
+	RepeatTimer->Enabled = false;
 	Stop();
 }
 //---------------------------------------------------------------------------
@@ -408,4 +408,54 @@ void __fastcall TTTSManagerForm::btnHideClick(TObject *Sender)
     Hide();
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TTTSManagerForm::btnSaveToWaveFileClick(TObject *Sender)
+{
+	String filename = edWaveFileName->Text;
+	if(filename.Length()==0)
+	{
+		MessageDlg("Please input filename",mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+		return;
+	}
+	String path = GetInstallPath()+"\\tts";
+	ForceDirectories(path);
+
+	filename = path+"\\"+filename+".wav";
+
+	if(PrepareVoiceModule()==false) return;
+
+
+	int opt = (int)SpeechVoiceSpeakFlags::SVSFIsXML;
+	TSpFileStream *stream = new TSpFileStream(this);
+	stream->Open(filename.c_str(),SpeechStreamFileMode::SSFMCreateForWrite,false);
+	SpVoice1->_set_AudioOutputStream((Speechlib_tlb::ISpeechBaseStream *)stream->GetDefaultInterface());
+
+
+	SpeakString = moTTS->Lines->Text.Trim();
+	SpVoice1->Speak(SpeakString.c_str(),(SpeechVoiceSpeakFlags)opt);
+	stream->Close();
+	delete stream;
+
+    stBar->Text = String("Save ")+filename;
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TTTSManagerForm::RepeatTimerTimer(TObject *Sender)
+{
+	TTimer *timer = (TTimer *)Sender;
+	timer->Enabled = false;
+	timer->Interval = edRepeatInterval->Text.ToInt();
+	timer->Enabled = cbRepeat->Checked;
+//    MessageBeep(-1);
+	Play();
+
+
+
+}
+//---------------------------------------------------------------------------
+
+
+
 

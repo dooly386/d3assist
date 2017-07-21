@@ -55,9 +55,9 @@ ULONG ProcIDFromWnd(HWND hwnd) // 윈도우 핸들로 프로세스 아이디 얻기
     return idProc;
 }
 
-HWND GetWinHandle(ULONG pid) // 프로세스 아이디로 윈도우 핸들 얻기
+HWND GetWinHandleByPid(ULONG pid)
 {
-    HWND tempHwnd = FindWindow(NULL,NULL); // 최상위 윈도우 핸들 찾기
+	HWND tempHwnd = FindWindow(NULL,NULL); // 최상위 윈도우 핸들 찾기
 
     while( tempHwnd != NULL )
     {
@@ -128,25 +128,52 @@ void KillProcessByName(const char *filename)
 	CloseHandle(hSnapShot);
 }
 
+
 void KillYolo()
 {
-/*
-#ifdef _WIN64
-	KillProcessByName("YoloMouse64.exe");
-#else
-	KillProcessByName("YoloMouse32.exe");
-#endif
-*/
 	ULONG pid = GetProcIDYolo();
 	if(pid==0) return;
 
-	HWND hwnd = GetWinHandle(pid);
+	HWND hwnd = GetWinHandleByPid(pid);
 	if(hwnd==0) return;
 
-//    DBG((long)hwnd);
 	SendMessage(hwnd,WM_COMMAND,1000,0L);
+}
+
+ULONG GetPidByProcessName(const char *processname)
+{
+	HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
+	PROCESSENTRY32 pEntry;
+	pEntry.dwSize = sizeof (pEntry);
+	BOOL hRes = Process32First(hSnapShot, &pEntry);
+	while (hRes)
+	{
+		if (strcmp(pEntry.szExeFile, processname) == 0)
+		{
+			HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, 0,
+										  (DWORD) pEntry.th32ProcessID);
+			if (hProcess != NULL)
+			{
+				CloseHandle(hProcess);
+				CloseHandle(hSnapShot);
+				return pEntry.th32ProcessID;
+			}
+		}
+		hRes = Process32Next(hSnapShot, &pEntry);
+	}
+	CloseHandle(hSnapShot);
+	return 0;
+}
+
+HWND GetWinHandleByProcessName(const char *procname)
+{
+	ULONG pid = GetPidByProcessName(procname);
+	if(pid==0) return 0;
+	HWND hwnd = GetWinHandleByPid(pid);
+	return hwnd;
 
 }
+
 
 std::map<String,int> strvkeymap;
 int str2vkey(String s)
@@ -661,3 +688,10 @@ String ParsingKeys(String s,std::set<String> &r,std::set<String> &andr)
 	return rs;
 
 }
+
+
+String GetInstallPath()
+{
+	return ExtractFilePath(Application->ExeName);
+}
+

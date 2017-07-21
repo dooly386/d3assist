@@ -17,6 +17,7 @@ USEFORM("ProtectionAreaManagerFormUnit.cpp", ProtectionAreaManagerForm);
 USEFORM("ABOUT.cpp", AboutBox);
 USEFORM("DebugWindowFormUnit.cpp", DebugWindowForm);
 USEFORM("D3AssistantMainUnit.cpp", D3AssistantMainForm);
+USEFORM("MediaPlayerFormUnit.cpp", MediaPlayerForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

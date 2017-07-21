@@ -11,6 +11,8 @@
 #include <vcl.h>
 #include <IniFiles.hpp>
 #include <Tlhelp32.h>
+#include <Vcl.MPlayer.hpp>
+#include <Vcl.ExtCtrls.hpp>
 #pragma hdrstop
 
 #include "D3AssistantMainUnit.h"
@@ -23,6 +25,7 @@
 #include "SpeechLib_OCX.h"
 #include "TTSManagerFormUnit.h"
 #include "DebugWindowFormUnit.h"
+#include "MediaPlayerFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -1115,6 +1118,15 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		}
 	}
 
+	if(key==edYoloLoopStart->Text)
+	{
+		StartYoloCycle();
+	}
+	if(key==edYoloLoopStop->Text)
+	{
+        StopYoloCycle();
+    }
+
 	if(key==edStart->Text && (bStarted==false || bPause))
 	{
 		if(cbDoNotStart->Checked) return;
@@ -1127,6 +1139,10 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		return;
 	}
 
+	if(bDisableKbHook==false)
+	{
+		SendKeyToTTS(key);
+    }
 
 
 	if(bStarted==false)
@@ -1142,10 +1158,6 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		return;
 	}
 
-	if(bDisableKbHook==false)
-	{
-		SendKeyToTTS(key);
-    }
 
 	{
 		std::map<String,keyStopRow *>::iterator it = keyStopMap.find(key);
@@ -2518,9 +2530,9 @@ void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject
 
 {
 #ifdef _WIN64
-	String InputString= Dialogs::InputBox("Input Target Process Name","Please input target process name(ex:Diablo III64.exe)", "Diablo III64.exe");
+	String InputString= Dialogs::InputBox("Input Target Process Name","Please input target process name(ex:Diablo III64.exe) or *.*", "Diablo III64.exe");
 #else
-	String InputString= Dialogs::InputBox("Input Target Process Name","Please input target process name(ex:Diablo III.exe)", "Diablo III.exe");
+	String InputString= Dialogs::InputBox("Input Target Process Name","Please input target process name(ex:Diablo III.exe) or *.*", "Diablo III.exe");
 #endif
 
 	CHAR apppath[MAX_PATH];
@@ -3042,7 +3054,112 @@ void __fastcall TD3AssistantMainForm::actionLoadRecordExecute(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::MenuDebugWindowClick(TObject *Sender)
 {
-    DebugWindowForm->Show();
+	DebugWindowForm->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::N9Click(TObject *Sender)
+{
+	TMediaPlayerForm *form = CreateMediaPlayerForm(this);
+    form->Show();
+}
+//---------------------------------------------------------------------------
+
+struct yolocursor
+{
+	int group;
+	int idx;
+};
+std::list<yolocursor> YoloCursors;
+std::list<yolocursor>::iterator itYoloCursor;
+
+void TD3AssistantMainForm::StartYoloCycle()
+{
+#ifndef _WIN64
+	if(GetWinHandleByProcessName("YoloMouse32.exe")==0)
+	{
+		StartYoloMouseMenuClick(0);
+	}
+#else
+	if(GetWinHandleByProcessName("YoloMouse64.exe")==0)
+	{
+		StartYoloMouseMenuClick(0);
+	}
+#endif
+
+
+	YoloCursors.clear();
+
+	for(int i=1;i<=8;i++)
+	{
+		String name1 = String("edCurGrp")+String(i);
+		TEdit *ed1 = (TEdit *)FindComponent(name1);
+		String name2 = String("edCurId")+String(i);
+		TEdit *ed2 = (TEdit *)FindComponent(name2);
+		if(ed1->Text.Length()==0) continue;
+		if(ed2->Text.Length()==0) continue;
+		int a = ed1->Text.ToInt();
+		int b = ed2->Text.ToInt();
+		yolocursor y;
+		y.group = a;
+		y.idx = b;
+		YoloCursors.push_back(y);
+	}
+	itYoloCursor = YoloCursors.begin();
+    if(itYoloCursor==YoloCursors.end()) return;
+
+	TimerYoloCursor->Interval = 1;
+
+	TimerYoloCursor->Enabled = true;
+
+}
+
+void TD3AssistantMainForm::StopYoloCycle()
+{
+	TimerYoloCursor->Enabled = false;
+}
+
+void __fastcall TD3AssistantMainForm::btnYoloLoopTestClick(TObject *Sender)
+{
+	if(TimerYoloCursor->Enabled)
+	{
+		StopYoloCycle();
+		return;
+	}
+	StartYoloCycle();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
+{
+	TimerYoloCursor->Enabled = false;
+	TimerYoloCursor->Interval = edYoloLoopInterval->Text.ToInt();
+
+#ifndef _WIN64
+	HWND hwnd = GetWinHandleByProcessName("YoloMouse32.exe");
+#else
+	HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
+#endif
+	yolocursor &cur = *itYoloCursor;
+	SendMessage(hwnd,WM_USER+1000,cur.group,cur.idx);
+
+	itYoloCursor++;
+
+	if(itYoloCursor==YoloCursors.end())
+	{
+        itYoloCursor = YoloCursors.begin();
+	}
+
+	TimerYoloCursor->Enabled = true;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::edCurGrp1KeyUp(TObject *Sender, WORD &Key, TShiftState Shift)
+
+{
+	ActiveControl = 0;
+    MouseClickObject = 0;
 }
 //---------------------------------------------------------------------------
 

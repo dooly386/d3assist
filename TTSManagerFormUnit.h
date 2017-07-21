@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
 #ifndef TTSManagerFormUnitH
 #define TTSManagerFormUnitH
@@ -9,6 +9,10 @@
 #include <Vcl.Forms.hpp>
 #include <Vcl.Dialogs.hpp>
 //---------------------------------------------------------------------------
+#include <Vcl.MPlayer.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include "SpeechLib_OCX.h"
+#include "SpeechLib_TLB.h"
 
 class TTTSManagerForm : public TForm
 {
@@ -31,8 +35,10 @@ __published:	// IDE-managed Components
 	TCheckBox *cbRepeat;
 	TButton *btnHide;
 	TButton *btnClose;
-	TCheckBox *cbTTSToFile;
-	TEdit *edTTSFileName;
+	TButton *btnSaveToWaveFile;
+	TEdit *edWaveFileName;
+	TEdit *edRepeatInterval;
+	TTimer *RepeatTimer;
 	void __fastcall btnTTSTestClick(TObject *Sender);
 	void __fastcall btnPlayMemoClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
@@ -46,16 +52,16 @@ __published:	// IDE-managed Components
 	void __fastcall btnStopClick(TObject *Sender);
 	void __fastcall btnCloseClick(TObject *Sender);
 	void __fastcall btnHideClick(TObject *Sender);
+	void __fastcall btnSaveToWaveFileClick(TObject *Sender);
+	void __fastcall RepeatTimerTimer(TObject *Sender);
 private:	// User declarations
-	ISpVoice *SpVoice1;
-//	Speechlib_tlb::TSpFileStream *SpStream1;
-
+	Speechlib_tlb::TSpVoice *SpVoice1;
     String OpenFileName;
 	String SpeakString;
 	TObject *MouseClickObject;
 
 	void ReleaseVoiceModule();
-	void PrepareVoiceModule();
+	bool PrepareVoiceModule();
 
 
 	void __fastcall OnVoiceEndStream(System::TObject * Sender,long StreamNumber,VARIANT StreamPosition);

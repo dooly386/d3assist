@@ -2,8 +2,8 @@ object TTSManagerForm: TTTSManagerForm
   Left = 0
   Top = 0
   Caption = 'Text to Speech Manager'
-  ClientHeight = 418
-  ClientWidth = 364
+  ClientHeight = 489
+  ClientWidth = 421
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,8 +14,8 @@ object TTSManagerForm: TTTSManagerForm
   Position = poScreenCenter
   OnClose = FormClose
   DesignSize = (
-    364
-    418)
+    421
+    489)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -35,7 +35,7 @@ object TTSManagerForm: TTTSManagerForm
   object edTTSTest: TEdit
     Left = 8
     Top = 24
-    Width = 267
+    Width = 324
     Height = 21
     TabStop = False
     Anchors = [akLeft, akTop, akRight]
@@ -43,7 +43,7 @@ object TTSManagerForm: TTTSManagerForm
     Text = #50504#45397#54616#49464#50836'.<silence msec="3000"/>'#48152#44049#49845#45768#45796'.'
   end
   object btnTTSTest: TButton
-    Left = 281
+    Left = 338
     Top = 22
     Width = 75
     Height = 25
@@ -56,8 +56,8 @@ object TTSManagerForm: TTTSManagerForm
   object moTTS: TMemo
     Left = 8
     Top = 88
-    Width = 265
-    Height = 233
+    Width = 322
+    Height = 282
     TabStop = False
     Anchors = [akLeft, akTop, akRight, akBottom]
     Lines.Strings = (
@@ -81,7 +81,7 @@ object TTSManagerForm: TTTSManagerForm
   end
   object btnPlayMemo: TButton
     Left = 8
-    Top = 366
+    Top = 437
     Width = 75
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -115,7 +115,7 @@ object TTSManagerForm: TTTSManagerForm
   end
   object btnTTSTagManual: TButton
     Left = 170
-    Top = 366
+    Top = 437
     Width = 113
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -125,27 +125,29 @@ object TTSManagerForm: TTTSManagerForm
     OnClick = btnTTSTagManualClick
   end
   object btnSaveToFile: TButton
-    Left = 281
+    Left = 338
     Top = 86
     Width = 75
     Height = 25
+    Anchors = [akTop, akRight]
     Caption = 'Save'
     TabOrder = 7
     OnClick = btnSaveToFileClick
   end
   object btnLoadFromFile: TButton
-    Left = 281
+    Left = 338
     Top = 117
     Width = 75
     Height = 25
+    Anchors = [akTop, akRight]
     Caption = 'Load'
     TabOrder = 8
     OnClick = btnLoadFromFileClick
   end
   object stBar: TEdit
     Left = 0
-    Top = 397
-    Width = 364
+    Top = 468
+    Width = 421
     Height = 21
     Align = alBottom
     ReadOnly = True
@@ -153,7 +155,7 @@ object TTSManagerForm: TTTSManagerForm
   end
   object btnStop: TButton
     Left = 89
-    Top = 366
+    Top = 437
     Width = 75
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -164,45 +166,62 @@ object TTSManagerForm: TTTSManagerForm
   end
   object cbRepeat: TCheckBox
     Left = 8
-    Top = 328
-    Width = 97
+    Top = 377
+    Width = 113
     Height = 17
-    Caption = 'Repeat'
+    Anchors = [akLeft, akBottom]
+    Caption = 'Repeat time(msec)'
     TabOrder = 11
   end
   object btnHide: TButton
-    Left = 280
+    Left = 337
     Top = 160
     Width = 75
     Height = 25
+    Anchors = [akTop, akRight]
     Caption = 'Hide'
     TabOrder = 12
     OnClick = btnHideClick
   end
   object btnClose: TButton
-    Left = 281
+    Left = 338
     Top = 191
     Width = 75
     Height = 25
+    Anchors = [akTop, akRight]
     Caption = 'Close'
     TabOrder = 13
     OnClick = btnCloseClick
   end
-  object cbTTSToFile: TCheckBox
-    Left = 120
-    Top = 328
-    Width = 65
-    Height = 17
-    Caption = 'To File'
+  object btnSaveToWaveFile: TButton
+    Left = 8
+    Top = 399
+    Width = 128
+    Height = 25
+    Anchors = [akLeft, akBottom]
+    Caption = 'Save to wave file'
     TabOrder = 14
+    OnClick = btnSaveToWaveFileClick
   end
-  object edTTSFileName: TEdit
-    Left = 191
-    Top = 327
-    Width = 165
+  object edWaveFileName: TEdit
+    Left = 142
+    Top = 401
+    Width = 190
     Height = 21
+    Alignment = taCenter
+    Anchors = [akLeft, akBottom]
     TabOrder = 15
-    Text = 'sample1'
+  end
+  object edRepeatInterval: TEdit
+    Left = 142
+    Top = 376
+    Width = 190
+    Height = 21
+    Alignment = taCenter
+    Anchors = [akLeft, akBottom]
+    NumbersOnly = True
+    TabOrder = 16
+    Text = '12000'
   end
   object OpenDialog: TOpenDialog
     DefaultExt = '.ttsmemo'
@@ -217,5 +236,11 @@ object TTSManagerForm: TTTSManagerForm
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
     Left = 176
     Top = 264
+  end
+  object RepeatTimer: TTimer
+    Enabled = False
+    OnTimer = RepeatTimerTimer
+    Left = 216
+    Top = 272
   end
 end

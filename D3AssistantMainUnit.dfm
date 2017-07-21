@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 486
     Height = 338
-    ActivePage = KeySettingTabSheet
+    ActivePage = YoloControlTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -1637,62 +1637,374 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnMouseUp = edKey1MouseUp
       end
     end
-    object TabSheet1: TTabSheet
-      Caption = 'Environment'
-      ImageIndex = 2
-      object Label6: TLabel
-        Left = 19
-        Top = 72
-        Width = 56
+    object YoloControlTabSheet: TTabSheet
+      Caption = 'YoloLoop'
+      ImageIndex = 5
+      object Label18: TLabel
+        Left = 28
+        Top = 0
+        Width = 27
         Height = 13
-        Caption = 'Alpha Blend'
+        Caption = 'Name'
       end
-      object cbStayOnTop: TCheckBox
+      object Label19: TLabel
+        Left = 132
+        Top = 0
+        Width = 64
+        Height = 13
+        Caption = 'Cursor Group'
+      end
+      object Label20: TLabel
+        Left = 297
+        Top = 73
+        Width = 38
+        Height = 13
+        Caption = 'Interval'
+      end
+      object Label21: TLabel
+        Left = 296
+        Top = 19
+        Width = 45
+        Height = 13
+        Caption = 'Start Key'
+      end
+      object Label22: TLabel
+        Left = 297
+        Top = 46
+        Width = 43
+        Height = 13
+        Caption = 'Stop Key'
+      end
+      object Label23: TLabel
+        Left = 216
+        Top = 0
+        Width = 46
+        Height = 13
+        Caption = 'Cursor ID'
+      end
+      object btnYoloLoopTest: TButton
         Left = 3
-        Top = 12
-        Width = 89
-        Height = 17
-        TabStop = False
-        Caption = 'Stay on top'
+        Top = 243
+        Width = 75
+        Height = 25
+        Caption = 'Test'
         TabOrder = 0
-        OnClick = cbStayOnTopClick
+        OnClick = btnYoloLoopTestClick
       end
-      object cbOnlyD3: TCheckBox
-        Left = 3
-        Top = 44
-        Width = 88
-        Height = 17
-        TabStop = False
-        Caption = 'Only Window'
-        TabOrder = 1
-      end
-      object edOnlyWindow: TEdit
-        Left = 97
-        Top = 42
-        Width = 97
+      object edCurGrp1: TEdit
+        Tag = 1
+        Left = 123
+        Top = 16
+        Width = 75
         Height = 21
         TabStop = False
-        TabOrder = 2
-        Text = #46356#50500#48660#47196' III'
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 1
+        OnKeyUp = edCurGrp1KeyUp
       end
-      object edAlphaValue: TEdit
-        Left = 97
-        Top = 69
-        Width = 97
+      object edCurGrp2: TEdit
+        Tag = 1
+        Left = 123
+        Top = 43
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 2
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurGrp3: TEdit
+        Tag = 1
+        Left = 123
+        Top = 70
+        Width = 75
         Height = 21
         TabStop = False
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 3
-        Text = '200'
+        OnKeyUp = edCurGrp1KeyUp
       end
-      object cbMinimizeWhenStart: TCheckBox
-        Left = 3
-        Top = 96
-        Width = 177
-        Height = 17
-        Caption = 'Minimize when start'
+      object edCurGrp4: TEdit
+        Tag = 1
+        Left = 123
+        Top = 97
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
         TabOrder = 4
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurGrp5: TEdit
+        Tag = 1
+        Left = 123
+        Top = 124
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 5
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurGrp6: TEdit
+        Tag = 1
+        Left = 123
+        Top = 151
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 6
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurGrp7: TEdit
+        Tag = 1
+        Left = 123
+        Top = 178
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 7
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurGrp8: TEdit
+        Tag = 1
+        Left = 123
+        Top = 205
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 8
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edYoloName1: TEdit
+        Tag = 1
+        Left = 3
+        Top = 16
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 9
+      end
+      object edYoloName2: TEdit
+        Tag = 1
+        Left = 3
+        Top = 43
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 10
+      end
+      object edYoloName3: TEdit
+        Tag = 1
+        Left = 3
+        Top = 70
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 11
+      end
+      object edYoloName4: TEdit
+        Tag = 1
+        Left = 3
+        Top = 97
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 12
+      end
+      object edYoloName5: TEdit
+        Tag = 1
+        Left = 3
+        Top = 124
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 13
+      end
+      object edYoloName6: TEdit
+        Tag = 1
+        Left = 3
+        Top = 151
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 14
+      end
+      object edYoloName7: TEdit
+        Tag = 1
+        Left = 3
+        Top = 178
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 15
+      end
+      object edYoloName8: TEdit
+        Tag = 1
+        Left = 3
+        Top = 205
+        Width = 98
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 16
+      end
+      object edYoloLoopInterval: TEdit
+        Tag = 1
+        Left = 348
+        Top = 70
+        Width = 110
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 17
+      end
+      object edYoloLoopStart: TEdit
+        Tag = 1
+        Left = 348
+        Top = 16
+        Width = 110
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 18
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyDown = edStartKeyDown
+        OnKeyPress = edStartKeyPress
+        OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
+      end
+      object edYoloLoopStop: TEdit
+        Tag = 1
+        Left = 348
+        Top = 43
+        Width = 110
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        TabOrder = 19
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyDown = edStartKeyDown
+        OnKeyPress = edStartKeyPress
+        OnMouseDown = edKey1MouseDown
+        OnMouseUp = edKey1MouseUp
+      end
+      object edCurId1: TEdit
+        Tag = 1
+        Left = 204
+        Top = 16
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 20
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId2: TEdit
+        Tag = 1
+        Left = 204
+        Top = 43
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 21
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId3: TEdit
+        Tag = 1
+        Left = 204
+        Top = 70
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 22
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId4: TEdit
+        Tag = 1
+        Left = 204
+        Top = 97
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 23
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId5: TEdit
+        Tag = 1
+        Left = 204
+        Top = 124
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 24
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId6: TEdit
+        Tag = 1
+        Left = 204
+        Top = 151
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 25
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId7: TEdit
+        Tag = 1
+        Left = 204
+        Top = 178
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 26
+        OnKeyUp = edCurGrp1KeyUp
+      end
+      object edCurId8: TEdit
+        Tag = 1
+        Left = 204
+        Top = 205
+        Width = 75
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 27
+        OnKeyUp = edCurGrp1KeyUp
       end
     end
     object TabSheetMacro: TTabSheet
@@ -1802,6 +2114,64 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Align = alBottom
         ReadOnly = True
         TabOrder = 9
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Environment'
+      ImageIndex = 2
+      object Label6: TLabel
+        Left = 19
+        Top = 72
+        Width = 56
+        Height = 13
+        Caption = 'Alpha Blend'
+      end
+      object cbStayOnTop: TCheckBox
+        Left = 3
+        Top = 12
+        Width = 89
+        Height = 17
+        TabStop = False
+        Caption = 'Stay on top'
+        TabOrder = 0
+        OnClick = cbStayOnTopClick
+      end
+      object cbOnlyD3: TCheckBox
+        Left = 3
+        Top = 44
+        Width = 88
+        Height = 17
+        TabStop = False
+        Caption = 'Only Window'
+        TabOrder = 1
+      end
+      object edOnlyWindow: TEdit
+        Left = 97
+        Top = 42
+        Width = 97
+        Height = 21
+        TabStop = False
+        TabOrder = 2
+        Text = #46356#50500#48660#47196' III'
+      end
+      object edAlphaValue: TEdit
+        Left = 97
+        Top = 69
+        Width = 97
+        Height = 21
+        TabStop = False
+        Alignment = taCenter
+        NumbersOnly = True
+        TabOrder = 3
+        Text = '200'
+      end
+      object cbMinimizeWhenStart: TCheckBox
+        Left = 3
+        Top = 96
+        Width = 177
+        Height = 17
+        Caption = 'Minimize when start'
+        TabOrder = 4
       end
     end
   end
@@ -2078,10 +2448,18 @@ object D3AssistantMainForm: TD3AssistantMainForm
         end
       end
       object T1: TMenuItem
-        Caption = 'TTS'
+        Caption = 'Text To Speech'
         object MenuOpenTTSManager: TMenuItem
           Caption = 'Open TTS Manager Form'
           OnClick = MenuOpenTTSManagerClick
+        end
+      end
+      object MenuGroupMediaPlayer: TMenuItem
+        Caption = 'Media Player'
+        Visible = False
+        object N9: TMenuItem
+          Caption = 'New Media Player'
+          OnClick = N9Click
         end
       end
       object Y1: TMenuItem
@@ -2105,6 +2483,9 @@ object D3AssistantMainForm: TD3AssistantMainForm
           Caption = 'YoloMouse HomePage'
           OnClick = YoloMouseHomePageMenuClick
         end
+      end
+      object N8: TMenuItem
+        Caption = '-'
       end
       object MenuDebugWindow: TMenuItem
         Caption = 'Debug Window'
@@ -2224,5 +2605,11 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
     Left = 352
     Top = 56
+  end
+  object TimerYoloCursor: TTimer
+    Enabled = False
+    OnTimer = TimerYoloCursorTimer
+    Left = 324
+    Top = 297
   end
 end

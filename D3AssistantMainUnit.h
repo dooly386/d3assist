@@ -223,6 +223,45 @@ __published:	// IDE-managed Components
 	TLabel *Label3;
 	TCheckBox *cbMultiKeyAndMode;
 	TLabel *Label7;
+	TMenuItem *N8;
+	TMenuItem *MenuGroupMediaPlayer;
+	TMenuItem *N9;
+	TTimer *TimerYoloCursor;
+	TTabSheet *YoloControlTabSheet;
+	TButton *btnYoloLoopTest;
+	TEdit *edCurGrp1;
+	TEdit *edCurGrp2;
+	TEdit *edCurGrp3;
+	TEdit *edCurGrp4;
+	TEdit *edCurGrp5;
+	TEdit *edCurGrp6;
+	TEdit *edCurGrp7;
+	TEdit *edCurGrp8;
+	TEdit *edYoloName1;
+	TEdit *edYoloName2;
+	TEdit *edYoloName3;
+	TEdit *edYoloName4;
+	TEdit *edYoloName5;
+	TEdit *edYoloName6;
+	TEdit *edYoloName7;
+	TEdit *edYoloName8;
+	TLabel *Label18;
+	TLabel *Label19;
+	TLabel *Label20;
+	TEdit *edYoloLoopInterval;
+	TLabel *Label21;
+	TEdit *edYoloLoopStart;
+	TLabel *Label22;
+	TEdit *edYoloLoopStop;
+	TLabel *Label23;
+	TEdit *edCurId1;
+	TEdit *edCurId2;
+	TEdit *edCurId3;
+	TEdit *edCurId4;
+	TEdit *edCurId5;
+	TEdit *edCurId6;
+	TEdit *edCurId7;
+	TEdit *edCurId8;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -273,6 +312,10 @@ __published:	// IDE-managed Components
 	void __fastcall actionSaveRecordExecute(TObject *Sender);
 	void __fastcall actionLoadRecordExecute(TObject *Sender);
 	void __fastcall MenuDebugWindowClick(TObject *Sender);
+	void __fastcall N9Click(TObject *Sender);
+	void __fastcall btnYoloLoopTestClick(TObject *Sender);
+	void __fastcall TimerYoloCursorTimer(TObject *Sender);
+	void __fastcall edCurGrp1KeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
 
 
 private:	// User declarations
@@ -337,6 +380,9 @@ private:	// User declarations
 	void StopHook();
 
 	void SendToAppKey(keyRow &row,String &key);
+
+	void StartYoloCycle();
+	void StopYoloCycle();
 
 public:		// User declarations
 	bool bStarted;
