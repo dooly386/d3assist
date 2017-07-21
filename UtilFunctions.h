@@ -22,4 +22,8 @@ ULONG GetPidByProcessName(const char *processname);
 HWND GetWinHandleByPid(ULONG pid);
 HWND GetWinHandleByProcessName(const char *procname);
 
+String GetInstallPath();
+String GetYoloMediaPath();
+String GetYoloMediaFileByName(String name);
+
 #endif

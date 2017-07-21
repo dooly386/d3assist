@@ -93,6 +93,10 @@ TTTSManagerForm * CreateNewTTSForm();
 void SendKeyToTTS(String key);
 void StopAllTTS();
 
+void * CreateNewSpVoice();
+void DeleteSpVoice(void *v);
+
+
 //---------------------------------------------------------------------------
 extern PACKAGE TTTSManagerForm *TTSManagerForm;
 //---------------------------------------------------------------------------

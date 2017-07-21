@@ -695,3 +695,14 @@ String GetInstallPath()
 	return ExtractFilePath(Application->ExeName);
 }
 
+String GetYoloMediaPath()
+{
+	String path = GetInstallPath()+"tts";
+	return path;
+}
+
+String GetYoloMediaFileByName(String name)
+{
+	String filename = GetYoloMediaPath()+"\\"+name+".wav";
+	return filename;
+}

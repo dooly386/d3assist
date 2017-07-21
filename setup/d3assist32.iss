@@ -48,6 +48,7 @@ Source: "..\Final\Yolo64.dll"; DestDir: "{app}";
 
 Source: "..\Final\Cursors\Default\*"; DestDir: "{app}\Cursors\Default";
 Source: "..\Final\styles2\*.*"; DestDir: "{app}\styles2";
+Source: "..\Final\tts\*.*"; DestDir: "{app}\tts";
 
 Source: "..\readme.htm"; DestDir: "{app}";
 Source: "..\LICENSE"; DestDir: "{app}";

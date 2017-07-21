@@ -514,6 +514,14 @@ void TD3AssistantMainForm::SaveIni(String filename)
 		ini->WriteBool("Items",keyRows[i].toggle->Name,b);
 	}
 
+
+	for(int i=1;i<=8;i++)
+	{
+		String name = String("edSpeech")+String(i);
+		TEdit *te = (TEdit *)FindComponent(name);
+		ini->WriteString("Items",name,te->Text);
+	}
+
 	delete ini;
 
 	OpenFileName = filename;
@@ -558,8 +566,38 @@ void TD3AssistantMainForm::LoadIni(String filename)
 			keyRows[i].toggle->Checked = ini->ReadBool("Items",keyRows[i].toggle->Name,false);
 		}
 	}
+	for(int i=1;i<=8;i++)
+	{
+		String name = String("edSpeech")+String(i);
+		TEdit *ed = (TEdit *)FindComponent(name);
+		ed->Text = ini->ReadString("Items",name,"");
 
+		if(ed->Text.Length())
+		{
+			String mediafilename = GetYoloMediaFileByName(ed->Text);
+			if(FileExists(mediafilename))
+			{
+				String name = String("mpYolo")+i;
+				TMediaPlayer *mp = (TMediaPlayer *)FindComponent(name);
+				mp->FileName = mediafilename;
+				mp->Open();
+			}
+			else
+			{
+				String name = String("mpYolo")+i;
+				TMediaPlayer *mp = (TMediaPlayer *)FindComponent(name);
+                mp->Close();
+            }
+		}
+		else
+		{
+			String name = String("mpYolo")+i;
+			TMediaPlayer *mp = (TMediaPlayer *)FindComponent(name);
+			mp->Close();
 
+        }
+
+	}
 	delete ini;
 
 	OpenFileName = filename;
@@ -2789,41 +2827,6 @@ void __fastcall TD3AssistantMainForm::MenuSkinDefaultClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 
-void TD3AssistantMainForm::AddRecord(keyMacro *p)
-{
-}
-
-
-void __fastcall TD3AssistantMainForm::actionStartRecordExecute(TObject *Sender)
-{
-	bRecordStarted = true;
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TD3AssistantMainForm::actionStopRecordExecute(TObject *Sender)
-{
-	if(bRecordStarted)
-	{
-		keyMacro *p = new keyMacro;
-		p->s = "[pause]";
-        p->wParam = 0;
-        AddRecord(p);
-    }
-	bRecordStarted = false;
-	bPlayStarted = false;
-	RecordPlayTimer->Enabled = false;
-}
-//---------------------------------------------------------------------------
-
-
-void TD3AssistantMainForm::SaveMacro(String filename)
-{
-}
-void TD3AssistantMainForm::LoadMacro(String filename)
-{
-}
-
-
 
 void __fastcall TD3AssistantMainForm::MenuDebugWindowClick(TObject *Sender)
 {
@@ -2840,11 +2843,20 @@ void __fastcall TD3AssistantMainForm::N9Click(TObject *Sender)
 
 struct yolocursor
 {
+
 	int group;
 	int idx;
+
+	TMediaPlayer *mp;
+	yolocursor()
+	{
+        mp = 0;
+    }
 };
+
 std::list<yolocursor> YoloCursors;
 std::list<yolocursor>::iterator itYoloCursor;
+
 
 void TD3AssistantMainForm::StartYoloCycle()
 {
@@ -2871,11 +2883,30 @@ void TD3AssistantMainForm::StartYoloCycle()
 		TEdit *ed2 = (TEdit *)FindComponent(name2);
 		if(ed1->Text.Length()==0) continue;
 		if(ed2->Text.Length()==0) continue;
+
+		String name3 = String("edSpeech")+String(i);
+		TEdit *ed = (TEdit *)FindComponent(name3);
+
+		TMediaPlayer *mp = 0;
+		if(ed->Text.Length())
+		{
+			String mediafilename = GetYoloMediaFileByName(ed->Text);
+			if(FileExists(mediafilename))
+			{
+				String name4 = String("mpYolo")+String(i);
+				mp = (TMediaPlayer *)FindComponent(name4);
+			}
+        }
+
+
+
 		int a = ed1->Text.ToInt();
 		int b = ed2->Text.ToInt();
+
 		yolocursor y;
 		y.group = a;
 		y.idx = b;
+        y.mp = mp;
 		YoloCursors.push_back(y);
 	}
 	itYoloCursor = YoloCursors.begin();
@@ -2905,6 +2936,7 @@ void __fastcall TD3AssistantMainForm::btnYoloLoopTestClick(TObject *Sender)
 
 void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
 {
+
 	TimerYoloCursor->Enabled = false;
 	TimerYoloCursor->Interval = edYoloLoopInterval->Text.ToInt();
 
@@ -2914,7 +2946,16 @@ void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
 	HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
 #endif
 	yolocursor &cur = *itYoloCursor;
+
 	SendMessage(hwnd,WM_USER+1000,cur.group,cur.idx);
+	if(cur.mp)
+	{
+		if(cur.mp->Length)
+		{
+			cur.mp->Rewind();
+			cur.mp->Play();
+        }
+    }
 
 	itYoloCursor++;
 
@@ -2933,6 +2974,48 @@ void __fastcall TD3AssistantMainForm::edCurGrp1KeyUp(TObject *Sender, WORD &Key,
 {
 	ActiveControl = 0;
     MouseClickObject = 0;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType Button,
+          bool &DoDefault)
+{
+//
+	String path = GetYoloMediaPath();
+
+	TMediaPlayer *mp = (TMediaPlayer *)Sender;
+	if(mp->Position)
+	{
+		mp->Stop();
+		mp->Rewind();
+		DoDefault = false;
+		return;
+	}
+
+	int tag = mp->Tag;
+	TEdit *ed = (TEdit *)FindComponent(String("edSpeech")+tag);
+	if(ed->Text.Length()==0)
+	{
+		DoDefault = false;
+		return;
+	}
+
+	String mediafile = path+"\\"+ed->Text+".wav";
+	if(FileExists(mediafile)==false)
+	{
+		DoDefault = false;
+		return;
+	}
+	mp->FileName = mediafile;
+	mp->Open();
+	DoDefault = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::edYoloName1Change(TObject *Sender)
+{
+	bModified = true;
 }
 //---------------------------------------------------------------------------
 

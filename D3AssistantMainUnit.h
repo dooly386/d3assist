@@ -25,6 +25,7 @@
 #include <Vcl.ActnList.hpp>
 //---------------------------------------------------------------------------
 #include <KeyRows.h>
+#include <Vcl.MPlayer.hpp>
 #include <string>
 #include <list>
 
@@ -242,6 +243,23 @@ __published:	// IDE-managed Components
 	TEdit *edCurId6;
 	TEdit *edCurId7;
 	TEdit *edCurId8;
+	TLabel *Label16;
+	TEdit *edSpeech1;
+	TEdit *edSpeech2;
+	TEdit *edSpeech3;
+	TEdit *edSpeech4;
+	TEdit *edSpeech5;
+	TEdit *edSpeech6;
+	TEdit *edSpeech7;
+	TEdit *edSpeech8;
+	TMediaPlayer *mpYolo1;
+	TMediaPlayer *mpYolo2;
+	TMediaPlayer *mpYolo3;
+	TMediaPlayer *mpYolo4;
+	TMediaPlayer *mpYolo5;
+	TMediaPlayer *mpYolo6;
+	TMediaPlayer *mpYolo7;
+	TMediaPlayer *mpYolo8;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -283,13 +301,15 @@ __published:	// IDE-managed Components
 	void __fastcall TimerImmediatelyTimer(TObject *Sender);
 	void __fastcall MenuOpenTTSManagerClick(TObject *Sender);
 	void __fastcall MenuSkinDefaultClick(TObject *Sender);
-	void __fastcall actionStartRecordExecute(TObject *Sender);
-	void __fastcall actionStopRecordExecute(TObject *Sender);
 	void __fastcall MenuDebugWindowClick(TObject *Sender);
 	void __fastcall N9Click(TObject *Sender);
 	void __fastcall btnYoloLoopTestClick(TObject *Sender);
 	void __fastcall TimerYoloCursorTimer(TObject *Sender);
 	void __fastcall edCurGrp1KeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall mpYolo1Click(TObject *Sender, TMPBtnType Button, bool &DoDefault);
+	void __fastcall edYoloName1Change(TObject *Sender);
+
+
 
 
 private:	// User declarations
@@ -340,8 +360,6 @@ private:	// User declarations
 	bool StartImmediately(String key);
 	void StopImmediately(String key);
 
-	void SaveMacro(String filename);
-	void LoadMacro(String filename);
 
 	int GetActiveKeyState(keyRow &row); // 0 up, 1 down, -1 no key assign
 	int GetPauseKeyState(keyRow &row); // 0 up, 1 down, -1 no key assign
@@ -364,8 +382,6 @@ public:		// User declarations
 	bool bPlayStarted;
 
 	void checkColor();
-
-	void AddRecord(keyMacro *p);
 
 
 	void PushDownKey(int vcode,int scancode);

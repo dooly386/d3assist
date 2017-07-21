@@ -76,6 +76,18 @@ void StopAllTTS()
 
 }
 
+void * CreateNewSpVoice()
+{
+	Speechlib_tlb::TSpVoice *SpVoice1 = new Speechlib_tlb::TSpVoice(0);
+	return SpVoice1;
+}
+
+void DeleteSpVoice(void *v)
+{
+	Speechlib_tlb::TSpVoice *SpVoice1 = (Speechlib_tlb::TSpVoice *)v;
+    delete SpVoice1;
+}
+
 
 __fastcall TTTSManagerForm::TTTSManagerForm(TComponent* Owner)
 	: TForm(Owner)
@@ -417,7 +429,7 @@ void __fastcall TTTSManagerForm::btnSaveToWaveFileClick(TObject *Sender)
 		MessageDlg("Please input filename",mtConfirmation,TMsgDlgButtons()<<mbOK,0);
 		return;
 	}
-	String path = GetInstallPath()+"\\tts";
+	String path = GetInstallPath()+"tts";
 	ForceDirectories(path);
 
 	filename = path+"\\"+filename+".wav";

@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 486
     Height = 338
-    ActivePage = TabSheet1
+    ActivePage = YoloControlTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -1648,39 +1648,46 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Name'
       end
       object Label19: TLabel
-        Left = 132
+        Left = 118
         Top = 0
         Width = 64
         Height = 13
         Caption = 'Cursor Group'
       end
       object Label20: TLabel
-        Left = 297
-        Top = 73
+        Left = 90
+        Top = 278
         Width = 38
         Height = 13
         Caption = 'Interval'
       end
       object Label21: TLabel
-        Left = 296
-        Top = 19
+        Left = 89
+        Top = 251
         Width = 45
         Height = 13
         Caption = 'Start Key'
       end
       object Label22: TLabel
-        Left = 297
-        Top = 46
+        Left = 223
+        Top = 250
         Width = 43
         Height = 13
         Caption = 'Stop Key'
       end
       object Label23: TLabel
-        Left = 216
+        Left = 202
         Top = 0
         Width = 46
         Height = 13
         Caption = 'Cursor ID'
+      end
+      object Label16: TLabel
+        Left = 289
+        Top = 0
+        Width = 47
+        Height = 13
+        Caption = 'Media File'
       end
       object btnYoloLoopTest: TButton
         Left = 3
@@ -1693,7 +1700,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edCurGrp1: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 16
         Width = 75
         Height = 21
@@ -1701,11 +1708,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 1
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp2: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 43
         Width = 75
         Height = 21
@@ -1713,11 +1721,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 2
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp3: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 70
         Width = 75
         Height = 21
@@ -1725,11 +1734,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 3
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp4: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 97
         Width = 75
         Height = 21
@@ -1737,11 +1747,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 4
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp5: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 124
         Width = 75
         Height = 21
@@ -1749,11 +1760,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 5
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp6: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 151
         Width = 75
         Height = 21
@@ -1761,11 +1773,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 6
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp7: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 178
         Width = 75
         Height = 21
@@ -1773,11 +1786,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 7
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurGrp8: TEdit
         Tag = 1
-        Left = 123
+        Left = 109
         Top = 205
         Width = 75
         Height = 21
@@ -1785,6 +1799,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 8
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edYoloName1: TEdit
@@ -1796,6 +1811,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 9
+        OnChange = edYoloName1Change
       end
       object edYoloName2: TEdit
         Tag = 1
@@ -1806,6 +1822,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 10
+        OnChange = edYoloName1Change
       end
       object edYoloName3: TEdit
         Tag = 1
@@ -1816,6 +1833,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 11
+        OnChange = edYoloName1Change
       end
       object edYoloName4: TEdit
         Tag = 1
@@ -1826,6 +1844,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 12
+        OnChange = edYoloName1Change
       end
       object edYoloName5: TEdit
         Tag = 1
@@ -1836,6 +1855,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 13
+        OnChange = edYoloName1Change
       end
       object edYoloName6: TEdit
         Tag = 1
@@ -1846,6 +1866,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 14
+        OnChange = edYoloName1Change
       end
       object edYoloName7: TEdit
         Tag = 1
@@ -1856,6 +1877,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 15
+        OnChange = edYoloName1Change
       end
       object edYoloName8: TEdit
         Tag = 1
@@ -1866,28 +1888,30 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         TabOrder = 16
+        OnChange = edYoloName1Change
       end
       object edYoloLoopInterval: TEdit
         Tag = 1
-        Left = 348
-        Top = 70
-        Width = 110
+        Left = 141
+        Top = 275
+        Width = 77
         Height = 21
         TabStop = False
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 17
+        OnChange = edYoloName1Change
       end
       object edYoloLoopStart: TEdit
         Tag = 1
-        Left = 348
-        Top = 16
-        Width = 110
+        Left = 141
+        Top = 248
+        Width = 77
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 18
-        OnChange = edStartChange
+        OnChange = edYoloName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
@@ -1896,14 +1920,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edYoloLoopStop: TEdit
         Tag = 1
-        Left = 348
-        Top = 43
-        Width = 110
+        Left = 274
+        Top = 247
+        Width = 77
         Height = 21
         TabStop = False
         Alignment = taCenter
         TabOrder = 19
-        OnChange = edStartChange
+        OnChange = edYoloName1Change
         OnContextPopup = edStartContextPopup
         OnKeyDown = edStartKeyDown
         OnKeyPress = edStartKeyPress
@@ -1912,7 +1936,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object edCurId1: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 16
         Width = 75
         Height = 21
@@ -1920,11 +1944,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 20
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId2: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 43
         Width = 75
         Height = 21
@@ -1932,11 +1957,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 21
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId3: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 70
         Width = 75
         Height = 21
@@ -1944,11 +1970,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 22
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId4: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 97
         Width = 75
         Height = 21
@@ -1956,11 +1983,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 23
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId5: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 124
         Width = 75
         Height = 21
@@ -1968,11 +1996,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 24
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId6: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 151
         Width = 75
         Height = 21
@@ -1980,11 +2009,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 25
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId7: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 178
         Width = 75
         Height = 21
@@ -1992,11 +2022,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 26
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
       end
       object edCurId8: TEdit
         Tag = 1
-        Left = 204
+        Left = 190
         Top = 205
         Width = 75
         Height = 21
@@ -2004,7 +2035,152 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         NumbersOnly = True
         TabOrder = 27
+        OnChange = edYoloName1Change
         OnKeyUp = edCurGrp1KeyUp
+      end
+      object edSpeech1: TEdit
+        Left = 280
+        Top = 16
+        Width = 121
+        Height = 21
+        TabOrder = 28
+        OnChange = edYoloName1Change
+      end
+      object edSpeech2: TEdit
+        Left = 280
+        Top = 43
+        Width = 121
+        Height = 21
+        TabOrder = 29
+        OnChange = edYoloName1Change
+      end
+      object edSpeech3: TEdit
+        Left = 280
+        Top = 70
+        Width = 121
+        Height = 21
+        TabOrder = 30
+        OnChange = edYoloName1Change
+      end
+      object edSpeech4: TEdit
+        Left = 280
+        Top = 97
+        Width = 121
+        Height = 21
+        TabOrder = 31
+        OnChange = edYoloName1Change
+      end
+      object edSpeech5: TEdit
+        Left = 280
+        Top = 124
+        Width = 121
+        Height = 21
+        TabOrder = 32
+        OnChange = edYoloName1Change
+      end
+      object edSpeech6: TEdit
+        Left = 280
+        Top = 151
+        Width = 121
+        Height = 21
+        TabOrder = 33
+        OnChange = edYoloName1Change
+      end
+      object edSpeech7: TEdit
+        Left = 280
+        Top = 178
+        Width = 121
+        Height = 21
+        TabOrder = 34
+        OnChange = edYoloName1Change
+      end
+      object edSpeech8: TEdit
+        Left = 280
+        Top = 205
+        Width = 121
+        Height = 21
+        TabOrder = 35
+        OnChange = edYoloName1Change
+      end
+      object mpYolo1: TMediaPlayer
+        Tag = 1
+        Left = 407
+        Top = 16
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 36
+        OnClick = mpYolo1Click
+      end
+      object mpYolo2: TMediaPlayer
+        Tag = 2
+        Left = 407
+        Top = 43
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 37
+        OnClick = mpYolo1Click
+      end
+      object mpYolo3: TMediaPlayer
+        Tag = 3
+        Left = 407
+        Top = 70
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 38
+        OnClick = mpYolo1Click
+      end
+      object mpYolo4: TMediaPlayer
+        Tag = 4
+        Left = 407
+        Top = 97
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 39
+        OnClick = mpYolo1Click
+      end
+      object mpYolo5: TMediaPlayer
+        Tag = 5
+        Left = 407
+        Top = 124
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 40
+        OnClick = mpYolo1Click
+      end
+      object mpYolo6: TMediaPlayer
+        Tag = 6
+        Left = 407
+        Top = 151
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 41
+        OnClick = mpYolo1Click
+      end
+      object mpYolo7: TMediaPlayer
+        Tag = 7
+        Left = 407
+        Top = 178
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 42
+        OnClick = mpYolo1Click
+      end
+      object mpYolo8: TMediaPlayer
+        Tag = 8
+        Left = 407
+        Top = 205
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 43
+        OnClick = mpYolo1Click
       end
     end
     object TabSheet1: TTabSheet
@@ -2464,7 +2640,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object TimerYoloCursor: TTimer
     Enabled = False
     OnTimer = TimerYoloCursorTimer
-    Left = 324
-    Top = 297
+    Left = 60
+    Top = 177
   end
 end

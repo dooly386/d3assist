@@ -160,47 +160,6 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 		}
 	}
-	if(D3AssistantMainForm->bRecordStarted)
-	{
-		MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
-		if(wParam==WM_LBUTTONDOWN)
-		{
-			keyMacro *k = new keyMacro;
-			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
-			k->wParam = wParam;
-			k->lParam = lParam;
-			k->s.printf(L"WM_LBUTTONDOWN %d %d %d",p->pt.x,p->pt.y,p->time);
-			D3AssistantMainForm->AddRecord(k);
-		}
-		if(wParam==WM_LBUTTONUP)
-		{
-			keyMacro *k = new keyMacro;
-			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
-			k->wParam = wParam;
-			k->lParam = lParam;
-			k->s.printf(L"WM_LBUTTONUP %d %d %d",p->pt.x,p->pt.y,p->time);
-			D3AssistantMainForm->AddRecord(k);
-		}
-		if(wParam==WM_RBUTTONDOWN)
-		{
-			keyMacro *k = new keyMacro;
-			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
-			k->wParam = wParam;
-			k->lParam = lParam;
-			k->s.printf(L"WM_RBUTTONDOWN %d %d %d",p->pt.x,p->pt.y,p->time);
-			D3AssistantMainForm->AddRecord(k);
-		}
-		if(wParam==WM_RBUTTONUP)
-		{
-			keyMacro *k = new keyMacro;
-			memcpy(&k->mouse,p,sizeof(MSLLHOOKSTRUCT));
-			k->wParam = wParam;
-			k->lParam = lParam;
-			k->s.printf(L"WM_RBUTTONUP %d %d %d",p->pt.x,p->pt.y,p->time);
-			D3AssistantMainForm->AddRecord(k);
-		}
-		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-	}
 
 	LRESULT r;
 	if(bDisableMouseHook)
