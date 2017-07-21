@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 486
     Height = 338
-    ActivePage = YoloControlTabSheet
+    ActivePage = TabSheet1
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -2007,115 +2007,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnKeyUp = edCurGrp1KeyUp
       end
     end
-    object TabSheetMacro: TTabSheet
-      Caption = 'Macro'
-      ImageIndex = 3
-      DesignSize = (
-        478
-        310)
-      object Label16: TLabel
-        Left = 3
-        Top = 192
-        Width = 52
-        Height = 13
-        Caption = 'Play Count'
-      end
-      object Label17: TLabel
-        Left = 3
-        Top = 235
-        Width = 52
-        Height = 13
-        Caption = 'Speed (%)'
-      end
-      object btnStartRecord: TButton
-        Left = 3
-        Top = 3
-        Width = 141
-        Height = 25
-        Action = actionStartRecord
-        TabOrder = 0
-      end
-      object btnStopRecord: TButton
-        Left = 3
-        Top = 34
-        Width = 141
-        Height = 25
-        Action = actionStopRecord
-        TabOrder = 1
-      end
-      object btnPlayRecord: TButton
-        Left = 3
-        Top = 65
-        Width = 141
-        Height = 25
-        Action = actionPlayRecord
-        TabOrder = 2
-      end
-      object btnClearRecord: TButton
-        Left = 3
-        Top = 96
-        Width = 141
-        Height = 25
-        Action = actionClearRecord
-        TabOrder = 3
-      end
-      object btnSaveRecord: TButton
-        Left = 3
-        Top = 127
-        Width = 141
-        Height = 25
-        Action = actionSaveRecord
-        TabOrder = 4
-      end
-      object btnLoadRecord: TButton
-        Left = 3
-        Top = 158
-        Width = 141
-        Height = 25
-        Action = actionLoadRecord
-        TabOrder = 5
-      end
-      object lbRecord: TListBox
-        Left = 171
-        Top = 8
-        Width = 295
-        Height = 273
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        ItemHeight = 13
-        TabOrder = 6
-      end
-      object edPlayCount: TEdit
-        Left = 3
-        Top = 208
-        Width = 106
-        Height = 21
-        TabStop = False
-        Alignment = taCenter
-        NumbersOnly = True
-        TabOrder = 7
-        Text = '1'
-      end
-      object edPlaySpeed: TEdit
-        Left = 3
-        Top = 254
-        Width = 106
-        Height = 21
-        TabStop = False
-        Alignment = taCenter
-        NumbersOnly = True
-        TabOrder = 8
-        Text = '100'
-      end
-      object edMacroFileName: TEdit
-        Left = 0
-        Top = 289
-        Width = 478
-        Height = 21
-        Align = alBottom
-        ReadOnly = True
-        TabOrder = 9
-      end
-    end
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
@@ -2551,44 +2442,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Left = 616
     Top = 56
   end
-  object ActionListMacro: TActionList
-    OnUpdate = ActionListMacroUpdate
-    Left = 276
-    Top = 57
-    object actionStartRecord: TAction
-      Caption = 'Record (F11)'
-      Enabled = False
-      OnExecute = actionStartRecordExecute
-    end
-    object actionStopRecord: TAction
-      Caption = 'Stop (F12)'
-      Enabled = False
-      OnExecute = actionStopRecordExecute
-    end
-    object actionPlayRecord: TAction
-      Caption = 'Play (F9)'
-      Enabled = False
-      OnExecute = actionPlayRecordExecute
-    end
-    object actionClearRecord: TAction
-      Caption = 'Clear Record'
-      Enabled = False
-      OnExecute = actionClearRecordExecute
-    end
-    object actionSaveRecord: TAction
-      Caption = 'Save Record'
-      Enabled = False
-      OnExecute = actionSaveRecordExecute
-    end
-    object actionLoadRecord: TAction
-      Caption = 'Load Record'
-      Enabled = False
-      OnExecute = actionLoadRecordExecute
-    end
-  end
   object RecordPlayTimer: TTimer
     Enabled = False
-    OnTimer = RecordPlayTimerTimer
     Left = 312
     Top = 56
   end

@@ -88,47 +88,6 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		DebugWindowForm->Memo1->SelStart = DebugWindowForm->Memo1->GetTextLen();
 		DebugWindowForm->Memo1->SelLength = 0;
 	}
-	if(D3AssistantMainForm->PageControl->ActivePage==D3AssistantMainForm->TabSheetMacro)
-	{
-		if(wParam==WM_KEYDOWN)
-		{
-			if(kb->vkCode==0x78) // F9
-			{
-				if(D3AssistantMainForm->bRecordStarted==false)
-				{
-					D3AssistantMainForm->actionPlayRecord->Execute();
-					return -1;
-				}
-
-			}
-			if(kb->vkCode==0x79) // F10
-			{
-
-			}
-			if(kb->vkCode==0x7a) // F11
-			{
-				if(D3AssistantMainForm->bRecordStarted==false)
-				{
-					D3AssistantMainForm->actionStartRecord->Execute();
-					return -1;
-				}
-
-			}
-			if(kb->vkCode==0x7b) // F12
-			{
-				if(D3AssistantMainForm->bRecordStarted==true || D3AssistantMainForm->bPlayStarted)
-				{
-					D3AssistantMainForm->actionStopRecord->Execute();
-					return -1;
-				}
-
-			}
-		}
-	}
-	if(D3AssistantMainForm->bRecordStarted)
-	{
-		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-	}
 
 	if(bDisableKbHook && D3AssistantMainForm->bStarted)
 	{
