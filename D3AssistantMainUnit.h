@@ -389,6 +389,8 @@ private:	// User declarations
 	void PlayStartMp();
 	void PlayStopMp();
 
+	DWORD GetYoloTargetProcessId();
+
 public:		// User declarations
 	bool bStarted;
 	bool bRecordStarted;

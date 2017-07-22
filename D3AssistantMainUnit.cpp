@@ -1186,6 +1186,7 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 	{
 		StartYoloCycle();
 	}
+
 	if(key==edYoloLoopStop->Text)
 	{
         StopYoloCycle();
@@ -2384,6 +2385,23 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 	}
 
 }
+
+DWORD TD3AssistantMainForm::GetYoloTargetProcessId()
+{
+ 	if(cbOnlyD3->Checked && edOnlyWindow->Text.Length())
+	{
+		DWORD pid;
+		AnsiString s = edOnlyWindow->Text;
+		HWND hwnd = ::FindWindow(0,s.c_str());
+        if(hwnd==0) return 0;
+
+		GetWindowThreadProcessId(hwnd,&pid);
+        return pid;
+	}
+
+	return 0;
+
+}
 void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 {
 	if(cbOnlyD3->Checked)
@@ -2392,8 +2410,8 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 
 		if(targetHwnd && hwnd!=targetHwnd)
 		{
-            return;
-        }
+			return;
+		}
 		if(hwnd && targetHwnd==0)
 		{
 			char str[255];
@@ -2593,8 +2611,8 @@ void __fastcall TD3AssistantMainForm::StartYoloMouseMenuClick(TObject *Sender)
 	STARTUPINFO StartupInfo = {0};
 	PROCESS_INFORMATION ProcessInfo;
 	StartupInfo.cb = sizeof( STARTUPINFO );
-	::CreateProcess(filename.c_str(),
-	 NULL, NULL, NULL, FALSE, 0, NULL, NULL, &StartupInfo, &ProcessInfo);
+	::CreateProcess(filename.c_str(),NULL, NULL, NULL, FALSE, 0, NULL, NULL, &StartupInfo, &ProcessInfo);
+
 }
 //---------------------------------------------------------------------------
 
@@ -2906,6 +2924,9 @@ std::list<yolocursor>::iterator itYoloCursor;
 
 void TD3AssistantMainForm::StartYoloCycle()
 {
+
+
+
 #ifndef _WIN64
 	if(GetWinHandleByProcessName("YoloMouse32.exe")==0)
 	{
@@ -2917,6 +2938,20 @@ void TD3AssistantMainForm::StartYoloCycle()
 		StartYoloMouseMenuClick(0);
 	}
 #endif
+
+	DWORD pid = GetYoloTargetProcessId();
+	if(pid)
+	{
+		#ifndef _WIN64
+			HWND hwnd = GetWinHandleByProcessName("YoloMouse32.exe");
+		#else
+			HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
+		#endif
+
+		SendMessage(hwnd,WM_USER+1001,0,pid);
+//		Caption = pid;
+	}
+
 
 
 	YoloCursors.clear();
@@ -2991,6 +3026,7 @@ void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
 #else
 	HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
 #endif
+
 	yolocursor &cur = *itYoloCursor;
 
 	SendMessage(hwnd,WM_USER+1000,cur.group,cur.idx);
