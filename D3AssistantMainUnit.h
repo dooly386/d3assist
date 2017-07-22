@@ -260,6 +260,11 @@ __published:	// IDE-managed Components
 	TMediaPlayer *mpYolo6;
 	TMediaPlayer *mpYolo7;
 	TMediaPlayer *mpYolo8;
+	TCheckBox *cbAudioWhenStartStop;
+	TEdit *edWaveNameStart;
+	TEdit *edWaveNameStop;
+	TMediaPlayer *mpStart;
+	TMediaPlayer *mpStop;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -308,6 +313,11 @@ __published:	// IDE-managed Components
 	void __fastcall edCurGrp1KeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall mpYolo1Click(TObject *Sender, TMPBtnType Button, bool &DoDefault);
 	void __fastcall edYoloName1Change(TObject *Sender);
+	void __fastcall mpStartClick(TObject *Sender, TMPBtnType Button, bool &DoDefault);
+	void __fastcall mpStopClick(TObject *Sender, TMPBtnType Button, bool &DoDefault);
+	void __fastcall cbAudioWhenStartStopClick(TObject *Sender);
+
+
 
 
 
@@ -375,6 +385,9 @@ private:	// User declarations
 
 	void StartYoloCycle();
 	void StopYoloCycle();
+	bool LoadMediaIfExist(TMediaPlayer *mp,String filename);
+	void PlayStartMp();
+	void PlayStopMp();
 
 public:		// User declarations
 	bool bStarted;

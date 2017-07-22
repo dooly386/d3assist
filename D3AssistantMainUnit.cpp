@@ -172,14 +172,35 @@ void TD3AssistantMainForm::LoadEnv()
 		{
 			SkinName = ini->ReadString("Setup","SkinName","Windows");
 		}
-		if(ini->ValueExists("Setup","edPlayCount"))
+		cbAudioWhenStartStop->Checked = ini->ReadBool("Setup","cbAudioWhenStartStop",false);
+		edWaveNameStart->Text = ini->ReadString("Setup","edWaveNameStart","");
+		edWaveNameStop->Text = ini->ReadString("Setup","edWaveNameStop","");
+
 		{
-		}
-		if(ini->ValueExists("Setup","edPlaySpeed"))
-		{
+			String mediafilename = GetYoloMediaFileByName(edWaveNameStart->Text);
+			if(LoadMediaIfExist(mpStart,mediafilename))
+			{
+				mpStart->FileName = mediafilename;
+				mpStart->Open();
+			}
 		}
 
+		{
+			String mediafilename = GetYoloMediaFileByName(edWaveNameStop->Text);
+			if(LoadMediaIfExist(mpStop,mediafilename))
+			{
+				mpStop->FileName = mediafilename;
+				mpStop->Open();
+			}
+		}
 
+		if(ini->ValueExists("Setup","Left"))
+		{
+			Left = ini->ReadInteger("Setup","Left",Left);
+			Top = ini->ReadInteger("Setup","Top",Top);
+			Width = ini->ReadInteger("Setup","Width",Width);
+			Height = ini->ReadInteger("Setup","Height",Height);
+		}
 
 		delete ini;
 		LoadIni(openfilename);
@@ -198,6 +219,15 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteString("Setup","OnlyWindowCaption",edOnlyWindow->Text);
 	ini->WriteBool("Setup","MinimizeWhenStart",cbMinimizeWhenStart->Checked);
 	ini->WriteString("Setup","SkinName",SkinName);
+	ini->WriteBool("Setup","cbAudioWhenStartStop",cbAudioWhenStartStop->Checked);
+	ini->WriteString("Setup","edWaveNameStart",edWaveNameStart->Text);
+	ini->WriteString("Setup","edWaveNameStop",edWaveNameStop->Text);
+
+	ini->WriteInteger("Setup","Left",Left);
+	ini->WriteInteger("Setup","Top",Top);
+	ini->WriteInteger("Setup","Width",Width);
+	ini->WriteInteger("Setup","Height",Height);
+
 
 	delete ini;
 
@@ -1165,11 +1195,13 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 	{
 		if(cbDoNotStart->Checked) return;
 		Start();
+		PlayStartMp();
 		return;
 	}
 	if(key==edStop->Text && (bStarted || bPause))
 	{
 		Stop();
+		PlayStopMp();
 		return;
 	}
 
@@ -1186,9 +1218,10 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 		return;
 	}
 
-	if(key=="[ENTER]")
+	if(bStarted && key=="[ENTER]")
 	{
 		Stop();
+		PlayStopMp();
 		return;
 	}
 
@@ -1200,7 +1233,11 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 			keyStopRow *row = it->second;
 			if(row->type==0) // force stop
 			{
-				Stop();
+				if(bStarted)
+				{
+					Stop();
+					PlayStopMp();
+                }
 				return;
 			}
 			if(row->type==1) // pause toggle
@@ -1437,12 +1474,14 @@ bool TD3AssistantMainForm::OnMouseWheelHook(int delta)
 		if(cbDoNotStart->Checked) return false;
 		bStarted = true;
 		Start();
+		PlayStartMp();
 		return true;
 	}
 	if(key==edStop->Text && bStarted)
 	{
 		bStarted = false;
 		Stop();
+        PlayStopMp();
 		return true;
 	}
     return false;
@@ -1564,6 +1603,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 
 		Start();
 		bStarted = true;
+		PlayStartMp();
 
 //		sss.printf(L"5 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
 //		Memo1->Lines->Add(sss);
@@ -1577,6 +1617,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 	{
 		Stop();
 		bStarted = false;
+        PlayStopMp();
 //		sss.printf(L"6 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
 //		Memo1->Lines->Add(sss);
 		return;
@@ -1608,7 +1649,11 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 			keyStopRow *row = it->second;
 			if(row->type==0)
 			{
-				Stop();
+				if(bStarted)
+				{
+					Stop();
+					PlayStopMp();
+                }
 				return;
 			}
 			if(row->type==1)
@@ -2406,9 +2451,10 @@ void __fastcall TD3AssistantMainForm::WMActivate(TWMActivate &Message)
 		MouseClickObject = 0;
 
     }
-	if(Message.Active)
+	if(Message.Active && bStarted)
 	{
 		Stop();
+		PlayStopMp();
 	}
 	setBlend();
 }
@@ -2985,7 +3031,7 @@ void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType B
 	String path = GetYoloMediaPath();
 
 	TMediaPlayer *mp = (TMediaPlayer *)Sender;
-	if(mp->Position)
+	if(mp->Mode==mpPlaying)
 	{
 		mp->Stop();
 		mp->Rewind();
@@ -3009,13 +3055,127 @@ void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType B
 	}
 	mp->FileName = mediafile;
 	mp->Open();
-	DoDefault = true;
+	DoDefault = mp->Mode!=mpNotReady;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::edYoloName1Change(TObject *Sender)
 {
 	bModified = true;
+}
+//---------------------------------------------------------------------------
+
+bool TD3AssistantMainForm::LoadMediaIfExist(TMediaPlayer *mp,String filename)
+{
+	if(FileExists(filename)==false) return false;
+	mp->FileName = filename;
+	mp->Open();
+    return mp->Mode!=mpNotReady;
+}
+void TD3AssistantMainForm::PlayStartMp()
+{
+	if(cbAudioWhenStartStop->Checked==false) return;
+
+	if(mpStart->Mode!=mpNotReady)
+	{
+		mpStart->Play();
+	}
+
+}
+void TD3AssistantMainForm::PlayStopMp()
+{
+	if(cbAudioWhenStartStop->Checked==false) return;
+	if(mpStop->Mode!=mpNotReady)
+	{
+		mpStop->Play();
+	}
+
+}
+
+void __fastcall TD3AssistantMainForm::mpStartClick(TObject *Sender, TMPBtnType Button,
+          bool &DoDefault)
+{
+	if(mpStart->Mode==mpPlaying)
+	{
+		mpStart->Stop();
+		mpStart->Rewind();
+		DoDefault = false;
+		return;
+	}
+
+	String name = edWaveNameStart->Text;
+	if(name.Length()==0)
+	{
+		DoDefault = false;
+		return;
+	}
+
+	String mediafilename = GetYoloMediaFileByName(name);
+	DoDefault = LoadMediaIfExist(mpStart,mediafilename);
+	mpStart->FileName = mediafilename;
+	mpStart->Open();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::mpStopClick(TObject *Sender, TMPBtnType Button,
+		  bool &DoDefault)
+{
+	if(mpStop->Mode==mpPlaying)
+	{
+		mpStop->Stop();
+		mpStop->Rewind();
+		DoDefault = false;
+		return;
+	}
+
+	String name = edWaveNameStop->Text;
+	if(name.Length()==0)
+	{
+		DoDefault = false;
+		return;
+	}
+	String mediafilename = GetYoloMediaFileByName(name);
+	DoDefault = LoadMediaIfExist(mpStop,mediafilename);
+	mpStop->FileName = mediafilename;
+	mpStop->Open();
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::cbAudioWhenStartStopClick(TObject *Sender)
+{
+	if(cbAudioWhenStartStop->Checked==false)
+	{
+		if(mpStart->Mode!=mpNotReady)
+		{
+			mpStart->Close();
+		}
+		if(mpStop->Mode!=mpNotReady)
+		{
+			mpStop->Close();
+		}
+		return;
+	}
+
+	{
+		String mediafilename = GetYoloMediaFileByName(edWaveNameStart->Text);
+		if(LoadMediaIfExist(mpStart,mediafilename))
+		{
+			mpStart->FileName = mediafilename;
+			mpStart->Open();
+		}
+	}
+
+	{
+		String mediafilename = GetYoloMediaFileByName(edWaveNameStop->Text);
+		if(LoadMediaIfExist(mpStop,mediafilename))
+		{
+			mpStop->FileName = mediafilename;
+			mpStop->Open();
+		}
+	}
+
 }
 //---------------------------------------------------------------------------
 

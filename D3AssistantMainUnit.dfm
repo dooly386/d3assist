@@ -14,7 +14,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   KeyPreview = True
   Menu = MainMenu
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poDefault
   ShowHint = True
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 486
     Height = 338
-    ActivePage = YoloControlTabSheet
+    ActivePage = TabSheet1
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -2240,6 +2240,49 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Caption = 'Minimize when start'
         TabOrder = 4
       end
+      object cbAudioWhenStartStop: TCheckBox
+        Left = 3
+        Top = 128
+        Width = 162
+        Height = 17
+        Caption = 'Play audio when start/stop'
+        TabOrder = 5
+        OnClick = cbAudioWhenStartStopClick
+      end
+      object edWaveNameStart: TEdit
+        Left = 171
+        Top = 128
+        Width = 142
+        Height = 21
+        TabOrder = 6
+      end
+      object edWaveNameStop: TEdit
+        Left = 171
+        Top = 155
+        Width = 142
+        Height = 21
+        TabOrder = 7
+      end
+      object mpStart: TMediaPlayer
+        Tag = 1
+        Left = 327
+        Top = 128
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 8
+        OnClick = mpStartClick
+      end
+      object mpStop: TMediaPlayer
+        Tag = 1
+        Left = 327
+        Top = 155
+        Width = 29
+        Height = 21
+        VisibleButtons = [btPlay]
+        TabOrder = 9
+        OnClick = mpStopClick
+      end
     end
   end
   object stBar: TStatusBar
@@ -2640,7 +2683,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object TimerYoloCursor: TTimer
     Enabled = False
     OnTimer = TimerYoloCursorTimer
-    Left = 60
-    Top = 177
+    Left = 212
+    Top = 145
   end
 end
