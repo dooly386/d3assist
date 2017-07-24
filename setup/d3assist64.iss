@@ -66,8 +66,8 @@ Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 
 [Icons]
-Name: "{group}\d3assist"; Filename: "{app}\d3assist64.exe"; Comment: "d3assist x64 application"
-Name: "{commondesktop}\d3assist"; Filename: "{app}\d3assist64.exe"; Comment: "d3assist x64 application"
+Name: "{group}\d3assist64"; Filename: "{app}\d3assist64.exe"; Comment: "d3assist x64 application"
+Name: "{commondesktop}\d3assist64"; Filename: "{app}\d3assist64.exe"; Comment: "d3assist x64 application"
 [UninstallDelete]
 Type:files; Name: "{app}"
 

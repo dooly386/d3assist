@@ -30,7 +30,7 @@ OutputBaseFilename=setup32
 ; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
 ; done in "64-bit mode" on x64, meaning it should use the native
 ; 64-bit Program Files directory and the 64-bit view of the registry.
-ArchitecturesInstallIn64BitMode=x64
+;ArchitecturesInstallIn64BitMode=x64
 
 UninstallFilesDir={app}\uninst
 
@@ -66,8 +66,8 @@ Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 
 [Icons]
-Name: "{group}\d3assist"; Filename: "{app}\d3assist32.exe"; Comment: "d3assist win32 application"
-Name: "{commondesktop}\d3assist"; Filename: "{app}\d3assist32.exe"; Comment: "d3assist win32 application"
+Name: "{group}\d3assist32"; Filename: "{app}\d3assist32.exe"; Comment: "d3assist win32 application"
+Name: "{commondesktop}\d3assist32"; Filename: "{app}\d3assist32.exe"; Comment: "d3assist win32 application"
 
 [UninstallDelete]
 Type:files; Name: "{app}"
