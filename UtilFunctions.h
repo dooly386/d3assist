@@ -17,6 +17,7 @@ bool IsKeyPressed(int key);//    // key = 'A' ,,, VK_SHIFT ...
 void DBG(String s);
 String ParsingKeys(String s,std::list<String> &r);
 String ParsingKeys(String s,std::set<String> &r,std::set<String> &andr);
+String ParsingKeys(String s,std::list<String> &r,std::list<String> &andr);
 String GetInstallPath();
 ULONG GetPidByProcessName(const char *processname);
 HWND GetWinHandleByPid(ULONG pid);

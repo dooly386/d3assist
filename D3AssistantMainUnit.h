@@ -380,7 +380,7 @@ private:	// User declarations
 	void StartHook();
 	void StopHook();
 
-	void SendToAppKey(keyRow &row,String &key);
+	void SendToAppKey(keyRow &row,String &key,int opt=0); // opt=0 click, 1=down,2=up
 
 	void StartYoloCycle();
 	void StopYoloCycle();

@@ -301,7 +301,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 
 		keyRows[i].edkey = (TEdit *)FindComponent(keyname);
 
-		keyRows[i].key = ParsingKeys(keyRows[i].edkey->Text,keyRows[i].keys);
+		keyRows[i].key = ParsingKeys(keyRows[i].edkey->Text,keyRows[i].keys,keyRows[i].keysand);
 
 
 		keyRows[i].edinit = (TEdit *)FindComponent(initname);
@@ -338,7 +338,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 		keyRows[i].timer = (TTimer *)FindComponent(timername);
 
 		keyRows[i].toggle = (TCheckBox *)FindComponent(togglename);
-        keyRows[i].pushdown = false;
+		keyRows[i].pushdown = false;
 	}
 
 	for(int i=0;i<16;i++)
@@ -718,7 +718,7 @@ void __fastcall TD3AssistantMainForm::edStartKeyDown(TObject *Sender, WORD &Key,
 			{
 				char delimiter = '|';
 
-				if(te->Name.SubString(1,8)=="edActive" || te->Name.SubString(1,7)=="edPause")
+				if(te->Name.SubString(1,8)=="edActive" || te->Name.SubString(1,7)=="edPause" || te->Name.SubString(1,5)=="edKey")
 				{
 					if(cbMultiKeyAndMode->Checked)
 					{
@@ -772,7 +772,7 @@ void __fastcall TD3AssistantMainForm::edKey1MouseDown(TObject *Sender, TMouseBut
 			TEdit *te = (TEdit *)Sender;
 			char delimiter = '|';
 
-			if(te->Name.SubString(1,8)=="edActive" || te->Name.SubString(1,7)=="edPause")
+			if(te->Name.SubString(1,8)=="edActive" || te->Name.SubString(1,7)=="edPause" || te->Name.SubString(1,5)=="edKey")
 			{
 				if(cbMultiKeyAndMode->Checked)
 				{
@@ -1611,7 +1611,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 				TEdit *te = (TEdit *)comp;
 				char delimiter = '|';
 
-				if(te->Name.SubString(1,8)=="edActive" || te->Name.SubString(1,7)=="edPause")
+				if(te->Name.SubString(1,8)=="edActive" || te->Name.SubString(1,7)=="edPause" || te->Name.SubString(1,5)=="edKey")
 				{
 					if(cbMultiKeyAndMode->Checked)
 					{
@@ -1820,6 +1820,7 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 		keyState[key] = 0; // up
 	}
 
+
 	if(bDisableMouseHook==false)
 	{
 		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
@@ -1883,6 +1884,8 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 			}
 		}
 	}
+
+
 
 
 	{
@@ -2228,7 +2231,7 @@ void TD3AssistantMainForm::MouseClick(TMouseButton button)
 	bDisableMouseHook = false;
 }
 
-void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
+void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 {
 
 	if(key=="[mbLeft]")
@@ -2256,8 +2259,20 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 		}
 		else
 		{
-			MouseClick(btn);
+			if(opt==0)
+			{
+				MouseClick(btn);
+			}
+			if(opt==1)
+			{
+				MouseDown(btn);
+			}
+			if(opt==2)
+			{
+				MouseUp(btn);
+			}
 		}
+
 		return;
 	}
 	if(key=="[mbRight]")
@@ -2276,16 +2291,27 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 				if(row.activekey.Length())
 				{
 					row.timer->Enabled = false;
-                }
+				}
 				row.pushdown = false;
 				row.timer->Interval = 1;
 				MouseUp(btn);
-                checkColor();
+				checkColor();
 			}
 		}
 		else
 		{
-			MouseClick(btn);
+			if(opt==0)
+			{
+				MouseClick(btn);
+			}
+			if(opt==1)
+			{
+				MouseDown(btn);
+			}
+			if(opt==2)
+			{
+				MouseUp(btn);
+			}
 		}
 		return;
 	}
@@ -2314,7 +2340,18 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 		}
 		else
 		{
-			MouseClick(btn);
+			if(opt==0)
+			{
+				MouseClick(btn);
+			}
+			if(opt==1)
+			{
+				MouseDown(btn);
+			}
+			if(opt==2)
+			{
+				MouseUp(btn);
+			}
 		}
 		return;
 	}
@@ -2342,8 +2379,19 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 		}
 		else
 		{
-			MouseDownX(1);
-			MouseUpX(1);
+			if(opt==0)
+			{
+				MouseDownX(1);
+				MouseUpX(1);
+			}
+			if(opt==1)
+			{
+				MouseDownX(1);
+			}
+			if(opt==2)
+			{
+				MouseUpX(1);
+			}
 		}
 		return;
 	}
@@ -2372,8 +2420,19 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 		}
 		else
 		{
-			MouseDownX(2);
-			MouseUpX(2);
+			if(opt==0)
+			{
+				MouseDownX(1);
+				MouseUpX(1);
+			}
+			if(opt==1)
+			{
+				MouseDownX(1);
+			}
+			if(opt==2)
+			{
+				MouseUpX(1);
+			}
 		}
 		return;
 	}
@@ -2415,7 +2474,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 				if(row.activekey.Length())
 				{
 					row.timer->Enabled = false;
-                }
+				}
 				row.timer->Interval = 1;
 				row.pushdown = false;
 				checkColor();
@@ -2424,8 +2483,18 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key)
 		}
 		else
 		{
-			PressKey(vc,sc);
-			checkColor();
+			if(opt==0)
+			{
+				PressKey(vc,sc);
+			}
+			if(opt==1)
+			{
+				PushDownKey(vc,sc);
+			}
+			if(opt==2)
+			{
+				PushUpKey(vc,sc);
+			}
 		}
 		return;
 	}
@@ -2481,12 +2550,34 @@ void __fastcall TD3AssistantMainForm::Timer1Timer(TObject *Sender)
 
 	row.timer->Interval = row.interval;
 
-	SendToAppKey(row,row.key);
-	std::list<String>::iterator it = row.keys.begin();
-	while(it!=row.keys.end())
+	if(row.keysand.size()==0)
 	{
-		SendToAppKey(row,*it);
-		it++;
+		SendToAppKey(row,row.key,0);
+		std::list<String>::iterator it = row.keys.begin();
+		while(it!=row.keys.end())
+		{
+			SendToAppKey(row,*it,0);
+			it++;
+		}
+	}
+	else
+	{
+		SendToAppKey(row,row.key,1);
+		std::list<String>::iterator it = row.keysand.begin();
+		while(it!=row.keysand.end())
+		{
+			SendToAppKey(row,*it,1);
+			it++;
+		}
+
+		SendToAppKey(row,row.key,2);
+		std::list<String>::iterator it2 = row.keysand.begin();
+		while(it2!=row.keysand.end())
+		{
+			SendToAppKey(row,*it2,2);
+			it2++;
+		}
+
     }
 
 

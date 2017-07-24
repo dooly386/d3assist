@@ -19,6 +19,7 @@ struct keyRow
 
 	String key;
 	std::list<String> keys;
+	std::list<String> keysand;
 
 	int initial; // inital interval
 	int interval; // seq interval

@@ -689,6 +689,52 @@ String ParsingKeys(String s,std::set<String> &r,std::set<String> &andr)
 
 }
 
+String ParsingKeys(String s,std::list<String> &r,std::list<String> &andr)
+{
+	if(s.Length()==0) return "";
+	if(s.Pos("&"))
+	{
+		TStringList *t = new TStringList;
+		t->Delimiter = L'&';
+		t->DelimitedText = s;
+		if(t->Count==1)
+		{
+			delete t;
+			return s;
+		}
+
+		for(int i=1;i<t->Count;i++)
+		{
+			andr.push_back(t->Strings[i]);
+		}
+		String rs = t->Strings[0];
+		delete t;
+		return rs;
+
+	}
+
+
+
+	TStringList *t = new TStringList;
+	t->Delimiter = L'|';
+	t->DelimitedText = s;
+	if(t->Count==1)
+	{
+		delete t;
+		return s;
+	}
+
+	for(int i=1;i<t->Count;i++)
+	{
+		r.push_back(t->Strings[i]);
+	}
+	String rs = t->Strings[0];
+	delete t;
+	return rs;
+
+}
+
+
 
 String GetInstallPath()
 {
