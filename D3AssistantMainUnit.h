@@ -390,6 +390,7 @@ private:	// User declarations
 	void PlayStopMp();
 
 	DWORD GetYoloTargetProcessId();
+	void CloseAllMedia();
 
 public:		// User declarations
 	bool bStarted;

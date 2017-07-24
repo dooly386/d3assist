@@ -110,6 +110,22 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 
 }
 
+void TD3AssistantMainForm::CloseAllMedia()
+{
+	for(int i=0;i<ComponentCount;i++)
+	{
+		TComponent *comp = (TComponent *)Components[i];
+		if(comp->ClassNameIs("TMediaPlayer"))
+		{
+			TMediaPlayer *mp = (TMediaPlayer *)comp;
+			if(mp->Mode!=mpNotReady)
+			{
+                mp->Close();
+            }
+		}
+	}
+}
+
 void TD3AssistantMainForm::StartHook()
 {
 	if(g_hKeyHook) return;
@@ -137,6 +153,8 @@ void TD3AssistantMainForm::StopHook()
 }
 void TD3AssistantMainForm::LoadEnv()
 {
+	//--------------------------------------------------------------------------
+	CloseAllMedia();
 	//--------------------------------------------------------------------------
 	// load configuration ini
 	String filename = ChangeFileExt(Application->ExeName,".ini");
@@ -569,6 +587,7 @@ void TD3AssistantMainForm::LoadIni(String filename)
 {
 
 	if(FileExists(filename)==false) return;
+	CloseAllMedia();
 
 	bLoading = true;
 
@@ -3106,7 +3125,7 @@ bool TD3AssistantMainForm::LoadMediaIfExist(TMediaPlayer *mp,String filename)
 	if(FileExists(filename)==false) return false;
 	mp->FileName = filename;
 	mp->Open();
-    return mp->Mode!=mpNotReady;
+	return mp->Mode!=mpNotReady;
 }
 void TD3AssistantMainForm::PlayStartMp()
 {

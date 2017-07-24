@@ -34,12 +34,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     TabOrder = 1
     OnChange = PageControlChange
-    ExplicitWidth = 486
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
-      ExplicitWidth = 478
       object Label4: TLabel
         Left = 105
         Top = 8
@@ -1048,7 +1046,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetSequenceKey: TTabSheet
       Caption = 'Sequence Key'
       ImageIndex = 4
-      ExplicitWidth = 478
       object Label7: TLabel
         Left = 8
         Top = 16
@@ -1060,7 +1057,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitWidth = 478
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1644,7 +1640,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object YoloControlTabSheet: TTabSheet
       Caption = 'YoloLoop'
       ImageIndex = 5
-      ExplicitWidth = 478
       object Label18: TLabel
         Left = 28
         Top = 0
@@ -2191,7 +2186,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitWidth = 478
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -2301,7 +2295,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentDoubleBuffered = False
     SimplePanel = True
     SimpleText = 'Welcome D3Assist'
-    ExplicitWidth = 486
   end
   object Panel1: TPanel
     Left = 0
@@ -2310,7 +2303,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Height = 113
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 486
     DesignSize = (
       506
       113)
@@ -2451,7 +2443,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
       PopupMenu = PopupMenu1
       TabOrder = 4
       OnDblClick = lbRecentlyFilesDblClick
-      ExplicitWidth = 221
     end
   end
   object SaveDialog: TSaveDialog
