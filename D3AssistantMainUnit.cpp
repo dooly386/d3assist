@@ -118,7 +118,7 @@ void TD3AssistantMainForm::CloseAllMedia()
 		if(comp->ClassNameIs("TMediaPlayer"))
 		{
 			TMediaPlayer *mp = (TMediaPlayer *)comp;
-			if(mp->Mode!=mpNotReady)
+			if(mp->Mode==mpOpen)
 			{
                 mp->Close();
             }
