@@ -25,5 +25,8 @@ HWND GetWinHandleByProcessName(const char *procname);
 String GetInstallPath();
 String GetYoloMediaPath();
 String GetYoloMediaFileByName(String name);
+bool CheckYoloMouseReady();
+HWND GetYoloHandle();
+void __stdcall SetForegroundWindowForce(HWND hWnd);
 
 #endif

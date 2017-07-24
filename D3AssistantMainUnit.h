@@ -209,7 +209,7 @@ __published:	// IDE-managed Components
 	TMenuItem *N9;
 	TTimer *TimerYoloCursor;
 	TTabSheet *YoloControlTabSheet;
-	TButton *btnYoloLoopTest;
+	TButton *btnStartYoloMouse;
 	TEdit *edCurGrp1;
 	TEdit *edCurGrp2;
 	TEdit *edCurGrp3;
@@ -308,7 +308,6 @@ __published:	// IDE-managed Components
 	void __fastcall MenuSkinDefaultClick(TObject *Sender);
 	void __fastcall MenuDebugWindowClick(TObject *Sender);
 	void __fastcall N9Click(TObject *Sender);
-	void __fastcall btnYoloLoopTestClick(TObject *Sender);
 	void __fastcall TimerYoloCursorTimer(TObject *Sender);
 	void __fastcall edCurGrp1KeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall mpYolo1Click(TObject *Sender, TMPBtnType Button, bool &DoDefault);
@@ -391,6 +390,7 @@ private:	// User declarations
 
 	DWORD GetYoloTargetProcessId();
 	void CloseAllMedia();
+	bool IsUsedMediaFile(String filename);
 
 public:		// User declarations
 	bool bStarted;

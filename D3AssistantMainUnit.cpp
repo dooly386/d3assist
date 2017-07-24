@@ -66,6 +66,14 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 		{
 			editlist.push_back((DWORD)comp);
 		}
+
+		if(comp->ClassNameIs("TMediaPlayer"))
+		{
+			TMediaPlayer *mp = (TMediaPlayer *)comp;
+			mp->Shareable = false;
+		}
+
+
 	}
 
 	//--------------------------------------------------------------------------
@@ -120,10 +128,25 @@ void TD3AssistantMainForm::CloseAllMedia()
 			TMediaPlayer *mp = (TMediaPlayer *)comp;
 			if(mp->Mode==mpOpen)
 			{
-                mp->Close();
-            }
+				mp->Close();
+                mp->FileName = "";
+			}
 		}
 	}
+}
+
+bool TD3AssistantMainForm::IsUsedMediaFile(String filename)
+{
+	for(int i=0;i<ComponentCount;i++)
+	{
+		TComponent *comp = (TComponent *)Components[i];
+		if(comp->ClassNameIs("TMediaPlayer"))
+		{
+			TMediaPlayer *mp = (TMediaPlayer *)comp;
+			if(mp->FileName==filename) return true;
+		}
+	}
+	return false;
 }
 
 void TD3AssistantMainForm::StartHook()
@@ -151,6 +174,9 @@ void TD3AssistantMainForm::StopHook()
 	g_hKeyHook = 0;
 	g_hMouseHook = 0;
 }
+
+
+
 void TD3AssistantMainForm::LoadEnv()
 {
 	//--------------------------------------------------------------------------
@@ -196,8 +222,9 @@ void TD3AssistantMainForm::LoadEnv()
 
 		{
 			String mediafilename = GetYoloMediaFileByName(edWaveNameStart->Text);
-			if(LoadMediaIfExist(mpStart,mediafilename))
+			if(LoadMediaIfExist(mpStart,mediafilename) && IsUsedMediaFile(mediafilename)==false)
 			{
+
 				mpStart->FileName = mediafilename;
 				mpStart->Open();
 			}
@@ -205,7 +232,7 @@ void TD3AssistantMainForm::LoadEnv()
 
 		{
 			String mediafilename = GetYoloMediaFileByName(edWaveNameStop->Text);
-			if(LoadMediaIfExist(mpStop,mediafilename))
+			if(LoadMediaIfExist(mpStop,mediafilename) && IsUsedMediaFile(mediafilename)==false)
 			{
 				mpStop->FileName = mediafilename;
 				mpStop->Open();
@@ -2944,19 +2971,13 @@ std::list<yolocursor>::iterator itYoloCursor;
 void TD3AssistantMainForm::StartYoloCycle()
 {
 
-
-
-#ifndef _WIN64
-	if(GetWinHandleByProcessName("YoloMouse32.exe")==0)
+	if(CheckYoloMouseReady()==false)
 	{
-		StartYoloMouseMenuClick(0);
+		::SetForegroundWindowForce(Handle);
+		::SetFocus(Handle);
+		MessageDlg("Yolomouse is not running, please start yolomouse and try again!!!",mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+		return;
 	}
-#else
-	if(GetWinHandleByProcessName("YoloMouse64.exe")==0)
-	{
-		StartYoloMouseMenuClick(0);
-	}
-#endif
 
 	DWORD pid = GetYoloTargetProcessId();
 	if(pid)
@@ -2970,6 +2991,11 @@ void TD3AssistantMainForm::StartYoloCycle()
 		SendMessage(hwnd,WM_USER+1001,0,pid);
 //		Caption = pid;
 	}
+	else
+	{
+		MessageDlg("Yolomouse is not running, please start yolomouse and try again!!!",mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+		return;
+    }
 
 
 
@@ -3023,16 +3049,6 @@ void TD3AssistantMainForm::StopYoloCycle()
 	TimerYoloCursor->Enabled = false;
 }
 
-void __fastcall TD3AssistantMainForm::btnYoloLoopTestClick(TObject *Sender)
-{
-	if(TimerYoloCursor->Enabled)
-	{
-		StopYoloCycle();
-		return;
-	}
-	StartYoloCycle();
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
 {
@@ -3040,11 +3056,9 @@ void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
 	TimerYoloCursor->Enabled = false;
 	TimerYoloCursor->Interval = edYoloLoopInterval->Text.ToInt();
 
-#ifndef _WIN64
-	HWND hwnd = GetWinHandleByProcessName("YoloMouse32.exe");
-#else
-	HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
-#endif
+	HWND hwnd = GetYoloHandle();
+	if(hwnd==0) return;
+
 
 	yolocursor &cur = *itYoloCursor;
 
@@ -3108,9 +3122,9 @@ void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType B
 		DoDefault = false;
 		return;
 	}
-	mp->FileName = mediafile;
-	mp->Open();
-	DoDefault = mp->Mode!=mpNotReady;
+
+
+	DoDefault = LoadMediaIfExist(mp,ed->Text);
 }
 //---------------------------------------------------------------------------
 
@@ -3123,9 +3137,17 @@ void __fastcall TD3AssistantMainForm::edYoloName1Change(TObject *Sender)
 bool TD3AssistantMainForm::LoadMediaIfExist(TMediaPlayer *mp,String filename)
 {
 	if(FileExists(filename)==false) return false;
+    mp->FileName = "";
+	if(IsUsedMediaFile(filename)==true) return false;
+
 	mp->FileName = filename;
 	mp->Open();
-	return mp->Mode!=mpNotReady;
+	bool r = mp->Mode!=mpNotReady;
+	if(r==false)
+	{
+        mp->FileName = "";
+	}
+	return r;
 }
 void TD3AssistantMainForm::PlayStartMp()
 {
@@ -3167,8 +3189,11 @@ void __fastcall TD3AssistantMainForm::mpStartClick(TObject *Sender, TMPBtnType B
 
 	String mediafilename = GetYoloMediaFileByName(name);
 	DoDefault = LoadMediaIfExist(mpStart,mediafilename);
-	mpStart->FileName = mediafilename;
-	mpStart->Open();
+	if(DoDefault)
+	{
+		mpStart->FileName = mediafilename;
+		mpStart->Open();
+	}
 }
 //---------------------------------------------------------------------------
 
@@ -3191,8 +3216,12 @@ void __fastcall TD3AssistantMainForm::mpStopClick(TObject *Sender, TMPBtnType Bu
 	}
 	String mediafilename = GetYoloMediaFileByName(name);
 	DoDefault = LoadMediaIfExist(mpStop,mediafilename);
-	mpStop->FileName = mediafilename;
-	mpStop->Open();
+	if(DoDefault)
+	{
+		mpStop->FileName = mediafilename;
+		mpStop->Open();
+    }
+
 
 
 }
@@ -3233,4 +3262,5 @@ void __fastcall TD3AssistantMainForm::cbAudioWhenStartStopClick(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+
 

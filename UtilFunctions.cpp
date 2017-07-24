@@ -706,3 +706,48 @@ String GetYoloMediaFileByName(String name)
 	String filename = GetYoloMediaPath()+"\\"+name+".wav";
 	return filename;
 }
+
+
+bool CheckYoloMouseReady()
+{
+#ifndef _WIN64
+	if(GetWinHandleByProcessName("YoloMouse32.exe")==0)
+	{
+		return false;
+	}
+#else
+	if(GetWinHandleByProcessName("YoloMouse64.exe")==0)
+	{
+		return false;
+	}
+#endif
+	return true;
+}
+
+
+HWND GetYoloHandle()
+{
+
+#ifndef _WIN64
+	HWND hwnd = GetWinHandleByProcessName("YoloMouse32.exe");
+#else
+	HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
+#endif
+	return hwnd;
+}
+
+void __stdcall SetForegroundWindowForce(HWND hWnd)
+{
+ HWND hForeground;
+ DWORD id, foreground_id;
+ hForeground = GetForegroundWindow();
+ if (hForeground == hWnd) return;
+ foreground_id = GetWindowThreadProcessId(hForeground, NULL);
+ id = GetWindowThreadProcessId(hWnd, NULL);
+ if (AttachThreadInput(id, foreground_id, TRUE))
+ {
+  SetForegroundWindow(hWnd);
+  BringWindowToTop(hWnd);
+  AttachThreadInput(id, foreground_id, FALSE);
+ }
+}
