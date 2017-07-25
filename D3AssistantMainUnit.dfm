@@ -12,7 +12,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
-  Menu = MainMenu
+  Menu = MainFormMenu
   OldCreateOrder = False
   Position = poDesigned
   ShowHint = True
@@ -2523,7 +2523,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Left = 760
     Top = 56
   end
-  object MainMenu: TMainMenu
+  object MainFormMenu: TMainMenu
     AutoHotkeys = maManual
     AutoLineReduction = maManual
     Left = 280
@@ -2554,6 +2554,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object menuClose: TMenuItem
         Caption = 'Close'
+      end
+    end
+    object MenuGroupView: TMenuItem
+      Caption = 'View'
+      object menuSimplifyUI1: TMenuItem
+        Caption = 'Simplify UI'
+        OnClick = menuSimplifyUI1Click
       end
     end
     object MenuGroupAddOn: TMenuItem

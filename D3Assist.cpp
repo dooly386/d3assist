@@ -12,12 +12,13 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
-USEFORM("TTSManagerFormUnit.cpp", TTSManagerForm);
 USEFORM("ProtectionAreaManagerFormUnit.cpp", ProtectionAreaManagerForm);
+USEFORM("TTSManagerFormUnit.cpp", TTSManagerForm);
 USEFORM("ABOUT.cpp", AboutBox);
-USEFORM("DebugWindowFormUnit.cpp", DebugWindowForm);
 USEFORM("D3AssistantMainUnit.cpp", D3AssistantMainForm);
 USEFORM("MediaPlayerFormUnit.cpp", MediaPlayerForm);
+USEFORM("DebugWindowFormUnit.cpp", DebugWindowForm);
+USEFORM("SimplifyUIFormUnit.cpp", SimplifyUIForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -29,6 +30,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TAboutBox), &AboutBox);
 		Application->CreateForm(__classid(TProtectionAreaManagerForm), &ProtectionAreaManagerForm);
 		Application->CreateForm(__classid(TDebugWindowForm), &DebugWindowForm);
+		Application->CreateForm(__classid(TSimplifyUIForm), &SimplifyUIForm);
 		Application->Run();
 	}
 	catch (Exception &exception)

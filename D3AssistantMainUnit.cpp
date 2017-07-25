@@ -26,6 +26,7 @@
 #include "TTSManagerFormUnit.h"
 #include "DebugWindowFormUnit.h"
 #include "MediaPlayerFormUnit.h"
+#include "SimplifyUIFormUnit.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -247,6 +248,7 @@ void TD3AssistantMainForm::LoadEnv()
 			Width = ini->ReadInteger("Setup","Width",Width);
 			Height = ini->ReadInteger("Setup","Height",Height);
 		}
+        cbStayOnTop->Checked = ini->ReadBool("Setup","cbStayOnTop",false);
 
         edKeyMouseModifier->Text = ini->ReadString("Setup","edKeyMouseModifier","0");
 
@@ -276,6 +278,7 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteInteger("Setup","Width",Width);
 	ini->WriteInteger("Setup","Height",Height);
 	ini->WriteString("Setup","edKeyMouseModifier",edKeyMouseModifier->Text);
+	ini->WriteBool("Setup","cbStayOnTop",cbStayOnTop->Checked);
 
 
 	delete ini;
@@ -445,34 +448,102 @@ void TD3AssistantMainForm::checkColor()
 {
 	for(int i=0;i<8;i++)
 	{
+		bool bold = false;
+		bool italic = false;
+		bool strikeout = false;
+
 		keyRow &row = keyRows[i];
 		TColor color = clWindow;
 		if(row.timer->Enabled)
 		{
 			color = clLime;
+			bold = true;
 			if(row.toggle->Checked)
 			{
-                color = clYellow;
+				color = clYellow;
+				italic = true;
 			}
 		}
 		else
 		{
 			if(row.timer->Tag==10)
 			{
-                color = clLtGray;
-            }
+				color = clLtGray;
+				italic = true;
+				strikeout = true;
+			}
 		}
 
 		if(bPause && row.timer->Tag)
 		{
-            color = clLtGray;
-        }
+			color = clLtGray;
+			italic = true;
+			strikeout = true;
+		}
+
 		row.edkey->Color = color;
 		row.eddelay->Color = color;
 		row.edpause->Color = color;
 		row.edactive->Color = color;
-        row.edinit->Color = color;
+		row.edinit->Color = color;
+
+		if(bold)
+		{
+			row.edkey->Font->Style = row.edkey->Font->Style << fsBold;
+			row.eddelay->Font->Style = row.eddelay->Font->Style << fsBold;
+			row.edpause->Font->Style = row.edpause->Font->Style << fsBold;
+			row.edactive->Font->Style = row.edactive->Font->Style << fsBold;
+			row.edinit->Font->Style = row.edinit->Font->Style << fsBold;
+		}
+		else
+		{
+			row.edkey->Font->Style = row.edkey->Font->Style >> fsBold;
+			row.eddelay->Font->Style = row.eddelay->Font->Style >> fsBold;
+			row.edpause->Font->Style = row.edpause->Font->Style >> fsBold;
+			row.edactive->Font->Style = row.edactive->Font->Style >> fsBold;
+			row.edinit->Font->Style = row.edinit->Font->Style >> fsBold;
+		}
+		if(italic)
+		{
+			row.edkey->Font->Style = row.edkey->Font->Style << fsItalic;
+			row.eddelay->Font->Style = row.eddelay->Font->Style << fsItalic;
+			row.edpause->Font->Style = row.edpause->Font->Style << fsItalic;
+			row.edactive->Font->Style = row.edactive->Font->Style << fsItalic;
+			row.edinit->Font->Style = row.edinit->Font->Style << fsItalic;
+		}
+		else
+		{
+			row.edkey->Font->Style = row.edkey->Font->Style >> fsItalic;
+			row.eddelay->Font->Style = row.eddelay->Font->Style >> fsItalic;
+			row.edpause->Font->Style = row.edpause->Font->Style >> fsItalic;
+			row.edactive->Font->Style = row.edactive->Font->Style >> fsItalic;
+			row.edinit->Font->Style = row.edinit->Font->Style >> fsItalic;
+		}
+
+		if(strikeout)
+		{
+			row.edkey->Font->Style = row.edkey->Font->Style << fsStrikeOut;
+			row.eddelay->Font->Style = row.eddelay->Font->Style << fsStrikeOut;
+			row.edpause->Font->Style = row.edpause->Font->Style << fsStrikeOut;
+			row.edactive->Font->Style = row.edactive->Font->Style << fsStrikeOut;
+			row.edinit->Font->Style = row.edinit->Font->Style << fsStrikeOut;
+		}
+		else
+		{
+			row.edkey->Font->Style = row.edkey->Font->Style >> fsStrikeOut;
+			row.eddelay->Font->Style = row.eddelay->Font->Style >> fsStrikeOut;
+			row.edpause->Font->Style = row.edpause->Font->Style >> fsStrikeOut;
+			row.edactive->Font->Style = row.edactive->Font->Style >> fsStrikeOut;
+			row.edinit->Font->Style = row.edinit->Font->Style >> fsStrikeOut;
+		}
+
+
 	}
+
+	if(SimplifyUIForm->Visible)
+	{
+		SimplifyUIForm->checkColor();
+    }
 }
 
 
@@ -3606,6 +3677,80 @@ void __fastcall TD3AssistantMainForm::cbAudioWhenStartStopClick(TObject *Sender)
 		}
 	}
 
+}
+//---------------------------------------------------------------------------
+
+void TD3AssistantMainForm::HideAllComponents()
+{
+	PPropInfo propinfo;
+	for(int i=0;i<ComponentCount;i++)
+	{
+		TComponent *comp = Components[i];
+		propinfo = GetPropInfo(comp,"Visible");
+		if(propinfo)
+		{
+			SetOrdProp(comp,"Visible",0);
+        }
+	}
+}
+void TD3AssistantMainForm::ShowAllComponents()
+{
+	PPropInfo propinfo;
+	for(int i=0;i<ComponentCount;i++)
+	{
+		TComponent *comp = Components[i];
+		propinfo = GetPropInfo(comp,"Visible");
+		if(propinfo)
+		{
+			SetOrdProp(comp,"Visible",1);
+		}
+	}
+
+}
+
+void TD3AssistantMainForm::Simplify()
+{
+	widthBk = Width;
+	heightBk = Height;
+
+	SimplifyUIForm->AlphaBlend = true;
+	if(edAlphaValue->Text.Length())
+	{
+		SimplifyUIForm->AlphaBlendValue = edAlphaValue->Text.ToInt();
+	}
+	else
+	{
+		SimplifyUIForm->AlphaBlendValue = 100;
+	}
+	SimplifyUIForm->Parent = this;
+	SimplifyUIForm->Show();
+
+	BorderStyle = bsNone;
+	Menu = 0;
+
+	HideAllComponents();
+	ClientWidth = SimplifyUIForm->ClientWidth;
+	ClientHeight = SimplifyUIForm->ClientHeight;
+
+}
+void TD3AssistantMainForm::UnSimplify()
+{
+	SimplifyUIForm->Hide();
+	SimplifyUIForm->Parent = 0;
+	D3AssistantMainForm->Menu = D3AssistantMainForm->MainFormMenu;
+	D3AssistantMainForm->BorderStyle = bsSizeable;
+	D3AssistantMainForm->ShowAllComponents();
+
+	Width = widthBk;
+    Height = heightBk;
+
+}
+
+
+void __fastcall TD3AssistantMainForm::menuSimplifyUI1Click(TObject *Sender)
+{
+
+	Simplify();
 }
 //---------------------------------------------------------------------------
 

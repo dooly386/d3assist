@@ -42,7 +42,7 @@ __published:	// IDE-managed Components
 	TTimer *Timer6;
 	TTimer *Timer7;
 	TTimer *Timer8;
-	TMainMenu *MainMenu;
+	TMainMenu *MainFormMenu;
 	TMenuItem *F1;
 	TMenuItem *menuNew;
 	TMenuItem *menuOpen;
@@ -267,6 +267,8 @@ __published:	// IDE-managed Components
 	TMediaPlayer *mpStop;
 	TLabel *Label17;
 	TEdit *edKeyMouseModifier;
+	TMenuItem *MenuGroupView;
+	TMenuItem *menuSimplifyUI1;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -317,6 +319,7 @@ __published:	// IDE-managed Components
 	void __fastcall mpStartClick(TObject *Sender, TMPBtnType Button, bool &DoDefault);
 	void __fastcall mpStopClick(TObject *Sender, TMPBtnType Button, bool &DoDefault);
 	void __fastcall cbAudioWhenStartStopClick(TObject *Sender);
+	void __fastcall menuSimplifyUI1Click(TObject *Sender);
 
 
 
@@ -324,6 +327,9 @@ __published:	// IDE-managed Components
 
 
 private:	// User declarations
+	int widthBk;
+	int heightBk;
+
 	bool bModified;
 	String OpenFileName;
 	std::list<DWORD> editlist;
@@ -439,6 +445,11 @@ public:		// User declarations
 
 	bool OnMouseWheelHook(int delta);
 
+	void HideAllComponents();
+	void ShowAllComponents();
+
+	void Simplify();
+	void UnSimplify();
 
 	__fastcall TD3AssistantMainForm(TComponent* Owner);
 };
