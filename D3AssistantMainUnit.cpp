@@ -2748,16 +2748,16 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 		{
 			if(opt==0)
 			{
-				MouseDownX(1);
-				MouseUpX(1);
+				MouseDownX(2);
+				MouseUpX(2);
 			}
 			if(opt==1)
 			{
-				MouseDownX(1);
+				MouseDownX(2);
 			}
 			if(opt==2)
 			{
-				MouseUpX(1);
+				MouseUpX(2);
 			}
 		}
 		return;
