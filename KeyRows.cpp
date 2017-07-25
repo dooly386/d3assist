@@ -15,6 +15,8 @@ struct keyStopRow keyStopRows[16];
 std::map<TTimer *,keyRow *> keyTimerMap;
 std::map<String,std::list<keyRow *>> keyPauseMap;
 std::map<String,std::list<keyRow *>> keyActiveMap;
+std::list<keyRow *> keyHoldMap;
+
 
 
 std::map<String,keyStopRow *> keyStopMap;

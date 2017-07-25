@@ -58,6 +58,7 @@ struct keyRow
 		pushdown = false;
 
 		keys.clear();
+		keysand.clear();
 		pausekeys.clear();
 		activekeys.clear();
 		pausekeysand.clear();
@@ -106,6 +107,7 @@ extern std::map<TTimer *,keyRow *> keyTimerMap;
 
 extern std::map<String,std::list<keyRow *>> keyPauseMap;
 extern std::map<String,std::list<keyRow *>> keyActiveMap;
+extern std::list<keyRow *> keyHoldMap;
 
 extern std::map<String,keyStopRow *> keyStopMap;
 

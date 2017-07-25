@@ -265,6 +265,8 @@ __published:	// IDE-managed Components
 	TEdit *edWaveNameStop;
 	TMediaPlayer *mpStart;
 	TMediaPlayer *mpStop;
+	TLabel *Label17;
+	TEdit *edKeyMouseModifier;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -333,7 +335,8 @@ private:	// User declarations
 	int  iForceMode;
 	String SkinName;
 	int CurrentPlayCount;
-    std::map<String,int> keyState;  //0 up, 1 down
+	std::map<String,int> keyState;  //0 up, 1 down
+    int sleepsec;
 
 	BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(CM_DIALOGKEY, TMessage, CMDialogKey)
@@ -405,9 +408,17 @@ public:		// User declarations
 
 	void PressKey(int vcode,int scancode);
 
+	void KeyDown(String key);
+	void KeyUp(String key);
+
+
+
 	void MouseDown(TMouseButton button);
 	void MouseUp(TMouseButton button);
 	void MouseClick(TMouseButton button);
+	void MouseDown(String key);
+	void MouseUp(String key);
+
 
 	void MouseDownX(int btn);
 	void MouseUpX(int btn);

@@ -2193,6 +2193,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Height = 13
         Caption = 'Alpha Blend'
       end
+      object Label17: TLabel
+        Left = 3
+        Top = 190
+        Width = 98
+        Height = 26
+        Caption = 'Key and Mouse click '#13#10'modifier (msec)'
+      end
       object cbStayOnTop: TCheckBox
         Left = 3
         Top = 12
@@ -2282,6 +2289,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         VisibleButtons = [btPlay]
         TabOrder = 9
         OnClick = mpStopClick
+      end
+      object edKeyMouseModifier: TEdit
+        Left = 171
+        Top = 192
+        Width = 142
+        Height = 21
+        NumbersOnly = True
+        TabOrder = 10
       end
     end
   end

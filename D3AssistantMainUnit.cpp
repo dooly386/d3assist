@@ -57,6 +57,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	bLoading = false;
 	bRecordStarted = false;
 	bPlayStarted = false;
+	sleepsec = 100;
 
 
 	for(int i=0;i<ComponentCount;i++)
@@ -247,6 +248,8 @@ void TD3AssistantMainForm::LoadEnv()
 			Height = ini->ReadInteger("Setup","Height",Height);
 		}
 
+        edKeyMouseModifier->Text = ini->ReadString("Setup","edKeyMouseModifier","0");
+
 		delete ini;
 		LoadIni(openfilename);
 	}
@@ -272,6 +275,7 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteInteger("Setup","Top",Top);
 	ini->WriteInteger("Setup","Width",Width);
 	ini->WriteInteger("Setup","Height",Height);
+	ini->WriteString("Setup","edKeyMouseModifier",edKeyMouseModifier->Text);
 
 
 	delete ini;
@@ -283,6 +287,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 	keyTimerMap.clear();
 	keyPauseMap.clear();
 	keyActiveMap.clear();
+	keyHoldMap.clear();
 
 	keyStopMap.clear();
 
@@ -339,6 +344,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 
 		keyRows[i].toggle = (TCheckBox *)FindComponent(togglename);
 		keyRows[i].pushdown = false;
+
 	}
 
 	for(int i=0;i<16;i++)
@@ -891,6 +897,12 @@ void TD3AssistantMainForm::Start()
 {
 	if(cbDoNotStart->Checked) return;
 
+
+	if(edKeyMouseModifier->Text.Length())
+	{
+        sleepsec = edKeyMouseModifier->Text.ToInt();
+    }
+
 	bProtWindowFlag = ProtectionAreaManagerForm->Visible;
 	if(ProtectionAreaManagerForm->Visible)
 	{
@@ -946,11 +958,18 @@ void TD3AssistantMainForm::Start()
 
 	keyPauseMap.clear();
 	keyActiveMap.clear();
+	keyHoldMap.clear();
+
 	for(int i=0;i<8;i++)
 	{
 		keyRow &row = keyRows[i];
 		if(row.timer->Tag==0) continue;
 		if(row.timer->Interval==0) continue;
+
+		if(row.toggle->Checked)
+		{
+            keyHoldMap.push_back(&row);
+        }
 
 		if(row.pausekey.Length())
 		{
@@ -1311,6 +1330,45 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 
 	if(bDisableKbHook==false)
 	{
+		std::map<String,std::list<keyRow *>>::iterator itactive = keyActiveMap.find(key);
+		if(itactive!=keyActiveMap.end())
+		{
+
+			std::list<keyRow *> &items = itactive->second;
+			std::list<keyRow *>::iterator it = items.begin();
+			while(it!=items.end())
+			{
+				keyRow &row = **(it);
+				if(row.timer->Tag==0)
+				{
+					it++;
+					continue;
+				}
+				if(GetActiveKeyState(row)==1)
+				{
+					if(row.timer->Enabled==false || row.toggle->Checked)
+					{
+						if(row.initial)
+						{
+							row.timer->Interval = row.initial;
+						}
+						else
+						{
+							row.timer->Interval = 1;
+						}
+						row.timer->Enabled = false;
+						row.timer->Enabled = true;
+						checkColor();
+					}
+				}
+				it++;
+			}
+
+		}
+	}
+
+	if(bDisableKbHook==false)
+	{
 		std::map<String,std::list<keyRow *>>::iterator itpause = keyPauseMap.find(key);
 		if(itpause!=keyPauseMap.end())
 		{
@@ -1350,46 +1408,61 @@ void TD3AssistantMainForm::OnKeyDownHook(String key)
 				it++;
 			}
 		}
+
+
 	}
 
-	if(bDisableKbHook==false)
+	if(bDisableMouseHook==false)
 	{
-		std::map<String,std::list<keyRow *>>::iterator itactive = keyActiveMap.find(key);
-		if(itactive!=keyActiveMap.end())
+		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
+		if(it!=keyPauseMap.end())
 		{
-
-			std::list<keyRow *> &items = itactive->second;
-			std::list<keyRow *>::iterator it = items.begin();
-			while(it!=items.end())
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
 			{
-				keyRow &row = **(it);
+				keyRow &row = **it2;
 				if(row.timer->Tag==0)
 				{
-					it++;
+					it2++;
 					continue;
 				}
-				if(GetActiveKeyState(row)==1)
+				if(row.timer->Enabled)
 				{
-					if(row.timer->Enabled==false || row.toggle->Checked)
-					{
-						if(row.initial)
-						{
-							row.timer->Interval = row.initial;
-						}
-						else
-						{
-							row.timer->Interval = 1;
-						}
-						row.timer->Enabled = false;
-						row.timer->Enabled = true;
-						checkColor();
-					}
-                }
-				it++;
-			}
+					row.timer->Enabled = false;
+					checkColor();
+				}
 
+				KeyUp(row.key);
+				MouseUp(row.key);
+				{
+					{
+						std::list<String>::iterator it = row.keys.begin();
+						while(it!=row.keys.end())
+						{
+							KeyUp(*it);
+							MouseUp(*it);
+							it++;
+						}
+                    }
+
+					{
+						std::list<String>::iterator it = row.keysand.begin();
+						while(it!=row.keysand.end())
+						{
+							KeyUp(*it);
+							MouseUp(*it);
+							it++;
+						}
+					}
+				}
+
+
+				it2++;
+			}
 		}
 	}
+
+
 
 }
 
@@ -1750,29 +1823,6 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
     }
 
 
-	if(bDisableMouseHook==false)
-	{
-		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
-		if(it!=keyPauseMap.end())
-		{
-			std::list<keyRow *>::iterator it2 = it->second.begin();
-			while(it2!=it->second.end())
-			{
-				keyRow &row = **it2;
-				if(row.timer->Tag==0)
-				{
-					it2++;
-					continue;
-				}
-				if(row.timer->Enabled)
-				{
-					row.timer->Enabled = false;
-					checkColor();
-				}
-				it2++;
-			}
-		}
-	}
 
 	if(bDisableMouseHook==false)
 	{
@@ -1810,6 +1860,56 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 		}
 	}
 
+	if(bDisableMouseHook==false)
+	{
+		std::map<String,std::list<keyRow *>>::iterator it = keyPauseMap.find(key);
+		if(it!=keyPauseMap.end())
+		{
+			std::list<keyRow *>::iterator it2 = it->second.begin();
+			while(it2!=it->second.end())
+			{
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+				if(row.timer->Enabled)
+				{
+					row.timer->Enabled = false;
+					checkColor();
+				}
+
+				KeyUp(row.key);
+				MouseUp(row.key);
+				{
+					{
+						std::list<String>::iterator it = row.keys.begin();
+						while(it!=row.keys.end())
+						{
+							KeyUp(*it);
+							MouseUp(*it);
+							it++;
+						}
+                    }
+
+					{
+						std::list<String>::iterator it = row.keysand.begin();
+						while(it!=row.keysand.end())
+						{
+							KeyUp(*it);
+							MouseUp(*it);
+							it++;
+						}
+					}
+				}
+
+				it2++;
+			}
+		}
+	}
+
+
 
 }
 void TD3AssistantMainForm::ProcessMouseUp(String key)
@@ -1819,6 +1919,37 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 	{
 		keyState[key] = 0; // up
 	}
+
+
+
+	if(bDisableMouseHook==false)
+	{
+		std::map<String,std::list<keyRow *>>::iterator it = keyActiveMap.find(key);
+		if(it!=keyActiveMap.end())
+		{
+			std::list<keyRow *>::iterator it2=it->second.begin();
+			while(it2!=it->second.end())
+			{
+				keyRow &row = **it2;
+				if(row.timer->Tag==0)
+				{
+					it2++;
+					continue;
+				}
+
+				if(GetActiveKeyState(row)==0 || GetActiveKeyState(row)==-1)
+				{
+					if(row.timer->Enabled==true)
+					{
+						row.timer->Enabled = false;
+						checkColor();
+					}
+				}
+				it2++;
+			}
+		}
+	}
+
 
 
 	if(bDisableMouseHook==false)
@@ -1848,6 +1979,7 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 						{
 							row.timer->Interval = 1;
 						}
+						row.timer->Enabled = false;
 						row.timer->Enabled = true;
 					}
 					checkColor();
@@ -1858,34 +1990,36 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 	}
 
 	if(bDisableMouseHook==false)
-    {
-		std::map<String,std::list<keyRow *>>::iterator it = keyActiveMap.find(key);
-		if(it!=keyActiveMap.end())
+	{
+		std::list<keyRow *>::iterator it = keyHoldMap.begin();
+		while(it!=keyHoldMap.end())
 		{
-			std::list<keyRow *>::iterator it2=it->second.begin();
-			while(it2!=it->second.end())
+			keyRow &row = **it;
+			if(row.timer->Tag==0)
 			{
-				keyRow &row = **it2;
-				if(row.timer->Tag==0)
-				{
-					it2++;
-					continue;
-				}
-
-				if(GetActiveKeyState(row)==0 || GetActiveKeyState(row)==-1)
-				{
-					if(row.timer->Enabled==true)
-					{
-						row.timer->Enabled = false;
-						checkColor();
-					}
-				}
-				it2++;
+				it++;
+				continue;
 			}
+//			if(GetPauseKeyState(row)==0 || GetPauseKeyState(row)==-1)
+//			if(row.activekey!=key)
+			{
+				if(row.initial)
+				{
+					row.timer->Interval = row.initial;
+				}
+				else
+				{
+					row.timer->Interval = 1;
+				}
+
+				row.timer->Enabled = false;
+				row.timer->Enabled = true;
+				checkColor();
+			}
+
+			it++;
 		}
-	}
-
-
+    }
 
 
 	{
@@ -1978,6 +2112,7 @@ void TD3AssistantMainForm::PushDownKey(int vcode,int scancode)
 	::SendInput(1, &input, sizeof(INPUT));
 #endif
 	bDisableKbHook = false;
+	if(sleepsec) Sleep(sleepsec);
 
 }
 
@@ -2006,12 +2141,17 @@ void TD3AssistantMainForm::PressKey(int vcode,int scancode)
 	keybd_event(vcode,scancode,0,0);
 	keybd_event(vcode,scancode,KEYEVENTF_KEYUP,0);
 #else
+	PushDownKey(vcode,scancode);
+	PushUpKey(vcode,scancode);
+
+	/*
 	INPUT input[2];
 	::ZeroMemory(input, sizeof(input));
 	input[0].type = input[1].type = INPUT_KEYBOARD;
 	input[0].ki.wVk  = input[1].ki.wVk = vcode;;
 	input[1].ki.dwFlags = KEYEVENTF_KEYUP;
 	::SendInput(2, input, sizeof(INPUT));
+}	*/
 #endif
 	bDisableKbHook = false;
 }
@@ -2025,18 +2165,24 @@ void TD3AssistantMainForm::MouseDownX(int btn)
 	input.dwFlags =  MOUSEEVENTF_XDOWN;
 	::SendInput(1,(INPUT *)&input,sizeof(MOUSEINPUT));
 	*/
+	bDisableKbHook = true;
+
 	INPUT    input;
 	::ZeroMemory(&input, sizeof(input));
 
 	input.type      = INPUT_MOUSE;
 	input.mi.dwFlags  = MOUSEEVENTF_XDOWN;
-    input.mi.mouseData = btn;
+	input.mi.mouseData = btn;
 	::SendInput(1,&input,sizeof(INPUT));
 
+	bDisableKbHook = false;
+
+	if(sleepsec) Sleep(sleepsec);
 
 }
 void TD3AssistantMainForm::MouseUpX(int btn)
 {
+	bDisableKbHook = true;
 	INPUT    input;
 	::ZeroMemory(&input, sizeof(input));
 
@@ -2045,11 +2191,14 @@ void TD3AssistantMainForm::MouseUpX(int btn)
 	input.mi.mouseData = btn;
 	::SendInput(1,&input,sizeof(INPUT));
 
+	bDisableKbHook = false;
 }
 
 
 void TD3AssistantMainForm::MouseWheel(int delta)
 {
+	bDisableKbHook = true;
+
 	INPUT    input;
 	::ZeroMemory(&input, sizeof(input));
 
@@ -2058,6 +2207,7 @@ void TD3AssistantMainForm::MouseWheel(int delta)
 	input.mi.mouseData = delta;
 	::SendInput(1,&input,sizeof(INPUT));
 
+	bDisableKbHook = false;
 }
 
 
@@ -2117,6 +2267,108 @@ void TD3AssistantMainForm::MouseDown(TMouseButton button)
 #endif
 
 	bDisableMouseHook = false;
+
+	if(sleepsec) Sleep(sleepsec);
+
+}
+
+void TD3AssistantMainForm::KeyDown(String key)
+{
+	if(key.Length()>0)
+	{
+		char vc = key[1];
+		if(key.Length()>1)
+		{
+			vc = str2vkey(key);
+			if(vc==0)
+			{
+				return;
+			}
+		}
+
+		unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
+		PushDownKey(vc,sc);
+	}
+
+
+}
+void TD3AssistantMainForm::KeyUp(String key)
+{
+	if(key.Length()>0)
+	{
+		char vc = key[1];
+		if(key.Length()>1)
+		{
+			vc = str2vkey(key);
+			if(vc==0)
+			{
+				return;
+			}
+		}
+
+		unsigned int sc = MapVirtualKey(vc,MAPVK_VK_TO_VSC);
+		PushUpKey(vc,sc);
+	}
+
+}
+
+void TD3AssistantMainForm::MouseDown(String key)
+{
+	if(key=="[mbLeft]")
+	{
+		MouseDown(mbLeft);
+		return;
+	}
+	if(key=="[mbMiddle]")
+	{
+		MouseDown(mbMiddle);
+		return;
+	}
+	if(key=="[mbRight]")
+	{
+		MouseDown(mbRight);
+		return;
+	}
+	if(key=="[XButton1]")
+	{
+		MouseDownX(1);
+		return;
+	}
+	if(key=="[XButton2]")
+	{
+		MouseDownX(2);
+		return;
+	}
+
+}
+void TD3AssistantMainForm::MouseUp(String key)
+{
+	if(key=="[mbLeft]")
+	{
+		MouseUp(mbLeft);
+		return;
+	}
+	if(key=="[mbMiddle]")
+	{
+		MouseUp(mbMiddle);
+		return;
+	}
+	if(key=="[mbRight]")
+	{
+		MouseUp(mbRight);
+		return;
+	}
+	if(key=="[XButton1]")
+	{
+		MouseUpX(1);
+		return;
+	}
+	if(key=="[XButton2]")
+	{
+		MouseUpX(2);
+		return;
+	}
+
 }
 void TD3AssistantMainForm::MouseUp(TMouseButton button)
 {
@@ -2197,6 +2449,9 @@ void TD3AssistantMainForm::MouseClick(TMouseButton button)
 		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
 	}
 #else
+	MouseDown(button);
+    MouseUp(button);
+/*
 	INPUT    input[2];
 	::ZeroMemory(input, sizeof(input));
 
@@ -2225,7 +2480,7 @@ void TD3AssistantMainForm::MouseClick(TMouseButton button)
 		::SendInput(2,input,sizeof(INPUT));
 
 	}
-
+*/
 #endif
 
 	bDisableMouseHook = false;
