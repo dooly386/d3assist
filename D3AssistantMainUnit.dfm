@@ -3,7 +3,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 470
-  ClientWidth = 484
+  ClientWidth = 620
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -15,29 +15,32 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Menu = MainFormMenu
   OldCreateOrder = False
   Position = poDesigned
+  ScreenSnap = True
   ShowHint = True
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  OnMouseWheel = FormMouseWheel
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl: TPageControl
     Left = 0
     Top = 113
-    Width = 484
-    Height = 338
-    ActivePage = KeySettingTabSheet
+    Width = 620
+    Height = 336
+    ActivePage = YoloControlTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
-    TabOrder = 1
+    TabOrder = 0
     OnChange = PageControlChange
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
+      DesignSize = (
+        612
+        308)
       object Label4: TLabel
         Left = 105
         Top = 8
@@ -54,8 +57,8 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label8: TLabel
         Left = 0
-        Top = 297
-        Width = 476
+        Top = 295
+        Width = 612
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
@@ -82,6 +85,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Height = 13
         Caption = 'Active Key'
       end
+      object Label24: TLabel
+        Left = 502
+        Top = 8
+        Width = 53
+        Height = 13
+        Caption = 'Description'
+      end
       object edActive1: TEdit
         Tag = 1
         Left = 348
@@ -92,8 +102,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 0
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -112,8 +128,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 1
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -151,7 +173,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -177,7 +199,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -220,8 +242,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 6
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -240,8 +268,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 7
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -260,8 +294,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 8
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -280,8 +320,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 9
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -319,7 +365,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -345,7 +391,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -371,7 +417,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -397,7 +443,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -423,7 +469,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -449,7 +495,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Ctl3D = False
         DoubleBuffered = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
+        Font.Color = clTeal
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
@@ -564,8 +610,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 22
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -583,7 +635,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 23
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -601,7 +659,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 24
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -619,7 +683,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 25
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -637,7 +707,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clPurple
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 26
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -655,7 +731,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 27
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -673,7 +755,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 28
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -691,7 +779,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 29
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -709,7 +803,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabStop = False
         Alignment = taCenter
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 30
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -728,8 +828,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Alignment = taCenter
         Ctl3D = False
         DoubleBuffered = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         ParentCtl3D = False
         ParentDoubleBuffered = False
+        ParentFont = False
         TabOrder = 31
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
@@ -1041,6 +1147,142 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Height = 17
         Caption = 'Multikey AND Mode'
         TabOrder = 52
+      end
+      object edDesc1: TEdit
+        Tag = 2
+        Left = 487
+        Top = 24
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 53
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc2: TEdit
+        Tag = 2
+        Left = 487
+        Top = 51
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 54
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc3: TEdit
+        Tag = 2
+        Left = 487
+        Top = 78
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 55
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc4: TEdit
+        Tag = 2
+        Left = 487
+        Top = 105
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 56
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc5: TEdit
+        Tag = 2
+        Left = 487
+        Top = 132
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 57
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc6: TEdit
+        Tag = 2
+        Left = 487
+        Top = 159
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 58
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc7: TEdit
+        Tag = 2
+        Left = 487
+        Top = 186
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 59
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
+      end
+      object edDesc8: TEdit
+        Tag = 2
+        Left = 487
+        Top = 213
+        Width = 115
+        Height = 19
+        TabStop = False
+        Anchors = [akLeft, akTop, akRight]
+        Ctl3D = False
+        DoubleBuffered = True
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        TabOrder = 60
+        OnChange = edStartChange
+        OnContextPopup = edStartContextPopup
+        OnKeyPress = edDelay1KeyPress
       end
     end
     object TabSheetSequenceKey: TTabSheet
@@ -1656,21 +1898,21 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label20: TLabel
         Left = 139
-        Top = 278
+        Top = 262
         Width = 38
         Height = 13
         Caption = 'Interval'
       end
       object Label21: TLabel
         Left = 138
-        Top = 251
+        Top = 235
         Width = 45
         Height = 13
         Caption = 'Start Key'
       end
       object Label22: TLabel
         Left = 272
-        Top = 250
+        Top = 234
         Width = 43
         Height = 13
         Caption = 'Stop Key'
@@ -1688,6 +1930,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Width = 47
         Height = 13
         Caption = 'Media File'
+      end
+      object Label25: TLabel
+        Left = 3
+        Top = 281
+        Width = 306
+        Height = 26
+        Caption = 
+          '* If you can not see YoloMouse Cursor change  please uncheck '#13#10' ' +
+          '  '#39'Start with Windows'#39' in YoloMouse Popup Menu and restart'
       end
       object btnStartYoloMouse: TButton
         Left = 3
@@ -1893,7 +2144,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edYoloLoopInterval: TEdit
         Tag = 1
         Left = 190
-        Top = 275
+        Top = 259
         Width = 77
         Height = 21
         TabStop = False
@@ -1905,7 +2156,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edYoloLoopStart: TEdit
         Tag = 1
         Left = 190
-        Top = 248
+        Top = 232
         Width = 77
         Height = 21
         TabStop = False
@@ -1921,7 +2172,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object edYoloLoopStop: TEdit
         Tag = 1
         Left = 323
-        Top = 247
+        Top = 231
         Width = 77
         Height = 21
         TabStop = False
@@ -2300,26 +2551,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
     end
   end
-  object stBar: TStatusBar
-    Left = 0
-    Top = 451
-    Width = 484
-    Height = 19
-    DoubleBuffered = True
-    Panels = <>
-    ParentDoubleBuffered = False
-    SimplePanel = True
-    SimpleText = 'Welcome D3Assist'
-  end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 484
+    Width = 620
     Height = 113
     Align = alTop
-    TabOrder = 2
+    TabOrder = 1
     DesignSize = (
-      484
+      620
       113)
     object lbRecentlyFilesFullPath: TListBox
       Left = 412
@@ -2447,7 +2687,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object lbRecentlyFiles: TListBox
       Left = 261
       Top = 8
-      Width = 219
+      Width = 355
       Height = 97
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
@@ -2459,6 +2699,23 @@ object D3AssistantMainForm: TD3AssistantMainForm
       TabOrder = 4
       OnDblClick = lbRecentlyFilesDblClick
     end
+  end
+  object stBar: TEdit
+    Left = 0
+    Top = 449
+    Width = 620
+    Height = 21
+    Align = alBottom
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 2
+    Text = 'stBar'
+    OnChange = stBarChange
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.ini'
@@ -2554,6 +2811,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object menuClose: TMenuItem
         Caption = 'Close'
+        OnClick = menuCloseClick
       end
     end
     object MenuGroupView: TMenuItem
@@ -2663,6 +2921,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnClick = MenuAboutDlgClick
       end
     end
+    object N10: TMenuItem
+      Caption = '-->>'
+      OnClick = menuSimplifyUI1Click
+    end
   end
   object PopupMenu1: TPopupMenu
     Left = 315
@@ -2705,7 +2967,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object TimerYoloCursor: TTimer
     Enabled = False
     OnTimer = TimerYoloCursorTimer
-    Left = 188
-    Top = 193
+    Left = 68
+    Top = 249
   end
 end

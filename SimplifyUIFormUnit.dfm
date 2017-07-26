@@ -4,7 +4,7 @@ object SimplifyUIForm: TSimplifyUIForm
   BorderStyle = bsNone
   Caption = 'SimplifyUIForm'
   ClientHeight = 248
-  ClientWidth = 117
+  ClientWidth = 114
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object SimplifyUIForm: TSimplifyUIForm
   FormStyle = fsStayOnTop
   OldCreateOrder = False
   PopupMenu = PopupMenu1
+  ScreenSnap = True
   OnMouseDown = FormMouseDown
   OnMouseMove = FormMouseMove
   OnMouseUp = FormMouseUp
@@ -202,6 +203,15 @@ object SimplifyUIForm: TSimplifyUIForm
     PopupMenu = PopupMenu1
     ReadOnly = True
     TabOrder = 7
+  end
+  object Button1: TButton
+    Left = 80
+    Top = 0
+    Width = 25
+    Height = 17
+    Caption = '<<--'
+    TabOrder = 8
+    OnClick = Button1Click
   end
   object PopupMenu1: TPopupMenu
     Left = 88

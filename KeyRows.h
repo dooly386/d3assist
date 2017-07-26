@@ -14,6 +14,7 @@ struct keyRow
 	TEdit *eddelay;
 	TEdit *edpause;
 	TEdit *edactive;
+    TEdit *eddesc;
 	TTimer *timer;
 	TCheckBox *toggle;
 
@@ -42,6 +43,8 @@ struct keyRow
 		eddelay = 0;
 		edpause = 0;
 		edactive = 0;
+		eddesc = 0;
+
 		timer = 0;
 		toggle = 0;
 

@@ -606,8 +606,8 @@ void SetSkin(String name)
 	if(IsValidStyle(name))
 	{
 		TStyleManager::TrySetStyle(name);
-		TStyleManager::SystemHooks = TStyleManager::SystemHooks - (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
-		TStyleManager::SystemHooks = TStyleManager::SystemHooks >> TStyleManager::TSystemHook::shDialogs;
+		//TStyleManager::SystemHooks = TStyleManager::SystemHooks - (TStyleManager::TSystemHooks() << TStyleManager::TSystemHook::shDialogs);
+		//TStyleManager::SystemHooks = TStyleManager::SystemHooks >> TStyleManager::TSystemHook::shDialogs;
 	}
 }
 
@@ -797,3 +797,24 @@ void __stdcall SetForegroundWindowForce(HWND hWnd)
   AttachThreadInput(id, foreground_id, FALSE);
  }
 }
+
+
+void DisableVclStyles(TControl *Control,const String ClassToIgnore)
+{
+
+	if(Control==0) return;
+	if(Control->ClassNameIs(ClassToIgnore))
+	{
+        Control->StyleElements = (TStyleElements)0;
+    }
+	if(Control->InheritsFrom(__classid(TWinControl)))
+	{
+		TWinControl *wc = (TWinControl *)Control;
+		for(int i=0;i<wc->ControlCount;i++)
+		{
+			DisableVclStyles(wc->Controls[i],ClassToIgnore);
+		}
+	}
+
+}
+

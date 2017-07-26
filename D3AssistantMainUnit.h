@@ -58,7 +58,6 @@ __published:	// IDE-managed Components
 	TMenuItem *N1;
 	TMenuItem *MenuAboutDlg;
 	TMenuItem *MenuReleaseNote;
-	TStatusBar *stBar;
 	TMenuItem *Y1;
 	TMenuItem *StartYoloMouseMenu;
 	TMenuItem *StopYoloMouseMenu;
@@ -269,6 +268,18 @@ __published:	// IDE-managed Components
 	TEdit *edKeyMouseModifier;
 	TMenuItem *MenuGroupView;
 	TMenuItem *menuSimplifyUI1;
+	TEdit *stBar;
+	TEdit *edDesc1;
+	TEdit *edDesc2;
+	TEdit *edDesc3;
+	TEdit *edDesc4;
+	TEdit *edDesc5;
+	TEdit *edDesc6;
+	TEdit *edDesc7;
+	TEdit *edDesc8;
+	TLabel *Label24;
+	TMenuItem *N10;
+	TLabel *Label25;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -283,8 +294,6 @@ __published:	// IDE-managed Components
 	void __fastcall menuNewClick(TObject *Sender);
 	void __fastcall edDelay1KeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall MenuAboutDlgClick(TObject *Sender);
-	void __fastcall FormMouseWheel(TObject *Sender, TShiftState Shift, int WheelDelta,
-          TPoint &MousePos, bool &Handled);
 	void __fastcall MenuHelpClick(TObject *Sender);
 	void __fastcall MenuHomePageClick(TObject *Sender);
 	void __fastcall MenuReleaseNoteClick(TObject *Sender);
@@ -320,6 +329,8 @@ __published:	// IDE-managed Components
 	void __fastcall mpStopClick(TObject *Sender, TMPBtnType Button, bool &DoDefault);
 	void __fastcall cbAudioWhenStartStopClick(TObject *Sender);
 	void __fastcall menuSimplifyUI1Click(TObject *Sender);
+	void __fastcall stBarChange(TObject *Sender);
+	void __fastcall menuCloseClick(TObject *Sender);
 
 
 
@@ -402,6 +413,7 @@ private:	// User declarations
 	bool IsUsedMediaFile(String filename);
 
 public:		// User declarations
+	std::map<String,void *> compMap;
 	bool bStarted;
 	bool bRecordStarted;
 	bool bPlayStarted;

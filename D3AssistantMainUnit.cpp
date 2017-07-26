@@ -44,6 +44,7 @@ HHOOK g_hMouseHook=0;
 bool bDisableKbHook=false;
 bool bDisableMouseHook = false;
 
+
 __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	: TForm(Owner)
 {
@@ -75,7 +76,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 			mp->Shareable = false;
 		}
 
-
+        compMap[comp->Name] = comp;
 	}
 
 	//--------------------------------------------------------------------------
@@ -116,9 +117,15 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 		it++;
 	}
 
+	DisableVclStyles(this,"TEdit");
+
 	SetSkin(SkinName);
 
+
+
 }
+
+
 
 void TD3AssistantMainForm::CloseAllMedia()
 {
@@ -304,6 +311,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 		String activekey = String("edActive")+(i+1);
 		String timername = String("Timer")+(i+1);
 		String togglename = String("cbToggle")+(i+1);
+		String descname = String("edDesc")+(i+1);
 
 		keyRows[i].clear();
 
@@ -347,6 +355,9 @@ void TD3AssistantMainForm::PrepareKeyRows()
 
 		keyRows[i].toggle = (TCheckBox *)FindComponent(togglename);
 		keyRows[i].pushdown = false;
+
+		keyRows[i].eddesc = (TEdit *)FindComponent(descname);
+
 
 	}
 
@@ -486,6 +497,7 @@ void TD3AssistantMainForm::checkColor()
 		row.edpause->Color = color;
 		row.edactive->Color = color;
 		row.edinit->Color = color;
+		row.eddesc->Color = color;
 
 		if(bold)
 		{
@@ -494,6 +506,7 @@ void TD3AssistantMainForm::checkColor()
 			row.edpause->Font->Style = row.edpause->Font->Style << fsBold;
 			row.edactive->Font->Style = row.edactive->Font->Style << fsBold;
 			row.edinit->Font->Style = row.edinit->Font->Style << fsBold;
+			row.eddesc->Font->Style = row.eddesc->Font->Style << fsBold;
 		}
 		else
 		{
@@ -502,6 +515,7 @@ void TD3AssistantMainForm::checkColor()
 			row.edpause->Font->Style = row.edpause->Font->Style >> fsBold;
 			row.edactive->Font->Style = row.edactive->Font->Style >> fsBold;
 			row.edinit->Font->Style = row.edinit->Font->Style >> fsBold;
+			row.eddesc->Font->Style = row.eddesc->Font->Style >> fsBold;
 		}
 		if(italic)
 		{
@@ -510,6 +524,7 @@ void TD3AssistantMainForm::checkColor()
 			row.edpause->Font->Style = row.edpause->Font->Style << fsItalic;
 			row.edactive->Font->Style = row.edactive->Font->Style << fsItalic;
 			row.edinit->Font->Style = row.edinit->Font->Style << fsItalic;
+			row.eddesc->Font->Style = row.eddesc->Font->Style << fsItalic;
 		}
 		else
 		{
@@ -518,6 +533,7 @@ void TD3AssistantMainForm::checkColor()
 			row.edpause->Font->Style = row.edpause->Font->Style >> fsItalic;
 			row.edactive->Font->Style = row.edactive->Font->Style >> fsItalic;
 			row.edinit->Font->Style = row.edinit->Font->Style >> fsItalic;
+			row.eddesc->Font->Style = row.eddesc->Font->Style >> fsItalic;
 		}
 
 		if(strikeout)
@@ -527,6 +543,7 @@ void TD3AssistantMainForm::checkColor()
 			row.edpause->Font->Style = row.edpause->Font->Style << fsStrikeOut;
 			row.edactive->Font->Style = row.edactive->Font->Style << fsStrikeOut;
 			row.edinit->Font->Style = row.edinit->Font->Style << fsStrikeOut;
+			row.eddesc->Font->Style = row.eddesc->Font->Style << fsStrikeOut;
 		}
 		else
 		{
@@ -535,6 +552,7 @@ void TD3AssistantMainForm::checkColor()
 			row.edpause->Font->Style = row.edpause->Font->Style >> fsStrikeOut;
 			row.edactive->Font->Style = row.edactive->Font->Style >> fsStrikeOut;
 			row.edinit->Font->Style = row.edinit->Font->Style >> fsStrikeOut;
+			row.eddesc->Font->Style = row.eddesc->Font->Style >> fsStrikeOut;
 		}
 
 
@@ -674,15 +692,23 @@ void TD3AssistantMainForm::SaveIni(String filename)
 		ini->WriteString("Items",name,te->Text);
 	}
 
+	for(int i=1;i<=8;i++)
+	{
+		String name = String("edDesc")+String(i);
+		TEdit *te = (TEdit *)FindComponent(name);
+		ini->WriteString("Items",name,te->Text);
+	}
+
+
 	delete ini;
 
 	OpenFileName = filename;
-	stBar->SimpleText = OpenFileName;
+	stBar->Text = OpenFileName;
 
 	UpdateRecentlyFile(filename);
 
 	bModified = false;
-	stBar->SimpleText = String("Saved ")+filename;
+	stBar->Text = String("Saved ")+filename;
 
 
 
@@ -739,8 +765,8 @@ void TD3AssistantMainForm::LoadIni(String filename)
 			{
 				String name = String("mpYolo")+i;
 				TMediaPlayer *mp = (TMediaPlayer *)FindComponent(name);
-                mp->Close();
-            }
+				mp->Close();
+			}
 		}
 		else
 		{
@@ -748,9 +774,17 @@ void TD3AssistantMainForm::LoadIni(String filename)
 			TMediaPlayer *mp = (TMediaPlayer *)FindComponent(name);
 			mp->Close();
 
-        }
+		}
 
 	}
+
+	for(int i=0;i<8;i++)
+	{
+		String name = String("edDesc")+String(i);
+		TEdit *te = (TEdit *)FindComponent(name);
+		te->Text = ini->ReadString("Items",name,"");
+	}
+
 	delete ini;
 
 	OpenFileName = filename;
@@ -758,7 +792,7 @@ void TD3AssistantMainForm::LoadIni(String filename)
 
 	bModified = false;
 
-	stBar->SimpleText = String("Load ")+filename;
+	stBar->Text = String("Load ")+filename;
 
 	bLoading = false;
 
@@ -1660,6 +1694,21 @@ bool TD3AssistantMainForm::OnMouseWheelHook(int delta)
 		key = "[WheelUp]";
 	}
 
+
+	if(bDisableKbHook==false && ActiveControl && MouseClickObject && bStarted==false)
+	{
+		if(ActiveControl->Tag==1)
+		{
+			TEdit *te = (TEdit *)ActiveControl;
+			te->Text = key;
+		}
+		ActiveControl = 0;
+		MouseClickObject = 0;
+        return true;
+	}
+
+
+
 	if(key==edStart->Text && bStarted==false)
 	{
 		if(cbDoNotStart->Checked) return false;
@@ -1675,7 +1724,25 @@ bool TD3AssistantMainForm::OnMouseWheelHook(int delta)
         PlayStopMp();
 		return true;
 	}
-    return false;
+
+
+	if(bDisableKbHook==false)
+	{
+		static std::map<String,bool> flag;
+		if(flag[key])
+		{
+			ProcessMouseUp(key);
+			flag[key] = false;
+			return true;
+		}
+		ProcessMouseDown(key);
+		flag[key] = true;
+		return true;
+	}
+
+
+
+	return false;
 
 }
 
@@ -2071,7 +2138,7 @@ void TD3AssistantMainForm::ProcessMouseUp(String key)
 				it++;
 				continue;
 			}
-//			if(GetPauseKeyState(row)==0 || GetPauseKeyState(row)==-1)
+			if(GetPauseKeyState(row)==0 || GetPauseKeyState(row)==-1)
 //			if(row.activekey!=key)
 			{
 				if(row.initial)
@@ -2999,33 +3066,6 @@ void __fastcall TD3AssistantMainForm::MenuAboutDlgClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TD3AssistantMainForm::FormMouseWheel(TObject *Sender, TShiftState Shift,
-          int WheelDelta, TPoint &MousePos, bool &Handled)
-{
-	if(ActiveControl==0) return;
-
-	if(MouseClickObject)
-	{
-		if(ActiveControl->Tag==1)
-		{
-			TEdit *te = (TEdit *)ActiveControl;
-			if(WheelDelta==120)
-			{
-				te->Text = "[WheelUp]";
-			}
-			else
-			{
-				te->Text = "[WheelDn]";
-			}
-		}
-	}
-
-	ActiveControl = 0;
-	MouseClickObject = 0;
-
-	Handled = true;
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TD3AssistantMainForm::MenuHelpClick(TObject *Sender)
 {
@@ -3514,7 +3554,7 @@ void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType B
           bool &DoDefault)
 {
 //
-	String path = GetYoloMediaPath();
+	AnsiString path = GetYoloMediaPath();
 
 	TMediaPlayer *mp = (TMediaPlayer *)Sender;
 	if(mp->Mode==mpPlaying)
@@ -3533,7 +3573,7 @@ void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType B
 		return;
 	}
 
-	String mediafile = path+"\\"+ed->Text+".wav";
+	AnsiString mediafile = path+"\\"+ed->Text+".wav";
 	if(FileExists(mediafile)==false)
 	{
 		DoDefault = false;
@@ -3541,7 +3581,7 @@ void __fastcall TD3AssistantMainForm::mpYolo1Click(TObject *Sender, TMPBtnType B
 	}
 
 
-	DoDefault = LoadMediaIfExist(mp,ed->Text);
+	DoDefault = LoadMediaIfExist(mp,mediafile);
 }
 //---------------------------------------------------------------------------
 
@@ -3732,17 +3772,28 @@ void TD3AssistantMainForm::Simplify()
 	ClientWidth = SimplifyUIForm->ClientWidth;
 	ClientHeight = SimplifyUIForm->ClientHeight;
 
+	SimplifyUIForm->checkColor();
+
 }
 void TD3AssistantMainForm::UnSimplify()
 {
 	SimplifyUIForm->Hide();
-	SimplifyUIForm->Parent = 0;
+//	SimplifyUIForm->Parent = 0;
 	D3AssistantMainForm->Menu = D3AssistantMainForm->MainFormMenu;
-	D3AssistantMainForm->BorderStyle = bsSizeable;
 	D3AssistantMainForm->ShowAllComponents();
 
 	Width = widthBk;
-    Height = heightBk;
+	Height = heightBk;
+	PageControl->TabIndex = 2;
+	PageControl->TabIndex = 0;
+
+	BorderIcons = BorderIcons << biSystemMenu;
+	BorderIcons = BorderIcons << biMinimize;
+	BorderIcons = BorderIcons << biMaximize;
+
+	EnableMenuItem( GetSystemMenu( Handle, false), SC_CLOSE, MF_BYCOMMAND | MF_ENABLED );
+
+	D3AssistantMainForm->BorderStyle = bsSizeable;
 
 }
 
@@ -3754,4 +3805,17 @@ void __fastcall TD3AssistantMainForm::menuSimplifyUI1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TD3AssistantMainForm::stBarChange(TObject *Sender)
+{
+	stBar->Hint = stBar->Text;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TD3AssistantMainForm::menuCloseClick(TObject *Sender)
+{
+    Close();
+}
+//---------------------------------------------------------------------------
 
