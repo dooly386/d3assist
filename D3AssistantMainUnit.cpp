@@ -27,6 +27,7 @@
 #include "DebugWindowFormUnit.h"
 #include "MediaPlayerFormUnit.h"
 #include "SimplifyUIFormUnit.h"
+#include "MLTS.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -43,6 +44,7 @@ HHOOK g_hMouseHook=0;
 
 bool bDisableKbHook=false;
 bool bDisableMouseHook = false;
+String gSelectedLanguage="English";
 
 
 __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
@@ -76,7 +78,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 			mp->Shareable = false;
 		}
 
-        compMap[comp->Name] = comp;
+		compMap[comp->Name] = comp;
 	}
 
 	//--------------------------------------------------------------------------
@@ -98,29 +100,61 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 
 	PageControl->TabIndex = 0;
 
+	InitProtectionAreaManagerForm();
+
 
 	LoadEnv();
 	UpdateRecentlyLb();
 	StartHook();
 
 
-	std::list<String> files;
-	GetAllFileNames("styles2\\*.vsf",files);
-
-	std::list<String>::iterator it = files.begin();
-	while(it!=files.end())
 	{
-		TMenuItem *p = new TMenuItem(this);
-		p->OnClick = MenuSkinDefault->OnClick;
-		p->Caption = *it;
-		SkinsMenuGroup->Add(p);
-		it++;
+		std::list<String> files;
+		GetAllFileNames(GetInstallPath()+"styles2\\*.vsf",files);
+
+		std::list<String>::iterator it = files.begin();
+		while(it!=files.end())
+		{
+			TMenuItem *p = new TMenuItem(this);
+			p->OnClick = MenuSkinDefault->OnClick;
+			p->Caption = *it;
+			SkinsMenuGroup->Add(p);
+			it++;
+		}
 	}
+
+	{
+		std::list<String> files;
+		GetAllFileNames(GetInstallPath()+"lang\\*.ini",files);
+
+		std::list<String>::iterator it = files.begin();
+		while(it!=files.end())
+		{
+			TMenuItem *p = new TMenuItem(this);
+			p->OnClick = menuLanguage->OnClick;
+			p->Caption = *it;
+			MenuGroupLanguage->Add(p);
+			it++;
+		}
+	}
+
+
+
+
 
 	DisableVclStyles(this,"TEdit");
 
 	SetSkin(SkinName);
 
+	String langfilename = GetInstallPath()+"lang\\"+gSelectedLanguage+".ini";
+	InitMLTS(langfilename);
+	ApplyMLTS(this);
+
+
+	if(cbStartWithAssist->Checked)
+	{
+		StartYoloMouseMenuClick(0);
+	}
 
 
 }
@@ -142,6 +176,8 @@ void TD3AssistantMainForm::CloseAllMedia()
 			}
 		}
 	}
+
+
 }
 
 bool TD3AssistantMainForm::IsUsedMediaFile(String filename)
@@ -257,7 +293,12 @@ void TD3AssistantMainForm::LoadEnv()
 		}
         cbStayOnTop->Checked = ini->ReadBool("Setup","cbStayOnTop",false);
 
-        edKeyMouseModifier->Text = ini->ReadString("Setup","edKeyMouseModifier","0");
+		edKeyMouseModifier->Text = ini->ReadString("Setup","edKeyMouseModifier","0");
+		gSelectedLanguage = ini->ReadString("Setup","gSelectedLanguage",gSelectedLanguage);
+		cbStartWithAssist->Checked = ini->ReadBool("Setup","cbStartWithAssist",false);
+
+		ProtectionAreaManagerForm->cbEnableWithPrgStart->Checked = ini->ReadBool("Setup","ProtectionAreaManagerForm.cbEnableWithPrgStart",false);
+		ProtectionAreaManagerForm->OpenFileName = ini->ReadString("Setup","ProtectionAreaManagerForm.OpenFileName","");
 
 		delete ini;
 		LoadIni(openfilename);
@@ -286,8 +327,10 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteInteger("Setup","Height",Height);
 	ini->WriteString("Setup","edKeyMouseModifier",edKeyMouseModifier->Text);
 	ini->WriteBool("Setup","cbStayOnTop",cbStayOnTop->Checked);
-
-
+	ini->WriteString("Setup","gSelectedLanguage",gSelectedLanguage);
+	ini->WriteBool("Setup","cbStartWithAssist",cbStartWithAssist->Checked);
+	ini->WriteBool("Setup","ProtectionAreaManagerForm.cbEnableWithPrgStart",ProtectionAreaManagerForm->cbEnableWithPrgStart->Checked);
+	ini->WriteString("Setup","ProtectionAreaManagerForm.OpenFileName",ProtectionAreaManagerForm->OpenFileName);
 	delete ini;
 
 }
@@ -979,7 +1022,7 @@ void __fastcall TD3AssistantMainForm::btnLoadClick(TObject *Sender)
 {
 	if(bModified)
 	{
-		int r = MessageDlg("Some field(s) modified, do you want to continue?",mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
+		int r = MessageDlg(MLTS("Some field(s) modified, do you want to continue?"),mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
 		if(r==IDNO)
 		{
 			return;
@@ -1140,7 +1183,7 @@ void TD3AssistantMainForm::Start()
 	}
 
 
-	StatusPanel->Caption = "Start";
+	StatusPanel->Caption = MLTS("Start");
 	StatusPanel->Color = clLime;
 
 	disableEditAll();
@@ -1228,7 +1271,7 @@ void TD3AssistantMainForm::Stop()
 
 	StopAllTTS();
 
-	StatusPanel->Caption = "Stop";
+	StatusPanel->Caption = MLTS("Stop");
 	StatusPanel->Color = clLtGray;
 
 	enableEditAll();
@@ -3041,9 +3084,11 @@ void __fastcall TD3AssistantMainForm::menuNewClick(TObject *Sender)
 		{
 			TEdit *te = (TEdit *)comp;
 			te->Text = "";
-			OpenFileName = "";
+
 		}
 	}
+	OpenFileName = "";
+    stBar->Text = MLTS("New !!!");
 
 }
 //---------------------------------------------------------------------------
@@ -3062,7 +3107,18 @@ void __fastcall TD3AssistantMainForm::edDelay1KeyPress(TObject *Sender, System::
 
 void __fastcall TD3AssistantMainForm::MenuAboutDlgClick(TObject *Sender)
 {
+	bool flg = false;
+	if(FormStyle==fsStayOnTop)
+	{
+		FormStyle=fsNormal;
+		flg = true;
+	}
 	AboutBox->ShowModal();
+
+	if(flg)
+	{
+        FormStyle=fsStayOnTop;
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -3128,10 +3184,18 @@ void __fastcall TD3AssistantMainForm::StopYoloMouseMenuClick(TObject *Sender)
 void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject *Sender)
 
 {
+	bool flag=0;
+
+	if(FormStyle==fsStayOnTop)
+	{
+		flag = true;
+		FormStyle = fsNormal;
+	}
+
 #ifdef _WIN64
-	String InputString= Dialogs::InputBox("Input Target Process Name","Please input target process name(ex:Diablo III64.exe) or *.*", "Diablo III64.exe");
+	String InputString= Dialogs::InputBox(MLTS("Input Target Process Name"),MLTS("Please input target process name(ex:Diablo III64.exe) or *.*"), "Diablo III64.exe");
 #else
-	String InputString= Dialogs::InputBox("Input Target Process Name","Please input target process name(ex:Diablo III.exe) or *.*", "Diablo III.exe");
+	String InputString= Dialogs::InputBox(MLTS("Input Target Process Name"),MLTS("Please input target process name(ex:Diablo III.exe) or *.*"), "Diablo III.exe");
 #endif
 
 	CHAR apppath[MAX_PATH];
@@ -3143,9 +3207,14 @@ void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject
 	String inifile = path+"\\YoloMouse\\Target.ini";
 
 	TStringList *strs = new TStringList;
-    strs->Add(InputString);
+	strs->Add(InputString);
 	strs->SaveToFile(inifile);
 	delete strs;
+
+	if(flag)
+	{
+		FormStyle = fsStayOnTop;
+    }
 
 
 }
@@ -3154,6 +3223,9 @@ void __fastcall TD3AssistantMainForm::MenuSetYoloMouseTargetProcessClick(TObject
 void __fastcall TD3AssistantMainForm::FormShow(TObject *Sender)
 {
 	ActiveControl = 0;
+    OnShow = 0;
+	ProtectionAreaManagerForm->InitForm();
+
 
 }
 //---------------------------------------------------------------------------
@@ -3225,7 +3297,7 @@ void __fastcall TD3AssistantMainForm::FormCloseQuery(TObject *Sender, bool &CanC
 {
 	if(bModified)
 	{
-		int r = MessageDlg("Some field(s) are modified, do you want to exit now?",mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
+		int r = MessageDlg(MLTS("Some field(s) modified, do you want to continue?"),mtConfirmation,TMsgDlgButtons()<<mbYes<<mbNo,0);
 		if(r==IDNO)
 		{
 			CanClose = false;
@@ -3291,7 +3363,7 @@ void __fastcall TD3AssistantMainForm::edKey1MouseUp(TObject *Sender, TMouseButto
 void __fastcall TD3AssistantMainForm::MenuOpenProtectionAreaManagerClick(TObject *Sender)
 
 {
-	ProtectionAreaManagerForm->Show();
+	ProtectionAreaManagerForm->Visible = true;
 
 }
 //---------------------------------------------------------------------------
@@ -3377,7 +3449,7 @@ void __fastcall TD3AssistantMainForm::MenuSkinDefaultClick(TObject *Sender)
 //
 	TMenuItem *p = (TMenuItem *)Sender;
 	String name = p->Caption;
-	if(name=="Default")
+	if(name==MLTS("Default Window"))
 	{
 		TStyleManager::TrySetStyle("Windows");
 		SkinName = "Windows";
@@ -3432,7 +3504,7 @@ void TD3AssistantMainForm::StartYoloCycle()
 	{
 		::SetForegroundWindowForce(Handle);
 		::SetFocus(Handle);
-		MessageDlg("Yolomouse is not running, please start yolomouse and try again!!!",mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+		MessageDlg(MLTS("Yolomouse is not running, please start yolomouse and try again!!!"),mtConfirmation,TMsgDlgButtons()<<mbOK,0);
 		return;
 	}
 
@@ -3450,7 +3522,7 @@ void TD3AssistantMainForm::StartYoloCycle()
 	}
 	else
 	{
-		MessageDlg("Yolomouse is not running, please start yolomouse and try again!!!",mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+		MessageDlg(MLTS("Yolomouse is not running, please start yolomouse and try again!!!"),mtConfirmation,TMsgDlgButtons()<<mbOK,0);
 		return;
     }
 
@@ -3816,6 +3888,29 @@ void __fastcall TD3AssistantMainForm::stBarChange(TObject *Sender)
 void __fastcall TD3AssistantMainForm::menuCloseClick(TObject *Sender)
 {
     Close();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::menuLanguageClick(TObject *Sender)
+{
+	TMenuItem *menu = (TMenuItem *)Sender;
+	String caption = menu->Caption;
+
+    gSelectedLanguage = caption;
+	String menufile = GetInstallPath()+"lang\\"+caption+".ini";
+
+	InitMLTS(menufile);
+//	ApplyMLTS(this);
+
+	MessageDlg(MLTS("Program will be restarting for selected language"),mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+
+	SaveEnv();
+
+	AnsiString exe = Application->ExeName;
+	ShellExecute(0,"open",exe.c_str(),NULL, NULL, SW_SHOWNORMAL);
+
+    Close();
+
 }
 //---------------------------------------------------------------------------
 

@@ -5,6 +5,7 @@
 #pragma hdrstop
 
 #include "ProtectionAreaManagerFormUnit.h"
+#include "MLTS.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -12,6 +13,10 @@ TProtectionAreaManagerForm *ProtectionAreaManagerForm;
 
 std::list<RECT> gProtArea;
 
+void InitProtectionAreaManagerForm()
+{
+	ProtectionAreaManagerForm = new TProtectionAreaManagerForm(0);
+}
 bool InsideProtArea(POINT &pt)
 {
 
@@ -60,7 +65,21 @@ __fastcall TProtectionAreaManagerForm::TProtectionAreaManagerForm(TComponent* Ow
 	bAreaPanelMoveStart = false;
 
 	BoundsRect = Screen->PrimaryMonitor->BoundsRect;
+
 }
+
+void TProtectionAreaManagerForm::InitForm()
+{
+	ApplyMLTS(this);
+
+	if(cbEnableWithPrgStart->Checked)
+	{
+		Visible = true;
+		LoadFromFile(OpenFileName);
+	}
+
+}
+
 //---------------------------------------------------------------------------
 void __fastcall TProtectionAreaManagerForm::FormMouseDown(TObject *Sender, TMouseButton Button,
           TShiftState Shift, int X, int Y)
@@ -91,7 +110,12 @@ void __fastcall TProtectionAreaManagerForm::FormMouseMove(TObject *Sender, TShif
 		int dx = X-MoveX;
 		int dy = Y-MoveY;
 		Left += dx;
-        Top += dy;
+		Top += dy;
+
+	String s;
+	s.printf(L"%d,%d",Left,Top);
+    stBar->SimpleText = s;
+
     }
 }
 //---------------------------------------------------------------------------
@@ -234,7 +258,7 @@ void __fastcall TProtectionAreaManagerForm::AreaPanelMouseMove(TObject *Sender, 
 		return;
 	}
 
-	int gap = 5;
+	int gap = 20;
 	SizeWhich = 0;
 	if(X<gap)
 	{
@@ -327,17 +351,16 @@ void __fastcall TProtectionAreaManagerForm::MenuSaveAreaToFileClick(TObject *Sen
 	}
 	fclose(fp);
 
+	OpenFileName = filename;
+    stBar->SimpleText = OpenFileName;
+
+
 }
 //---------------------------------------------------------------------------
-void __fastcall TProtectionAreaManagerForm::MenuLoadAreaFromFileClick(TObject *Sender)
-
+void TProtectionAreaManagerForm::LoadFromFile(AnsiString filename)
 {
-	bool r = OpenDialog->Execute();
-	if(r==false) return;
-	AnsiString filename = OpenDialog->FileName;
-
-
 	FILE *fp = fopen(filename.c_str(),"r");
+    if(fp==0) return;
 
 	gProtArea.clear();
 
@@ -377,6 +400,20 @@ void __fastcall TProtectionAreaManagerForm::MenuLoadAreaFromFileClick(TObject *S
     }
 
 	Refresh();
+
+	OpenFileName = filename;
+	stBar->SimpleText = OpenFileName;
+
+}
+void __fastcall TProtectionAreaManagerForm::MenuLoadAreaFromFileClick(TObject *Sender)
+
+{
+	bool r = OpenDialog->Execute();
+	if(r==false) return;
+	AnsiString filename = OpenDialog->FileName;
+    LoadFromFile(filename);
+
+
 
 }
 //---------------------------------------------------------------------------
@@ -431,3 +468,14 @@ void __fastcall TProtectionAreaManagerForm::MenuClearAndCloseWindowClick(TObject
 	Hide();
 }
 //---------------------------------------------------------------------------
+void __fastcall TProtectionAreaManagerForm::FormShow(TObject *Sender)
+{
+	stBar->SimpleText = OpenFileName;
+
+	String s;
+	s.printf(L"%d,%d",Left,Top);
+    stBar->SimpleText = s;
+
+}
+//---------------------------------------------------------------------------
+

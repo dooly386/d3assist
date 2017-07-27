@@ -10,6 +10,7 @@
 #include <Vcl.Menus.hpp>
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Dialogs.hpp>
+#include <Vcl.ComCtrls.hpp>
 //---------------------------------------------------------------------------
 class TProtectionAreaManagerForm : public TForm
 {
@@ -40,6 +41,8 @@ __published:	// IDE-managed Components
 	TMenuItem *N6;
 	TMenuItem *MenuSaveToAreaFile;
 	TMenuItem *MenuClearAndCloseWindow;
+	TStatusBar *stBar;
+	TCheckBox *cbEnableWithPrgStart;
 	void __fastcall FormMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
 	void __fastcall FormMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -64,6 +67,7 @@ __published:	// IDE-managed Components
 	void __fastcall MenuLoadAreaFromFileClick(TObject *Sender);
 	void __fastcall MenuDeleteOverlappedAreaClick(TObject *Sender);
 	void __fastcall MenuClearAndCloseWindowClick(TObject *Sender);
+	void __fastcall FormShow(TObject *Sender);
 
 
 
@@ -75,8 +79,13 @@ private:	// User declarations
 	int MoveX;
 	int MoveY;
 public:		// User declarations
+	String OpenFileName;
+
 	__fastcall TProtectionAreaManagerForm(TComponent* Owner);
+	void LoadFromFile(AnsiString filename);
+	void InitForm();
 };
+void InitProtectionAreaManagerForm();
 //---------------------------------------------------------------------------
 extern PACKAGE TProtectionAreaManagerForm *ProtectionAreaManagerForm;
 //---------------------------------------------------------------------------

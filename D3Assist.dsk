@@ -1,49 +1,58 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp',0,1,75,1,83,0,0,,
-File_1=TSourceModule,'D:\github\d3assist\SpeechLib_OCX.cpp',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'D:\github\d3assist\KeyRows.cpp',0,1,1,59,38,0,0,,
-File_3=TSourceModule,'D:\github\d3assist\CallbackFunctions.cpp',0,1,152,1,157,0,0,,
-File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.TypInfo.hpp',0,1,761,1,794,0,0,,
-File_5=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\ustring.h',0,1,135,1,172,0,0,,
-File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.MPlayer.hpp',0,1,28,122,62,0,0,,
-File_7=TSourceModule,'D:\github\d3assist\Final\D3Assist.ini',0,1,1,1,15,0,0,,
-File_8=TSourceModule,'C:\Program Files\d3assist\D3Assist64.ini',0,1,1,67,4,0,0,,
-File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\sdk\winuser.h',0,1,2204,23,2230,0,0,,
-File_10=TSourceModule,'D:\github\d3assist\MediaPlayerFormUnit.cpp',0,1,20,23,53,0,0,,
-File_11=TSourceModule,'D:\github\d3assist\SpeechLib_TLB.cpp',0,1,1,98,21,0,0,,
+File_0=TSourceModule,'D:\github\d3assist\TTSManagerFormUnit.cpp',0,1,408,30,411,0,0,,
+File_1=TSourceModule,'D:\devhome10\comps\hpp\Vcl.Controls.hpp',0,1,1233,1,1266,0,0,,
+File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\ustring.h',0,1,55,1,84,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.hpp',0,1,1552,1,1586,0,0,,
+File_4=TSourceModule,'D:\github\d3assist\SpeechLib_OCX.cpp',0,1,1,1,1,0,0,,
+File_5=TSourceModule,'D:\github\d3assist\KeyRows.cpp',0,1,1,59,38,0,0,,
+File_6=TSourceModule,'D:\github\d3assist\CallbackFunctions.cpp',0,1,152,1,157,0,0,,
+File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\vcl\Vcl.MPlayer.hpp',0,1,28,122,62,0,0,,
+File_8=TSourceModule,'D:\github\d3assist\Final\D3Assist.ini',0,1,1,1,15,0,0,,
+File_9=TSourceModule,'C:\Program Files\d3assist\D3Assist64.ini',0,1,1,67,4,0,0,,
+File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\include\windows\sdk\winuser.h',0,1,2204,23,2230,0,0,,
 
 [Modules]
-Module0=D:\github\d3assist\UtilFunctions.cpp
+Module0=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
 Module1=D:\github\d3assist\D3AssistantMainUnit.cpp
-Module2=D:\github\d3assist\TTSManagerFormUnit.cpp
-Module3=D:\github\d3assist\SimplifyUIFormUnit.cpp
-Module4=D:\devhome10\comps\hpp\Vcl.Controls.hpp
-Count=5
+Module2=D:\github\d3assist\UtilFunctions.cpp
+Module3=D:\github\d3assist\MLTS.cpp
+Module4=D:\github\d3assist\SimplifyUIFormUnit.cpp
+Module5=D:\github\d3assist\ABOUT.cpp
+Module6=c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.TypInfo.hpp
+Count=7
 EditWindowCount=1
 
-[D:\github\d3assist\UtilFunctions.cpp]
+[D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp]
 ModuleType=TSourceModule
 
 [D:\github\d3assist\D3AssistantMainUnit.cpp]
 ModuleType=TSourceModule
 
-[D:\github\d3assist\TTSManagerFormUnit.cpp]
+[D:\github\d3assist\UtilFunctions.cpp]
+ModuleType=TSourceModule
+
+[D:\github\d3assist\MLTS.cpp]
 ModuleType=TSourceModule
 
 [D:\github\d3assist\SimplifyUIFormUnit.cpp]
 ModuleType=TSourceModule
 
-[D:\devhome10\comps\hpp\Vcl.Controls.hpp]
+[D:\github\d3assist\ABOUT.cpp]
+ModuleType=TSourceModule
+
+[c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.TypInfo.hpp]
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=5
-CurrentEditView=D:\github\d3assist\UtilFunctions.cpp
+ViewCount=7
+CurrentEditView=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
 View0=0
 View1=1
 View2=2
 View3=3
 View4=4
+View5=5
+View6=6
 PercentageSizes=1
 Create=1
 Visible=1
@@ -52,20 +61,20 @@ State=0
 Left=0
 Top=0
 Width=6237
-Height=7873
+Height=8199
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=6237
-ClientHeight=7873
+ClientHeight=8199
 DockedToMainForm=1
 BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1016
 LeftPanelClients=DockSite3,DockSite4
-LeftPanelData=0000080001020100000009000000446F636B53697465330E07000000000000020B1E00000000000001000000000E07000009000000446F636B5369746534FFFFFFFF
+LeftPanelData=0000080001020100000009000000446F636B53697465330E0700000000000002491F00000000000001000000000E07000009000000446F636B5369746534FFFFFFFF
 RightPanelSize=990
 RightPanelClients=DockSite2
-RightPanelData=00000800010100000000E61000000000000001DE0300000000000001000000000B1E000009000000446F636B5369746532FFFFFFFF
+RightPanelData=00000800010100000000991100000000000001DE030000000000000100000000491F000009000000446F636B5369746532FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=DockSite1
 BottomPanelData=0000080001000100000009000000446F636B5369746531982D00000000000000C905000000000000FFFFFFFF
@@ -77,56 +86,78 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\D3AssistantMainUnit.cpp
 CursorX=1
-CursorY=3579
-TopLine=3558
+CursorY=3873
+TopLine=3849
 LeftCol=1
 Elisions=
-Bookmarks={1,1703,13}{2,1564,1}{5,2509,1}
+Bookmarks={1,3074,6}{2,1592,1}{5,2537,1}
 EditViewName=D:\github\d3assist\D3AssistantMainUnit.cpp
 
 [View1]
 CustomEditViewType=TEditView
-Module=D:\github\d3assist\TTSManagerFormUnit.cpp
-CursorX=1
-CursorY=427
-TopLine=408
+Module=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
+CursorX=16
+CursorY=241
+TopLine=213
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\github\d3assist\TTSManagerFormUnit.cpp
+EditViewName=D:\github\d3assist\ProtectionAreaManagerFormUnit.cpp
 
 [View2]
 CustomEditViewType=TEditView
 Module=D:\github\d3assist\SimplifyUIFormUnit.cpp
-CursorX=66
-CursorY=25
+CursorX=1
+CursorY=31
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\github\d3assist\SimplifyUIFormUnit.cpp
+EditViewName=Borland.FormDesignerView
 
 [View3]
 CustomEditViewType=TEditView
+Module=D:\github\d3assist\ABOUT.cpp
+CursorX=48
+CursorY=27
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View4]
+CustomEditViewType=TEditView
 Module=D:\github\d3assist\UtilFunctions.cpp
-CursorX=7
-CursorY=739
-TopLine=714
+CursorX=48
+CursorY=741
+TopLine=707
 LeftCol=1
 Elisions=
 Bookmarks={1,140,42}
 EditViewName=D:\github\d3assist\UtilFunctions.cpp
 
-[View4]
+[View5]
 CustomEditViewType=TEditView
-Module=D:\devhome10\comps\hpp\Vcl.Controls.hpp
-CursorX=1
-CursorY=1266
-TopLine=1233
+Module=D:\github\d3assist\MLTS.cpp
+CursorX=14
+CursorY=16
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\devhome10\comps\hpp\Vcl.Controls.hpp
+EditViewName=D:\github\d3assist\MLTS.cpp
+
+[View6]
+CustomEditViewType=TEditView
+Module=c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.TypInfo.hpp
+CursorX=66
+CursorY=802
+TopLine=761
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\18.0\include\windows\rtl\System.TypInfo.hpp
 
 [UndockedDesigner]
 Count=0
@@ -170,15 +201,15 @@ Create=1
 Visible=1
 Docked=0
 State=0
-Left=3454
-Top=421
+Left=2546
+Top=515
 Width=6289
-Height=8460
+Height=8786
 MaxLeft=-3
 MaxTop=-6
 ClientWidth=6237
-ClientHeight=8229
-BottomPanelSize=7691
+ClientHeight=8555
+BottomPanelSize=8009
 BottomPanelClients=EditWindow0
 BottomPanelData=0000080000000000000000000000000000000000000000000000000100000000000000000C0000004564697457696E646F775F30FFFFFFFF
 
@@ -191,11 +222,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=7618
+Height=7944
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=7618
+ClientHeight=7944
 TBDockHeight=5900
 LRDockWidth=2350
 Dockable=1
@@ -229,11 +260,11 @@ State=0
 Left=0
 Top=0
 Width=1016
-Height=5616
+Height=7944
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1016
-ClientHeight=5616
+ClientHeight=7944
 TBDockHeight=7150
 LRDockWidth=1999
 Dockable=1
@@ -283,8 +314,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1077
-Top=-170
+Left=-798
+Top=-186
 Width=1846
 Height=3140
 MaxLeft=-1
@@ -343,16 +374,21 @@ State=0
 Left=0
 Top=0
 Width=1016
-Height=7618
+Height=7944
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1016
-ClientHeight=7618
+ClientHeight=7944
 TBDockHeight=7832
 LRDockWidth=964
 Dockable=1
 StayOnTop=0
-SplitPos=165
+SplitPos=150
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Caption,OnMouseMove
+ExpandedItems=Anchors=0,Constraints=0,Font=0,ImageMargins=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,StyleElements=0,Touch=0,BevelEdges=0,BorderIcons=0,GlassFrame=0,HorzScrollBar=0,Menu=0,Padding=0,MenuAnimation=0,PopupMenu=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -363,11 +399,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=5616
+Height=5942
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=5616
+ClientHeight=5942
 TBDockHeight=5960
 LRDockWidth=2510
 Dockable=1
@@ -379,8 +415,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-2494
-Top=-38
+Left=-2215
+Top=-54
 Width=2845
 Height=6203
 MaxLeft=-1
@@ -398,8 +434,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1069
-Top=420
+Left=-790
+Top=404
 Width=273
 Height=361
 MaxLeft=-1
@@ -587,11 +623,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=5616
+Height=5942
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=5616
+ClientHeight=5942
 TBDockHeight=4882
 LRDockWidth=7148
 Dockable=1
@@ -765,11 +801,11 @@ State=0
 Left=0
 Top=0
 Width=990
-Height=5616
+Height=5942
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=5616
+ClientHeight=5942
 TBDockHeight=4882
 LRDockWidth=5309
 Dockable=1
@@ -875,11 +911,11 @@ State=0
 Left=0
 Top=18
 Width=990
-Height=7767
+Height=8092
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=990
-ClientHeight=7767
+ClientHeight=8092
 TBDockHeight=7832
 LRDockWidth=990
 Dockable=1
@@ -923,12 +959,12 @@ State=0
 Left=0
 Top=18
 Width=1016
-Height=7767
+Height=8092
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1016
-ClientHeight=7767
-TBDockHeight=7767
+ClientHeight=8092
+TBDockHeight=8092
 LRDockWidth=1016
 Dockable=1
 StayOnTop=0

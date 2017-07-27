@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 620
     Height = 336
-    ActivePage = YoloControlTabSheet
+    ActivePage = TabSheet1
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -73,7 +73,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label14: TLabel
         Left = 200
-        Top = 274
+        Top = 276
         Width = 112
         Height = 13
         Caption = '<<-- Immediately -->>'
@@ -1329,10 +1329,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label13: TLabel
         Left = 3
-        Top = 232
-        Width = 248
-        Height = 26
-        Caption = 'name usage'#13#10'name = stop, name+ = pause, name- = pause hold'
+        Top = 248
+        Width = 313
+        Height = 13
+        Caption = 'name usage : name is stop, name+ is pause, name- is pause hold'
       end
       object edStopName1: TEdit
         Tag = 1
@@ -2446,15 +2446,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label17: TLabel
         Left = 3
-        Top = 190
-        Width = 98
-        Height = 26
-        Caption = 'Key and Mouse click '#13#10'modifier (msec)'
+        Top = 195
+        Width = 136
+        Height = 13
+        Caption = 'Key and Mouse click modifier'
       end
       object cbStayOnTop: TCheckBox
         Left = 3
         Top = 12
-        Width = 89
+        Width = 265
         Height = 17
         TabStop = False
         Caption = 'Stay on top'
@@ -2464,14 +2464,14 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object cbOnlyD3: TCheckBox
         Left = 3
         Top = 44
-        Width = 88
+        Width = 162
         Height = 17
         TabStop = False
         Caption = 'Only Window'
         TabOrder = 1
       end
       object edOnlyWindow: TEdit
-        Left = 97
+        Left = 171
         Top = 42
         Width = 97
         Height = 21
@@ -2480,7 +2480,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Text = #46356#50500#48660#47196' III'
       end
       object edAlphaValue: TEdit
-        Left = 97
+        Left = 171
         Top = 69
         Width = 97
         Height = 21
@@ -2548,6 +2548,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Height = 21
         NumbersOnly = True
         TabOrder = 10
+      end
+      object cbStartWithAssist: TCheckBox
+        Left = 3
+        Top = 232
+        Width = 310
+        Height = 17
+        Caption = 'Start yolomouse with Assist'
+        TabOrder = 11
+        OnClick = cbAudioWhenStartStopClick
       end
     end
   end
@@ -2714,7 +2723,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ParentFont = False
     ReadOnly = True
     TabOrder = 2
-    Text = 'stBar'
     OnChange = stBarChange
   end
   object SaveDialog: TSaveDialog
@@ -2909,8 +2917,19 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object SkinsMenuGroup: TMenuItem
         Caption = 'Skins'
         object MenuSkinDefault: TMenuItem
-          Caption = 'Default'
+          Caption = 'Default Window'
           OnClick = MenuSkinDefaultClick
+        end
+        object N11: TMenuItem
+          Caption = '-'
+        end
+      end
+      object MenuGroupLanguage: TMenuItem
+        Caption = 'Language'
+        object menuLanguage: TMenuItem
+          Caption = 'menuLanguage'
+          Visible = False
+          OnClick = menuLanguageClick
         end
       end
       object N7: TMenuItem
@@ -2967,7 +2986,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object TimerYoloCursor: TTimer
     Enabled = False
     OnTimer = TimerYoloCursorTimer
-    Left = 68
-    Top = 249
+    Left = 364
+    Top = 201
   end
 end

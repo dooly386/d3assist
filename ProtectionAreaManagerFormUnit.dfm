@@ -2,7 +2,7 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
   Left = 0
   Top = 0
   AlphaBlend = True
-  AlphaBlendValue = 100
+  AlphaBlendValue = 170
   BorderStyle = bsNone
   Caption = 'ProtectionAreaManagerForm'
   ClientHeight = 579
@@ -23,6 +23,7 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
   OnMouseMove = FormMouseMove
   OnMouseUp = FormMouseUp
   OnPaint = FormPaint
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object AreaPanel: TPanel
@@ -31,6 +32,12 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
     Width = 217
     Height = 153
     Cursor = crSizeAll
+    BevelInner = bvLowered
+    BevelKind = bkSoft
+    BevelOuter = bvSpace
+    BevelWidth = 3
+    BorderStyle = bsSingle
+    Caption = 'Protection Area Stamp'
     Color = clLime
     ParentBackground = False
     PopupMenu = PanelPopupMenu
@@ -39,7 +46,32 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
     OnMouseMove = AreaPanelMouseMove
     OnMouseUp = AreaPanelMouseUp
   end
+  object stBar: TStatusBar
+    Left = 0
+    Top = 560
+    Width = 835
+    Height = 19
+    Panels = <>
+    SimplePanel = True
+    ExplicitLeft = 176
+    ExplicitTop = 456
+    ExplicitWidth = 0
+  end
+  object cbEnableWithPrgStart: TCheckBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 829
+    Height = 17
+    Align = alTop
+    Caption = 'Enable with program begining'
+    TabOrder = 2
+    ExplicitLeft = 8
+    ExplicitTop = 8
+    ExplicitWidth = 299
+  end
   object MainPopupMenu: TPopupMenu
+    AutoHotkeys = maManual
     Left = 640
     Top = 192
     object MenuLoadFromAreaFile: TMenuItem
@@ -94,6 +126,7 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
     end
   end
   object PanelPopupMenu: TPopupMenu
+    AutoHotkeys = maManual
     Left = 640
     Top = 248
     object MenuPlaceArea: TMenuItem
@@ -112,11 +145,11 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
       Caption = '-'
     end
     object MenuLoadAreaFromFile: TMenuItem
-      Caption = 'Load Area from File'
+      Caption = 'Load from Area File'
       OnClick = MenuLoadAreaFromFileClick
     end
     object MenuSaveAreaToFile: TMenuItem
-      Caption = 'Save Area to File'
+      Caption = 'Save to Area File'
       OnClick = MenuSaveAreaToFileClick
     end
     object N4: TMenuItem

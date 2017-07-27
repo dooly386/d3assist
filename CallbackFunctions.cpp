@@ -161,6 +161,10 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 	}
 
+
+
+
+
 	LRESULT r;
 	if(bDisableMouseHook)
 	{

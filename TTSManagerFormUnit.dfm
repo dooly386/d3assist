@@ -21,16 +21,16 @@ object TTSManagerForm: TTTSManagerForm
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 67
+    Width = 324
     Height = 13
     Caption = 'Your TTS Test'
   end
   object Label2: TLabel
     Left = 8
     Top = 64
-    Width = 18
+    Width = 90
     Height = 13
-    Caption = 'Key'
+    Caption = 'Start TTS Key'
   end
   object edTTSTest: TEdit
     Left = 8
@@ -40,7 +40,7 @@ object TTSManagerForm: TTTSManagerForm
     TabStop = False
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 0
-    Text = #50504#45397#54616#49464#50836'.<silence msec="3000"/>'#48152#44049#49845#45768#45796'.'
+    Text = 'Hello.<silence msec="1000"/>Welcome to TTS'
   end
   object btnTTSTest: TButton
     Left = 338
@@ -92,9 +92,9 @@ object TTSManagerForm: TTTSManagerForm
   end
   object edKey: TEdit
     Tag = 1
-    Left = 40
+    Left = 104
     Top = 61
-    Width = 121
+    Width = 97
     Height = 21
     TabStop = False
     Alignment = taCenter
@@ -105,9 +105,9 @@ object TTSManagerForm: TTTSManagerForm
     OnMouseDown = edKeyMouseDown
   end
   object cbEnable: TCheckBox
-    Left = 176
+    Left = 232
     Top = 65
-    Width = 97
+    Width = 181
     Height = 17
     TabStop = False
     Caption = 'Enable TTS'
@@ -167,7 +167,7 @@ object TTSManagerForm: TTTSManagerForm
   object cbRepeat: TCheckBox
     Left = 8
     Top = 377
-    Width = 113
+    Width = 128
     Height = 17
     Anchors = [akLeft, akBottom]
     Caption = 'Repeat time(msec)'

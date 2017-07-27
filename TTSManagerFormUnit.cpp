@@ -7,6 +7,7 @@
 
 #include "TTSManagerFormUnit.h"
 #include "UtilFunctions.h"
+#include "MLTS.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -97,6 +98,7 @@ __fastcall TTTSManagerForm::TTTSManagerForm(TComponent* Owner)
 	MouseClickObject = 0;
 	LoadEnv();
 	LoadFromFile(OpenFileName);
+	ApplyMLTS(this);
 
 }
 

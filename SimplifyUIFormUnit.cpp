@@ -6,6 +6,7 @@
 #include "SimplifyUIFormUnit.h"
 #include "D3AssistantMainUnit.h"
 #include "UtilFunctions.h"
+#include "MLTS.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -26,6 +27,7 @@ __fastcall TSimplifyUIForm::TSimplifyUIForm(TComponent* Owner)
 
 	DisableVclStyles(this,"TEdit");
 
+	ApplyMLTS(this);
 
 }
 void TSimplifyUIForm::checkColor()

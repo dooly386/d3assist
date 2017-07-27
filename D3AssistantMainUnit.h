@@ -280,6 +280,10 @@ __published:	// IDE-managed Components
 	TLabel *Label24;
 	TMenuItem *N10;
 	TLabel *Label25;
+	TMenuItem *N11;
+	TMenuItem *MenuGroupLanguage;
+	TMenuItem *menuLanguage;
+	TCheckBox *cbStartWithAssist;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -331,6 +335,7 @@ __published:	// IDE-managed Components
 	void __fastcall menuSimplifyUI1Click(TObject *Sender);
 	void __fastcall stBarChange(TObject *Sender);
 	void __fastcall menuCloseClick(TObject *Sender);
+	void __fastcall menuLanguageClick(TObject *Sender);
 
 
 
