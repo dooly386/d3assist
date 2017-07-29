@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 620
     Height = 336
-    ActivePage = TabSheet1
+    ActivePage = YoloControlTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -2432,6 +2432,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
         VisibleButtons = [btPlay]
         TabOrder = 43
         OnClick = mpYolo1Click
+      end
+      object cbMediaOnly: TCheckBox
+        Left = 323
+        Top = 258
+        Width = 113
+        Height = 17
+        Caption = 'Media Only'
+        TabOrder = 44
+        OnClick = cbMediaOnlyClick
       end
     end
     object TabSheet1: TTabSheet

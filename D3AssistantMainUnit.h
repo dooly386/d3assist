@@ -284,6 +284,7 @@ __published:	// IDE-managed Components
 	TMenuItem *MenuGroupLanguage;
 	TMenuItem *menuLanguage;
 	TCheckBox *cbStartWithAssist;
+	TCheckBox *cbMediaOnly;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -336,6 +337,7 @@ __published:	// IDE-managed Components
 	void __fastcall stBarChange(TObject *Sender);
 	void __fastcall menuCloseClick(TObject *Sender);
 	void __fastcall menuLanguageClick(TObject *Sender);
+	void __fastcall cbMediaOnlyClick(TObject *Sender);
 
 
 

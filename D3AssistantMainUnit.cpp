@@ -61,7 +61,7 @@ __fastcall TD3AssistantMainForm::TD3AssistantMainForm(TComponent* Owner)
 	bLoading = false;
 	bRecordStarted = false;
 	bPlayStarted = false;
-	sleepsec = 100;
+	sleepsec = 0;
 
 
 	for(int i=0;i<ComponentCount;i++)
@@ -299,6 +299,7 @@ void TD3AssistantMainForm::LoadEnv()
 
 		ProtectionAreaManagerForm->cbEnableWithPrgStart->Checked = ini->ReadBool("Setup","ProtectionAreaManagerForm.cbEnableWithPrgStart",false);
 		ProtectionAreaManagerForm->OpenFileName = ini->ReadString("Setup","ProtectionAreaManagerForm.OpenFileName","");
+		cbMediaOnly->Checked = ini->ReadBool("Setup","cbMediaOnly",false);
 
 		delete ini;
 		LoadIni(openfilename);
@@ -331,6 +332,7 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteBool("Setup","cbStartWithAssist",cbStartWithAssist->Checked);
 	ini->WriteBool("Setup","ProtectionAreaManagerForm.cbEnableWithPrgStart",ProtectionAreaManagerForm->cbEnableWithPrgStart->Checked);
 	ini->WriteString("Setup","ProtectionAreaManagerForm.OpenFileName",ProtectionAreaManagerForm->OpenFileName);
+    ini->WriteBool("Setup","cbMediaOnly",cbMediaOnly->Checked);
 	delete ini;
 
 }
@@ -1049,6 +1051,10 @@ void TD3AssistantMainForm::Start()
 	if(edKeyMouseModifier->Text.Length())
 	{
         sleepsec = edKeyMouseModifier->Text.ToInt();
+	}
+	else
+	{
+        sleepsec = 0;
     }
 
 	bProtWindowFlag = ProtectionAreaManagerForm->Visible;
@@ -3500,7 +3506,7 @@ std::list<yolocursor>::iterator itYoloCursor;
 void TD3AssistantMainForm::StartYoloCycle()
 {
 
-	if(CheckYoloMouseReady()==false)
+	if(CheckYoloMouseReady()==false && cbMediaOnly->Checked==false)
 	{
 		::SetForegroundWindowForce(Handle);
 		::SetFocus(Handle);
@@ -3508,22 +3514,25 @@ void TD3AssistantMainForm::StartYoloCycle()
 		return;
 	}
 
-	DWORD pid = GetYoloTargetProcessId();
-	if(pid)
+	if(cbMediaOnly->Checked==false)
 	{
-		#ifndef _WIN64
-			HWND hwnd = GetWinHandleByProcessName("YoloMouse32.exe");
-		#else
-			HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
-		#endif
+		DWORD pid = GetYoloTargetProcessId();
+		if(pid)
+		{
+			#ifndef _WIN64
+				HWND hwnd = GetWinHandleByProcessName("YoloMouse32.exe");
+			#else
+				HWND hwnd = GetWinHandleByProcessName("YoloMouse64.exe");
+			#endif
 
-		SendMessage(hwnd,WM_USER+1001,0,pid);
-//		Caption = pid;
-	}
-	else
-	{
-		MessageDlg(MLTS("Yolomouse is not running, please start yolomouse and try again!!!"),mtConfirmation,TMsgDlgButtons()<<mbOK,0);
-		return;
+			SendMessage(hwnd,WM_USER+1001,0,pid);
+	//		Caption = pid;
+		}
+		else
+		{
+			MessageDlg(MLTS("Yolomouse is not running, please start yolomouse and try again!!!"),mtConfirmation,TMsgDlgButtons()<<mbOK,0);
+			return;
+		}
     }
 
 
@@ -3532,12 +3541,20 @@ void TD3AssistantMainForm::StartYoloCycle()
 
 	for(int i=1;i<=8;i++)
 	{
-		String name1 = String("edCurGrp")+String(i);
-		TEdit *ed1 = (TEdit *)FindComponent(name1);
-		String name2 = String("edCurId")+String(i);
-		TEdit *ed2 = (TEdit *)FindComponent(name2);
-		if(ed1->Text.Length()==0) continue;
-		if(ed2->Text.Length()==0) continue;
+		TEdit *edName = (TEdit *)FindComponent(String("edYoloName")+i);
+        if(edName->Text.Length()==0) continue;
+
+		TEdit *ed1=0;
+		TEdit *ed2=0;
+		if(cbMediaOnly->Checked==false)
+		{
+			String name1 = String("edCurGrp")+String(i);
+			ed1 = (TEdit *)FindComponent(name1);
+			String name2 = String("edCurId")+String(i);
+			ed2 = (TEdit *)FindComponent(name2);
+			if(ed1->Text.Length()==0) continue;
+			if(ed2->Text.Length()==0) continue;
+		}
 
 		String name3 = String("edSpeech")+String(i);
 		TEdit *ed = (TEdit *)FindComponent(name3);
@@ -3551,12 +3568,18 @@ void TD3AssistantMainForm::StartYoloCycle()
 				String name4 = String("mpYolo")+String(i);
 				mp = (TMediaPlayer *)FindComponent(name4);
 			}
-        }
+		}
 
 
 
-		int a = ed1->Text.ToInt();
-		int b = ed2->Text.ToInt();
+
+		int a = -1;
+		int b = -1;
+		if(ed1)
+		{
+			a = ed1->Text.ToInt();
+			b = ed2->Text.ToInt();
+		}
 
 		yolocursor y;
 		y.group = a;
@@ -3585,13 +3608,21 @@ void __fastcall TD3AssistantMainForm::TimerYoloCursorTimer(TObject *Sender)
 	TimerYoloCursor->Enabled = false;
 	TimerYoloCursor->Interval = edYoloLoopInterval->Text.ToInt();
 
-	HWND hwnd = GetYoloHandle();
-	if(hwnd==0) return;
+	HWND hwnd = 0;
+	if(cbMediaOnly->Checked==false)
+	{
+		hwnd = GetYoloHandle();
+		if(hwnd==0) return;
+	}
 
 
 	yolocursor &cur = *itYoloCursor;
 
-	SendMessage(hwnd,WM_USER+1000,cur.group,cur.idx);
+	if(hwnd)
+	{
+		SendMessage(hwnd,WM_USER+1000,cur.group,cur.idx);
+	}
+
 	if(cur.mp)
 	{
 		if(cur.mp->Length)
@@ -3911,6 +3942,21 @@ void __fastcall TD3AssistantMainForm::menuLanguageClick(TObject *Sender)
 
     Close();
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::cbMediaOnlyClick(TObject *Sender)
+{
+//
+	for(int i=1;i<=8;i++)
+	{
+		String grpname = String("edCurGrp")+i;
+		String idname = String("edCurId")+i;
+		TEdit *ed1 = (TEdit *)FindComponent(grpname);
+		TEdit *ed2 = (TEdit *)FindComponent(idname);
+		ed1->Enabled = !cbMediaOnly->Checked;
+		ed2->Enabled = !cbMediaOnly->Checked;
+	}
 }
 //---------------------------------------------------------------------------
 
