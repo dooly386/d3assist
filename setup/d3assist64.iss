@@ -8,8 +8,8 @@
 
 
 [Setup]
-AppName=d3assist
-AppVersion=1.0.2.xx
+AppName=d3assist64
+AppVersion=1.0.3.xx
 AppPublisher=DoYoung Kang  (dooly386@gmail.com)
 AppPublisherURL=https://github.com/dooly386/d3assist
 DefaultDirName={pf}\d3assist
