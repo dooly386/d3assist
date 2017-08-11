@@ -95,6 +95,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	}
 
 //	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
+	int r = -1;
 	char *str=0;
 	if (wParam == WM_KEYUP)
 	{
@@ -105,8 +106,8 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
+			r = CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 			D3AssistantMainForm->OnKeyUpHook(str);
-
 		}
 
 	}
@@ -115,6 +116,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
+			r = CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 			D3AssistantMainForm->OnKeyDownHook(str);
 		}
 	}
@@ -124,12 +126,16 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
+			r = CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 			D3AssistantMainForm->OnKeyDownHook(str);
 		}
 
-    }
-
-	return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
+	}
+	if(r==-1)
+	{
+		return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
+	}
+    return r;
 }
 
 
@@ -182,6 +188,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 	}
 
 
+	r = -1;
 
 	if (nCode >= 0)
 	{
@@ -199,6 +206,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				{
 				MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
 				short a = HIWORD(p->mouseData);
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseXButtonDown(a);
 				break;
 				}
@@ -206,46 +214,39 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				{
 				MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
 				short a = HIWORD(p->mouseData);
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseXButtonUp(a);
 				break;
 				}
 			case WM_LBUTTONDOWN:
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
 				//			if(D3AssistantMainForm->bStarted) return -1;
 				break;
 			case WM_LBUTTONUP:
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
-				if(IsExistLeftDownMouse() && D3AssistantMainForm->bStarted)
-				{
-//					ResetMouseDown();
-				//				D3AssistantMainForm->MouseDown(mbLeft);
-				}
-				//			if(D3AssistantMainForm->bStarted) return -1;
 				break;
 
 			case WM_RBUTTONDOWN:
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
 				break;
 			case WM_RBUTTONUP:
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseUpHook((int)mbRight,wParam,lParam);
-				if(IsExistRightDownMouse()&& D3AssistantMainForm->bStarted)
-				{
-					D3AssistantMainForm->MouseDown(mbRight);
-				}
 				break;
 			case WM_MBUTTONDOWN:
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseDownHook((int)mbMiddle,wParam,lParam);
 				break;
 			case WM_MBUTTONUP:
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseUpHook((int)mbMiddle,wParam,lParam);
-				if(IsExistMiddleDownMouse()&& D3AssistantMainForm->bStarted)
-				{
-					D3AssistantMainForm->MouseDown(mbMiddle);
-				}
-
 				break;
 			case WM_MOUSEWHEEL:
 				{
+				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				MSLLHOOKSTRUCT *p = (MSLLHOOKSTRUCT *)lParam;
 				short zDelta = HIWORD(p->mouseData); // -120 wheel down, 120 wheel up
 				//D3AssistantMainForm->Memo1->Lines->Add(zDelta);
@@ -254,5 +255,9 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 			}
 	}
-	return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
+	if(r==-1)
+	{
+		return CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
+	}
+	return r;
 }
