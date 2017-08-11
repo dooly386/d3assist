@@ -24,6 +24,9 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
   OnMouseUp = FormMouseUp
   OnPaint = FormPaint
   OnShow = FormShow
+  DesignSize = (
+    835
+    579)
   PixelsPerInch = 96
   TextHeight = 13
   object AreaPanel: TPanel
@@ -53,9 +56,6 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitLeft = 176
-    ExplicitTop = 456
-    ExplicitWidth = 0
   end
   object cbEnableWithPrgStart: TCheckBox
     AlignWithMargins = True
@@ -66,9 +66,16 @@ object ProtectionAreaManagerForm: TProtectionAreaManagerForm
     Align = alTop
     Caption = 'Enable with program begining'
     TabOrder = 2
-    ExplicitLeft = 8
-    ExplicitTop = 8
-    ExplicitWidth = 299
+  end
+  object Button1: TButton
+    Left = 805
+    Top = 3
+    Width = 25
+    Height = 17
+    Anchors = [akTop, akRight]
+    Caption = 'x'
+    TabOrder = 3
+    OnClick = Button1Click
   end
   object MainPopupMenu: TPopupMenu
     AutoHotkeys = maManual

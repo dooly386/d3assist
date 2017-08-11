@@ -339,11 +339,6 @@ __published:	// IDE-managed Components
 	void __fastcall menuLanguageClick(TObject *Sender);
 	void __fastcall cbMediaOnlyClick(TObject *Sender);
 
-
-
-
-
-
 private:	// User declarations
 	int widthBk;
 	int heightBk;
@@ -359,7 +354,6 @@ private:	// User declarations
 	int  iForceMode;
 	String SkinName;
 	int CurrentPlayCount;
-	std::map<String,int> keyState;  //0 up, 1 down
     int sleepsec;
 
 	BEGIN_MESSAGE_MAP

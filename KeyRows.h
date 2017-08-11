@@ -6,9 +6,13 @@
 #include <map>
 #include <list>
 #include <set>
+#include <UtilFunctions.h>
 
-struct keyRow
+extern std::map<String,int> keyState;  //0 up, 1 down
+
+class keyRow
 {
+public:
 	TEdit *edkey;
     TEdit *edinit;
 	TEdit *eddelay;
@@ -24,6 +28,7 @@ struct keyRow
 
 	int initial; // inital interval
 	int interval; // seq interval
+
 	String pausekey;
 	std::set<String> pausekeys;
 	std::set<String> pausekeysand;
@@ -34,39 +39,25 @@ struct keyRow
 
 	bool pushdown;
 	int pausecount;
-    int activecount;
+	int activecount;
 
-	keyRow()
-	{
-		edkey = 0;
-		edinit = 0;
-		eddelay = 0;
-		edpause = 0;
-		edactive = 0;
-		eddesc = 0;
+	bool enabled;
+    bool paused;
 
-		timer = 0;
-		toggle = 0;
 
-		initial = 0;
-		interval = 0;
-		pausecount = 0;
-
-		pushdown = false;
-	}
-	void clear()
-	{
-		pausecount = 0;
-		activecount = 0;
-		pushdown = false;
-
-		keys.clear();
-		keysand.clear();
-		pausekeys.clear();
-		activekeys.clear();
-		pausekeysand.clear();
-		activekeysand.clear();
-    }
+	keyRow();
+	void clear();
+    void SendToAppKey(int opt);
+	void SendToAppKey(keyRow &row,String &key,int opt);
+	int GetKeyState(const String &key);
+	void TimerOn();
+	void TimerOff();
+	void ProcessPause();
+	void ProcessActive();
+	void ProcessKeyDown(const String &key);
+	void ProcessKeyUp(const String &key);
+	void ProcessTimer();
+	void CheckUnpausedKey();
 
 } ;
 

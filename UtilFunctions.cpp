@@ -818,3 +818,260 @@ void DisableVclStyles(TControl *Control,const String ClassToIgnore)
 
 }
 
+
+extern bool bKeyboardFromCode;
+extern bool bMouseFromCode;
+
+void MouseDown(TMouseButton button)
+{
+
+	bMouseFromCode = true;
+
+#ifndef USESENDINPUT
+	if(button==mbLeft)
+	{
+		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+		bMouseFromCode = false;
+	}
+	else
+	if(button==mbRight)
+	{
+		mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
+		bMouseFromCode = false;
+	}
+	else
+	if(button==mbMiddle)
+	{
+		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
+		bMouseFromCode = false;
+	}
+#else
+  INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	if(button==mbLeft)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_LEFTDOWN;
+		::SendInput(1,&input,sizeof(INPUT));
+	}
+	else
+	if(button==mbRight)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_RIGHTDOWN;
+		::SendInput(1,&input,sizeof(INPUT));
+
+	}
+	else
+	if(button==mbMiddle)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_MIDDLEDOWN;
+		::SendInput(1,&input,sizeof(INPUT));
+
+	}
+
+
+#endif
+
+	bMouseFromCode = false;
+
+//	if(sleepsec) Sleep(sleepsec);
+
+}
+
+void MouseUp(TMouseButton button)
+{
+	bMouseFromCode = true;
+
+#ifndef USESENDINPUT
+	if(button==mbLeft)
+	{
+		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+		bMouseFromCode = false;
+	}
+	else
+	if(button==mbRight)
+	{
+		mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
+		bMouseFromCode = false;
+	}
+	else
+	if(button==mbMiddle)
+	{
+		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
+		bMouseFromCode = false;
+	}
+#else
+	INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	if(button==mbLeft)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_LEFTUP;
+		::SendInput(1,&input,sizeof(INPUT));
+	}
+	else
+	if(button==mbRight)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_RIGHTUP;
+		::SendInput(1,&input,sizeof(INPUT));
+
+	}
+	else
+	if(button==mbMiddle)
+	{
+		input.type      = INPUT_MOUSE;
+		input.mi.dwFlags  = MOUSEEVENTF_MIDDLEUP;
+		::SendInput(1,&input,sizeof(INPUT));
+
+	}
+
+
+#endif
+
+	bMouseFromCode = false;
+}
+
+
+void MouseDownX(int btn)
+{
+	/*
+	MOUSEINPUT input;
+	::ZeroMemory(&input, sizeof(input));
+	input.mouseData = btn;
+	input.dwFlags =  MOUSEEVENTF_XDOWN;
+	::SendInput(1,(INPUT *)&input,sizeof(MOUSEINPUT));
+	*/
+	bKeyboardFromCode = true;
+
+	INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	input.type      = INPUT_MOUSE;
+	input.mi.dwFlags  = MOUSEEVENTF_XDOWN;
+	input.mi.mouseData = btn;
+	::SendInput(1,&input,sizeof(INPUT));
+
+	bKeyboardFromCode = false;
+
+
+}
+
+
+void MouseUpX(int btn)
+{
+	bKeyboardFromCode = true;
+	INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	input.type      = INPUT_MOUSE;
+	input.mi.dwFlags  = MOUSEEVENTF_XUP;
+	input.mi.mouseData = btn;
+	::SendInput(1,&input,sizeof(INPUT));
+
+	bKeyboardFromCode = false;
+}
+
+void MouseWheel(int delta)
+{
+	bKeyboardFromCode = true;
+
+	INPUT    input;
+	::ZeroMemory(&input, sizeof(input));
+
+	input.type      = INPUT_MOUSE;
+	input.mi.dwFlags  = MOUSEEVENTF_WHEEL;
+	input.mi.mouseData = delta;
+	::SendInput(1,&input,sizeof(INPUT));
+
+	bKeyboardFromCode = false;
+}
+
+
+void MouseClick(TMouseButton button)
+{
+
+	bMouseFromCode = true;
+#ifndef USESENDINPUT
+	if(button==mbLeft)
+	{
+		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+	}else
+	if(button==mbRight)
+	{
+		mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
+		mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
+	}else
+	if(button==mbMiddle)
+	{
+		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
+		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
+	}
+#else
+	MouseDown(button);
+	MouseUp(button);
+#endif
+
+	bMouseFromCode = false;
+}
+
+void PushDownKey(int vcode,int scancode)
+{
+	bKeyboardFromCode = true;
+#ifndef USESENDINPUT
+	keybd_event(vcode,scancode,0,0);
+#else
+	INPUT input;
+	::ZeroMemory(&input, sizeof(input));
+	input.type = INPUT_KEYBOARD;
+	input.ki.wVk  = vcode;
+	//  input.ki.dwFlags = KEYEVENTF_KEYUP;
+	::SendInput(1, &input, sizeof(INPUT));
+#endif
+	bKeyboardFromCode = false;
+
+}
+
+void PushUpKey(int vcode,int scancode)
+{
+	bKeyboardFromCode = true;
+#ifndef USESENDINPUT
+	keybd_event(vcode,scancode,KEYEVENTF_KEYUP,0);
+#else
+	INPUT input;
+	::ZeroMemory(&input, sizeof(input));
+	input.type = INPUT_KEYBOARD;
+	input.ki.wVk  = vcode;
+	input.ki.dwFlags = KEYEVENTF_KEYUP;
+	::SendInput(1, &input, sizeof(INPUT));
+#endif
+	bKeyboardFromCode = false;
+}
+
+void PressKey(int vcode,int scancode)
+{
+	bKeyboardFromCode = true;
+#ifndef USESENDINPUT
+	keybd_event(vcode,scancode,0,0);
+	keybd_event(vcode,scancode,KEYEVENTF_KEYUP,0);
+#else
+	PushDownKey(vcode,scancode);
+	PushUpKey(vcode,scancode);
+
+	/*
+	INPUT input[2];
+	::ZeroMemory(input, sizeof(input));
+	input[0].type = input[1].type = INPUT_KEYBOARD;
+	input[0].ki.wVk  = input[1].ki.wVk = vcode;;
+	input[1].ki.dwFlags = KEYEVENTF_KEYUP;
+	::SendInput(2, input, sizeof(INPUT));
+}	*/
+#endif
+	bKeyboardFromCode = false;
+}
+

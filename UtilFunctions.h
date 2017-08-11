@@ -5,6 +5,9 @@
 //---------------------------------------------------------------------------
 #include <map>
 #include <set>
+
+#define USESENDINPUT
+
 void KillProcessByName(const char *filename);
 void KillYolo();
 String vk2str(WORD key);
@@ -32,5 +35,19 @@ HWND GetYoloHandle();
 void __stdcall SetForegroundWindowForce(HWND hWnd);
 
 void DisableVclStyles(TControl *Control,const String ClassToIgnore);
+
+void MouseDown(TMouseButton button);
+void MouseUp(TMouseButton button);
+
+void MouseDownX(int btn);
+void MouseUpX(int btn);
+
+void MouseWheel(int delta);
+void MouseClick(TMouseButton button);
+
+void PushDownKey(int vcode,int scancode);
+void PushUpKey(int vcode,int scancode);
+void PressKey(int vcode,int scancode);
+
 
 #endif

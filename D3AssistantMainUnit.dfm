@@ -3,7 +3,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
   ClientHeight = 470
-  ClientWidth = 620
+  ClientWidth = 609
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -26,20 +26,22 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object PageControl: TPageControl
     Left = 0
     Top = 113
-    Width = 620
+    Width = 609
     Height = 336
-    ActivePage = YoloControlTabSheet
+    ActivePage = KeySettingTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
     TabOrder = 0
     OnChange = PageControlChange
+    ExplicitWidth = 466
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
+      ExplicitWidth = 458
       DesignSize = (
-        612
+        601
         308)
       object Label4: TLabel
         Left = 105
@@ -58,7 +60,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
       object Label8: TLabel
         Left = 0
         Top = 295
-        Width = 612
+        Width = 601
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
@@ -1152,7 +1154,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 2
         Left = 487
         Top = 24
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1164,12 +1166,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc2: TEdit
         Tag = 2
         Left = 487
         Top = 51
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1181,12 +1184,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc3: TEdit
         Tag = 2
         Left = 487
         Top = 78
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1198,12 +1202,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc4: TEdit
         Tag = 2
         Left = 487
         Top = 105
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1215,12 +1220,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc5: TEdit
         Tag = 2
         Left = 487
         Top = 132
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1232,12 +1238,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc6: TEdit
         Tag = 2
         Left = 487
         Top = 159
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1249,12 +1256,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc7: TEdit
         Tag = 2
         Left = 487
         Top = 186
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1266,12 +1274,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
       object edDesc8: TEdit
         Tag = 2
         Left = 487
         Top = 213
-        Width = 115
+        Width = 106
         Height = 19
         TabStop = False
         Anchors = [akLeft, akTop, akRight]
@@ -1283,11 +1292,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
+        ExplicitWidth = 400
       end
     end
     object TabSheetSequenceKey: TTabSheet
       Caption = 'Sequence Key'
       ImageIndex = 4
+      ExplicitWidth = 886
       object Label7: TLabel
         Left = 8
         Top = 16
@@ -1299,6 +1310,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
+      ExplicitWidth = 886
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1882,6 +1894,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object YoloControlTabSheet: TTabSheet
       Caption = 'YoloCycle'
       ImageIndex = 5
+      ExplicitWidth = 458
       object Label18: TLabel
         Left = 28
         Top = 0
@@ -2446,6 +2459,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitWidth = 886
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -2572,12 +2586,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 620
+    Width = 609
     Height = 113
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 466
     DesignSize = (
-      620
+      609
       113)
     object lbRecentlyFilesFullPath: TListBox
       Left = 412
@@ -2705,7 +2720,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object lbRecentlyFiles: TListBox
       Left = 261
       Top = 8
-      Width = 355
+      Width = 344
       Height = 97
       Anchors = [akLeft, akTop, akRight]
       Ctl3D = False
@@ -2716,12 +2731,13 @@ object D3AssistantMainForm: TD3AssistantMainForm
       PopupMenu = PopupMenu1
       TabOrder = 4
       OnDblClick = lbRecentlyFilesDblClick
+      ExplicitWidth = 201
     end
   end
   object stBar: TEdit
     Left = 0
     Top = 449
-    Width = 620
+    Width = 609
     Height = 21
     Align = alBottom
     Font.Charset = DEFAULT_CHARSET
@@ -2733,6 +2749,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ReadOnly = True
     TabOrder = 2
     OnChange = stBarChange
+    ExplicitWidth = 466
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.ini'
@@ -2752,7 +2769,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Enabled = False
     Interval = 100
     OnTimer = Timer1Timer
-    Left = 664
+    Left = 488
     Top = 8
   end
   object Timer2: TTimer

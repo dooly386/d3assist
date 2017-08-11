@@ -17,8 +17,8 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
-extern bool bDisableKbHook;
-extern bool bDisableMouseHook;
+extern bool bKeyboardFromCode;
+extern bool bMouseFromCode;
 
 
 extern HHOOK g_hKeyHook;
@@ -89,7 +89,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		DebugWindowForm->Memo1->SelLength = 0;
 	}
 
-	if(bDisableKbHook && D3AssistantMainForm->bStarted)
+	if(bKeyboardFromCode && D3AssistantMainForm->bStarted)
 	{
 		return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 	}
@@ -166,7 +166,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 
 	LRESULT r;
-	if(bDisableMouseHook)
+	if(bMouseFromCode)
 	{
 		if((wParam==WM_LBUTTONDOWN || wParam==WM_RBUTTONDOWN || wParam==WM_MBUTTONDOWN) && D3AssistantMainForm->bStarted)
 		{

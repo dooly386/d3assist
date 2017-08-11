@@ -43,6 +43,7 @@ __published:	// IDE-managed Components
 	TMenuItem *MenuClearAndCloseWindow;
 	TStatusBar *stBar;
 	TCheckBox *cbEnableWithPrgStart;
+	TButton *Button1;
 	void __fastcall FormMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
 	void __fastcall FormMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -68,6 +69,7 @@ __published:	// IDE-managed Components
 	void __fastcall MenuDeleteOverlappedAreaClick(TObject *Sender);
 	void __fastcall MenuClearAndCloseWindowClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
 
 
 

@@ -479,3 +479,9 @@ void __fastcall TProtectionAreaManagerForm::FormShow(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TProtectionAreaManagerForm::Button1Click(TObject *Sender)
+{
+    Hide();
+}
+//---------------------------------------------------------------------------
+
