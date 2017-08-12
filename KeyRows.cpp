@@ -341,7 +341,7 @@ void keyRow::TimerOn()
 }
 void keyRow::TimerOff()
 {
-//	SendToAppKey(2); // key up;
+	SendToAppKey(2); // key up;
 
 	timer->Enabled = false;
 }
