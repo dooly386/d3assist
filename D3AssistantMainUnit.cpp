@@ -1107,8 +1107,8 @@ void TD3AssistantMainForm::Start()
 			}
 			else
 			{
-				row.timer->Interval = 1;
-            }
+				row.timer->Interval = mininterval;
+			}
 			row.enabled = true;
 		}
 	}
@@ -2660,7 +2660,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 					row.timer->Enabled = false;
 				}
 				row.pushdown = false;
-				row.timer->Interval = 1;
+				row.timer->Interval = mininterval;
 				MouseUp(btn);
 				checkColor();
 			}
@@ -2701,7 +2701,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 					row.timer->Enabled = false;
 				}
 				row.pushdown = false;
-				row.timer->Interval = 1;
+				row.timer->Interval = mininterval;
 				MouseUp(btn);
 				checkColor();
 			}
@@ -2741,7 +2741,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 					row.timer->Enabled = false;
 				}
 				row.pushdown = false;
-				row.timer->Interval = 1;
+				row.timer->Interval = mininterval;
 				MouseUp(btn);
 				checkColor();
 			}
@@ -2780,7 +2780,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 					row.timer->Enabled = false;
 				}
 				row.pushdown = false;
-				row.timer->Interval = 1;
+				row.timer->Interval = mininterval;
 				MouseUpX(1);
 				checkColor();
 			}
@@ -2821,7 +2821,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 					row.timer->Enabled = false;
 				}
 				row.pushdown = false;
-				row.timer->Interval = 1;
+				row.timer->Interval = mininterval;
 				MouseUpX(2);
 				checkColor();
 			}
@@ -2883,7 +2883,7 @@ void TD3AssistantMainForm::SendToAppKey(keyRow &row,String &key,int opt)
 				{
 					row.timer->Enabled = false;
 				}
-				row.timer->Interval = 1;
+				row.timer->Interval = mininterval;
 				row.pushdown = false;
 				checkColor();
 
@@ -3529,7 +3529,7 @@ void TD3AssistantMainForm::StartYoloCycle()
 	itYoloCursor = YoloCursors.begin();
     if(itYoloCursor==YoloCursors.end()) return;
 
-	TimerYoloCursor->Interval = 1;
+	TimerYoloCursor->Interval = mininterval;
 
 	TimerYoloCursor->Enabled = true;
 

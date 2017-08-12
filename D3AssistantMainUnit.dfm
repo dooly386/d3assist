@@ -39,7 +39,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 458
+      ExplicitHeight = 0
       DesignSize = (
         601
         308)
@@ -1298,7 +1301,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheetSequenceKey: TTabSheet
       Caption = 'Sequence Key'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 886
+      ExplicitHeight = 0
       object Label7: TLabel
         Left = 8
         Top = 16
@@ -1310,7 +1316,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 886
+      ExplicitHeight = 0
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1894,7 +1903,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object YoloControlTabSheet: TTabSheet
       Caption = 'YoloCycle'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 458
+      ExplicitHeight = 0
       object Label18: TLabel
         Left = 28
         Top = 0
@@ -2370,7 +2382,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 407
         Top = 16
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 36
@@ -2380,7 +2392,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 2
         Left = 407
         Top = 43
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 37
@@ -2390,7 +2402,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 3
         Left = 407
         Top = 70
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 38
@@ -2400,7 +2412,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 4
         Left = 407
         Top = 97
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 39
@@ -2410,7 +2422,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 5
         Left = 407
         Top = 124
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 40
@@ -2420,7 +2432,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 6
         Left = 407
         Top = 151
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 41
@@ -2430,7 +2442,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 7
         Left = 407
         Top = 178
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 42
@@ -2440,7 +2452,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 8
         Left = 407
         Top = 205
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 43
@@ -2459,7 +2471,10 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 886
+      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -2548,7 +2563,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 327
         Top = 128
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 8
@@ -2558,7 +2573,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 327
         Top = 155
-        Width = 29
+        Width = 0
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 9
@@ -2731,7 +2746,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
       PopupMenu = PopupMenu1
       TabOrder = 4
       OnDblClick = lbRecentlyFilesDblClick
-      ExplicitWidth = 201
     end
   end
   object stBar: TEdit

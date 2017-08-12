@@ -9,6 +9,7 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
+int mininterval=30;
 struct keyRow keyRows[8];
 struct keyStopRow keyStopRows[16];
 
@@ -141,7 +142,7 @@ void ResetMouseDown()
 			{
 				keyRows[i].pushdown = false;
 				keyRows[i].timer->Enabled = false;
-				keyRows[i].timer->Interval = 1;
+				keyRows[i].timer->Interval = mininterval;
 				keyRows[i].timer->Enabled = true;
 			}
         }
@@ -335,7 +336,7 @@ void keyRow::TimerOn()
 	}
 	else
 	{
-		timer->Interval = 1;
+		timer->Interval = mininterval;
 	}
 	timer->Enabled = true;
 }

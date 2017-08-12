@@ -9,7 +9,7 @@
 #include <UtilFunctions.h>
 
 extern std::map<String,int> keyState;  //0 up, 1 down
-
+extern int mininterval;
 class keyRow
 {
 public:
