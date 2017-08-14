@@ -469,8 +469,13 @@ void keyRow::CheckUnpausedKey()
 
 	if(paused==false && timer->Enabled==false && activekey.Length()==0 && pausekey.Length())
 	{
-		SendToAppKey(2);
 		TimerOff();
+		/*
+		if(D3AssistantMainForm->cbKeyReleaseWhenTimerOff->Checked==false)
+		{
+			SendToAppKey(2);
+		}
+        */
 		TimerOn();
 	}
 }
