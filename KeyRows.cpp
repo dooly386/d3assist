@@ -344,10 +344,7 @@ void keyRow::TimerOff()
 {
 	timer->Enabled = false;
 
-	if(D3AssistantMainForm->cbKeyReleaseWhenTimerOff->Checked)
-	{
-		SendToAppKey(2); // key up;
-    }
+	SendToAppKey(2); // key up;
 
 }
 
@@ -463,12 +460,6 @@ void keyRow::CheckUnpausedKey()
 	if(paused==false && timer->Enabled==false && activekey.Length()==0 && pausekey.Length())
 	{
 		TimerOff();
-		/*
-		if(D3AssistantMainForm->cbKeyReleaseWhenTimerOff->Checked==false)
-		{
-			SendToAppKey(2);
-		}
-        */
 		TimerOn();
 	}
 }
@@ -477,7 +468,6 @@ void keyRow::ProcessKeyDown(const String &key)
 {
 	if(enabled==false) return;
 
-	keyState[key] = 1;
 	ProcessActive();
 	ProcessPause();
 //		MessageBeep(-1);
@@ -486,7 +476,6 @@ void keyRow::ProcessKeyDown(const String &key)
 void keyRow::ProcessKeyUp(const String &key)
 {
 	if(enabled==false) return;
-	keyState[key] = 0;
 
 	ProcessPause();
 	ProcessActive();

@@ -2567,15 +2567,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabOrder = 11
         OnClick = cbAudioWhenStartStopClick
       end
-      object cbKeyReleaseWhenTimerOff: TCheckBox
-        Left = 3
-        Top = 264
-        Width = 310
-        Height = 17
-        Caption = 'Key Release when Timer Off'
-        TabOrder = 12
-        OnClick = cbAudioWhenStartStopClick
-      end
     end
   end
   object Panel1: TPanel

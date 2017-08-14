@@ -285,7 +285,6 @@ __published:	// IDE-managed Components
 	TMenuItem *menuLanguage;
 	TCheckBox *cbStartWithAssist;
 	TCheckBox *cbMediaOnly;
-	TCheckBox *cbKeyReleaseWhenTimerOff;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,

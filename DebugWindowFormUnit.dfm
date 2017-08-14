@@ -3,7 +3,7 @@ object DebugWindowForm: TDebugWindowForm
   Top = 0
   Caption = 'Debug Window'
   ClientHeight = 476
-  ClientWidth = 388
+  ClientWidth = 590
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,27 +16,30 @@ object DebugWindowForm: TDebugWindowForm
   object Memo1: TMemo
     Left = 0
     Top = 0
-    Width = 388
+    Width = 590
     Height = 448
     Align = alClient
     ScrollBars = ssVertical
     TabOrder = 0
     WordWrap = False
-    ExplicitHeight = 345
+    ExplicitWidth = 388
   end
   object Panel1: TPanel
     Left = 0
     Top = 448
-    Width = 388
+    Width = 590
     Height = 28
     Align = alBottom
     TabOrder = 1
+    ExplicitWidth = 388
     object cbKbdEvent: TCheckBox
       Left = 8
       Top = 6
       Width = 97
       Height = 17
       Caption = 'Keyboard'
+      Checked = True
+      State = cbChecked
       TabOrder = 0
     end
     object cbMouseEvent: TCheckBox
