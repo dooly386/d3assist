@@ -346,14 +346,7 @@ void keyRow::TimerOff()
 
 	if(D3AssistantMainForm->cbKeyReleaseWhenTimerOff->Checked)
 	{
-		if(keyState.find(key)!=keyState.end())
-		{
-			if(keyState[key]==1)
-			{
-				keyState[key] = 0;
-				SendToAppKey(2); // key up;
-			}
-		}
+		SendToAppKey(2); // key up;
     }
 
 }
