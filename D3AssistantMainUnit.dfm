@@ -28,21 +28,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 609
     Height = 336
-    ActivePage = KeySettingTabSheet
+    ActivePage = TabSheet1
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
     TabOrder = 0
     OnChange = PageControlChange
-    ExplicitWidth = 466
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 458
-      ExplicitHeight = 0
       DesignSize = (
         601
         308)
@@ -1169,7 +1164,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc2: TEdit
         Tag = 2
@@ -1187,7 +1181,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc3: TEdit
         Tag = 2
@@ -1205,7 +1198,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc4: TEdit
         Tag = 2
@@ -1223,7 +1215,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc5: TEdit
         Tag = 2
@@ -1241,7 +1232,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc6: TEdit
         Tag = 2
@@ -1259,7 +1249,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc7: TEdit
         Tag = 2
@@ -1277,7 +1266,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
       object edDesc8: TEdit
         Tag = 2
@@ -1295,16 +1283,11 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnChange = edStartChange
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
-        ExplicitWidth = 400
       end
     end
     object TabSheetSequenceKey: TTabSheet
       Caption = 'Sequence Key'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 886
-      ExplicitHeight = 0
       object Label7: TLabel
         Left = 8
         Top = 16
@@ -1316,10 +1299,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 886
-      ExplicitHeight = 0
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1903,10 +1882,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object YoloControlTabSheet: TTabSheet
       Caption = 'YoloCycle'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 458
-      ExplicitHeight = 0
       object Label18: TLabel
         Left = 28
         Top = 0
@@ -2382,7 +2357,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 407
         Top = 16
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 36
@@ -2392,7 +2367,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 2
         Left = 407
         Top = 43
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 37
@@ -2402,7 +2377,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 3
         Left = 407
         Top = 70
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 38
@@ -2412,7 +2387,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 4
         Left = 407
         Top = 97
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 39
@@ -2422,7 +2397,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 5
         Left = 407
         Top = 124
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 40
@@ -2432,7 +2407,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 6
         Left = 407
         Top = 151
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 41
@@ -2442,7 +2417,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 7
         Left = 407
         Top = 178
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 42
@@ -2452,7 +2427,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 8
         Left = 407
         Top = 205
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 43
@@ -2471,10 +2446,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 886
-      ExplicitHeight = 0
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -2563,7 +2534,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 327
         Top = 128
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 8
@@ -2573,7 +2544,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 327
         Top = 155
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 9
@@ -2596,6 +2567,15 @@ object D3AssistantMainForm: TD3AssistantMainForm
         TabOrder = 11
         OnClick = cbAudioWhenStartStopClick
       end
+      object cbKeyReleaseWhenTimerOff: TCheckBox
+        Left = 3
+        Top = 264
+        Width = 310
+        Height = 17
+        Caption = 'Key Release when Timer Off'
+        TabOrder = 12
+        OnClick = cbAudioWhenStartStopClick
+      end
     end
   end
   object Panel1: TPanel
@@ -2605,7 +2585,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Height = 113
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 466
     DesignSize = (
       609
       113)
@@ -2763,7 +2742,6 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ReadOnly = True
     TabOrder = 2
     OnChange = stBarChange
-    ExplicitWidth = 466
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.ini'

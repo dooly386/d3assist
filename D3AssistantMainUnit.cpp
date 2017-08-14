@@ -299,6 +299,7 @@ void TD3AssistantMainForm::LoadEnv()
 		ProtectionAreaManagerForm->cbEnableWithPrgStart->Checked = ini->ReadBool("Setup","ProtectionAreaManagerForm.cbEnableWithPrgStart",false);
 		ProtectionAreaManagerForm->OpenFileName = ini->ReadString("Setup","ProtectionAreaManagerForm.OpenFileName","");
 		cbMediaOnly->Checked = ini->ReadBool("Setup","cbMediaOnly",false);
+		cbKeyReleaseWhenTimerOff->Checked = ini->ReadBool("Setup","cbKeyReleaseWhenTimerOff",false);
 
 		delete ini;
 		LoadIni(openfilename);
@@ -331,7 +332,8 @@ void TD3AssistantMainForm::SaveEnv()
 	ini->WriteBool("Setup","cbStartWithAssist",cbStartWithAssist->Checked);
 	ini->WriteBool("Setup","ProtectionAreaManagerForm.cbEnableWithPrgStart",ProtectionAreaManagerForm->cbEnableWithPrgStart->Checked);
 	ini->WriteString("Setup","ProtectionAreaManagerForm.OpenFileName",ProtectionAreaManagerForm->OpenFileName);
-    ini->WriteBool("Setup","cbMediaOnly",cbMediaOnly->Checked);
+	ini->WriteBool("Setup","cbMediaOnly",cbMediaOnly->Checked);
+    ini->WriteBool("Setup","cbKeyReleaseWhenTimerOff",cbKeyReleaseWhenTimerOff->Checked);
 	delete ini;
 
 }
