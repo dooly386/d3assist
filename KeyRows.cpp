@@ -332,6 +332,8 @@ void keyRow::SendToAppKey(keyRow &row,String &key,int opt)
 
 void keyRow::TimerOn()
 {
+	if(timer->Enabled==true) return;
+
 	timer->Enabled = false;
 	if(initial)
 	{
@@ -345,6 +347,10 @@ void keyRow::TimerOn()
 }
 void keyRow::TimerOff()
 {
+	if(timer->Enabled==false)
+	{
+        return;
+    }
 	timer->Enabled = false;
 
 	SendToAppKey(2); // key up;
@@ -402,7 +408,6 @@ void keyRow::ProcessPause()
 	return;
 }
 
-int iii = 0;
 void keyRow::ProcessActive()
 {
 //		if(timer->Enabled) return true;
@@ -483,6 +488,9 @@ void keyRow::ProcessKeyUp(const String &key)
 	ProcessPause();
 	ProcessActive();
 
+//	D3AssistantMainForm->UnpausedKeyCheckTimer->Enabled = false;
+//	D3AssistantMainForm->UnpausedKeyCheckTimer->Interval = 10;
+//	D3AssistantMainForm->UnpausedKeyCheckTimer->Enabled = true;
     CheckUnpausedKey();
 
 }

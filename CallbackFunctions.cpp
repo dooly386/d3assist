@@ -18,22 +18,30 @@
 #pragma package(smart_init)
 
 
+
+
 extern HHOOK g_hKeyHook;
 extern HHOOK g_hMouseHook;
 extern std::list<RECT> gProtArea;
-
+extern std::list<evtq> eventq;
 
 bool IsExistLeftDownMouse();
 bool IsExistRightDownMouse();
 bool IsExistMiddleDownMouse();
 
-void DBG(String s);
 char* translate(int vk, int up);
+
+
+void DBG(String s);
+
+bool CheckKeyState = false;
+bool bUseSendQueue = true;
 
 
 bool altdown = false;
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
+
 	KBDLLHOOKSTRUCT *kb=(KBDLLHOOKSTRUCT *)lParam;
 
 	altdown = kb->flags & LLKHF_ALTDOWN;
@@ -49,11 +57,9 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		}
 		if(injected)
 		{
-            s = s+",INJ";
-        }
-		DebugWindowForm->Memo1->Lines->Add(s);
-		DebugWindowForm->Memo1->SelStart = DebugWindowForm->Memo1->GetTextLen();
-		DebugWindowForm->Memo1->SelLength = 0;
+			s = s+",INJ";
+		}
+		DBG(s);
 	}
 
 	if(injected && D3AssistantMainForm->bStarted)
@@ -70,15 +76,29 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
-			if(GetKeyState(str)==0)
+			if(CheckKeyState && GetKeyState(str)==0)
 			{
-            	return -1;
+				return -1;
 			}
 
 			keyState[str] = 0;
 
+
 			r = CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
-			D3AssistantMainForm->OnKeyUpHook(str);
+
+			if(bUseSendQueue)
+			{
+				evtq q;
+				q.type = 2;
+				q.key = str;
+				q.down = false;
+				eventq.push_back(q);
+			}
+			else
+			{
+				D3AssistantMainForm->OnKeyUpHook(str);
+
+            }
 
 			processed = true;
 		}
@@ -89,15 +109,29 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
-			if(GetKeyState(str)==1)
+			if(CheckKeyState && GetKeyState(str)==1)
 			{
 				return -1;
 			}
 
 			keyState[str] = 1;
 
+
 			r = CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
-			D3AssistantMainForm->OnKeyDownHook(str);
+
+
+			if(bUseSendQueue)
+			{
+				evtq q;
+				q.type = 2;
+				q.key = str;
+				q.down = true;
+				eventq.push_back(q);
+			}
+			else
+			{
+				D3AssistantMainForm->OnKeyDownHook(str);
+			}
 
 			processed = true;
 		}
@@ -121,7 +155,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 	{
 		return CallNextHookEx( g_hKeyHook, nCode, wParam, lParam );
 	}
-    return r;
+	return r;
 }
 
 
@@ -129,6 +163,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 void PauseKeyMouseLeftDown();
 bool InsideProtArea(POINT &pt);
+
 
 
 LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -150,11 +185,9 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 			s.printf(L"nCode=%d,wParam=%x,lParam=%x,mouseData=%d",nCode,wParam,lParam,a);
 			if(injected)
 			{
-                s = s + ",INJ";
-            }
-			DebugWindowForm->Memo1->Lines->Add(s);
-			DebugWindowForm->Memo1->SelStart = DebugWindowForm->Memo1->GetTextLen();
-			DebugWindowForm->Memo1->SelLength = 0;
+				s = s + ",INJ";
+			}
+			DBG(s);
 
 
 		}
@@ -164,7 +197,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 
 
-	LRESULT r;
+	int r;
 	if(injected)
 	{
 		if((wParam==WM_LBUTTONDOWN || wParam==WM_RBUTTONDOWN || wParam==WM_MBUTTONDOWN || wParam==WM_LBUTTONUP || wParam==WM_RBUTTONUP || wParam==WM_MBUTTONUP) && D3AssistantMainForm->bStarted)
@@ -201,12 +234,23 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				{
 					key="[XButton2]";
 				}
-				if(GetKeyState(key)==1) return -1;
+				if(CheckKeyState && GetKeyState(key)==1) return -1;
 
 				keyState[key] = 1;
 
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseXButtonDown(a);
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = key;
+					q.down = true;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseXButtonDown(a);
+				}
 				processed = true;
 				break;
 				}
@@ -218,58 +262,151 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				{
 					key="[XButton2]";
 				}
-				if(GetKeyState(key)==0) return -1;
+				if(CheckKeyState && GetKeyState(key)==0) return -1;
 
 				keyState[key] = 0;
 
 
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseXButtonUp(a);
+
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = key;
+					q.down = false;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseXButtonUp(a);
+				}
 				processed = true;
 				break;
 				}
 			case WM_LBUTTONDOWN:
-				if(GetKeyState("[mbLeft]")==1) return -1;
+				if(CheckKeyState && GetKeyState("[mbLeft]")==1)
+				{
+					return -1;
+				}
 				keyState["[mbLeft]"] = 1;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = "[mbLeft]";
+					q.down = true;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
+
+                }
+
 				//			if(D3AssistantMainForm->bStarted) return -1;
 				processed = true;
 				break;
 			case WM_LBUTTONUP:
-				if(GetKeyState("[mbLeft]")==0) return -1;
+				if(CheckKeyState && GetKeyState("[mbLeft]")==0)
+				{
+					return -1;
+				}
 				keyState["[mbLeft]"] = 0;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = "[mbLeft]";
+					q.down = false;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
+                }
+
+
 				processed = true;
 				break;
 
 			case WM_RBUTTONDOWN:
-				if(GetKeyState("[mbRight]")==1) return -1;
+				if(CheckKeyState && GetKeyState("[mbRight]")==1) return -1;
 				keyState["[mbRight]"] = 1;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = "[mbRight]";
+					q.down = true;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
+				}
+
+
 				processed = true;
 				break;
 			case WM_RBUTTONUP:
-				if(GetKeyState("[mbRight]")==0) return -1;
+				if(CheckKeyState && GetKeyState("[mbRight]")==0) return -1;
 				keyState["[mbRight]"] = 0;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseUpHook((int)mbRight,wParam,lParam);
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = "[mbRight]";
+					q.down = false;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseUpHook((int)mbRight,wParam,lParam);
+                }
+
 				processed = true;
 				break;
 			case WM_MBUTTONDOWN:
-				if(GetKeyState("[mbMiddle]")==1) return -1;
+				if(CheckKeyState && GetKeyState("[mbMiddle]")==1) return -1;
 				keyState["[mbMiddle]"] = 1;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseDownHook((int)mbMiddle,wParam,lParam);
+
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = "[mbMiddle]";
+					q.down = true;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseDownHook((int)mbMiddle,wParam,lParam);
+				}
+
 				processed = true;
 				break;
 			case WM_MBUTTONUP:
-				if(GetKeyState("[mbMiddle]")==0) return -1;
+				if(CheckKeyState && GetKeyState("[mbMiddle]")==0) return -1;
 				keyState["[mbMiddle]"] = 0;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				D3AssistantMainForm->OnMouseUpHook((int)mbMiddle,wParam,lParam);
+				if(bUseSendQueue)
+				{
+					evtq q;
+					q.type = 1;
+					q.key = "[mbMiddle]";
+					q.down = false;
+					eventq.push_back(q);
+				}
+				else
+				{
+					D3AssistantMainForm->OnMouseUpHook((int)mbMiddle,wParam,lParam);
+                }
 				processed = true;
 				break;
 			case WM_MOUSEWHEEL:

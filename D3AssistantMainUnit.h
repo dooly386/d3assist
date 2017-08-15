@@ -26,6 +26,7 @@
 //---------------------------------------------------------------------------
 #include <KeyRows.h>
 #include <Vcl.MPlayer.hpp>
+#include <Vcl.AppEvnts.hpp>
 #include <string>
 #include <list>
 
@@ -285,6 +286,8 @@ __published:	// IDE-managed Components
 	TMenuItem *menuLanguage;
 	TCheckBox *cbStartWithAssist;
 	TCheckBox *cbMediaOnly;
+	TTimer *UnpausedKeyCheckTimer;
+	TApplicationEvents *ApplicationEvents1;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -338,6 +341,8 @@ __published:	// IDE-managed Components
 	void __fastcall menuCloseClick(TObject *Sender);
 	void __fastcall menuLanguageClick(TObject *Sender);
 	void __fastcall cbMediaOnlyClick(TObject *Sender);
+	void __fastcall UnpausedKeyCheckTimerTimer(TObject *Sender);
+	void __fastcall ApplicationEvents1Idle(TObject *Sender, bool &Done);
 
 private:	// User declarations
 	int widthBk;

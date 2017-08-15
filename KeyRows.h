@@ -108,5 +108,11 @@ void GetForceRunKey(const String &key,std::list<keyRow *> &rows);
 void ResetMouseDown();
 
 
+struct evtq
+{
+	int type; // 1 mouse, 2 keyboard
+	bool down; // 1 down, 2 up
+    String key;
+};
 
 #endif

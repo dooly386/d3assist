@@ -37,6 +37,11 @@ TD3AssistantMainForm *D3AssistantMainForm;
 //HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
 
 extern std::map<String,int> keyState;  //0 up, 1 down
+std::list<evtq> eventq;
+extern bool bUseSendQueue;
+
+
+
 
 
 HHOOK g_hKeyHook=0;
@@ -197,6 +202,8 @@ void TD3AssistantMainForm::StartHook()
 	HINSTANCE app = GetModuleHandle(NULL);
 	g_hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, app, 0);
 	g_hMouseHook = SetWindowsHookEx(WH_MOUSE_LL, LowLevelMouseProc, app, 0);
+
+
 	//--------------------------------------------------------------------------
 
 }
@@ -438,7 +445,7 @@ void TD3AssistantMainForm::PrepareKeyRows()
 	{
 		keyRow *row = (keyRows+i);
 		keyTimerMap[row->timer] = row;
-    }
+	}
 
 
 }
@@ -605,7 +612,9 @@ void TD3AssistantMainForm::checkColor()
 	if(SimplifyUIForm->Visible)
 	{
 		SimplifyUIForm->checkColor();
-    }
+	}
+
+    Update();
 }
 
 
@@ -1091,6 +1100,7 @@ void TD3AssistantMainForm::Start()
 
 	PrepareKeyRows();
 	keyState.clear();
+	eventq.clear();
 
 	for(int i=0;i<8;i++)
 	{
@@ -1250,6 +1260,7 @@ void TD3AssistantMainForm::Stop()
 	ActiveControl = 0;
 	MouseClickObject = 0;
 	keyState.clear();
+	eventq.clear();
 
 
 
@@ -1683,7 +1694,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 	{
 		Stop();
 		bStarted = false;
-        PlayStopMp();
+		PlayStopMp();
 //		sss.printf(L"6 %s %s %d",key.c_str(),edStart->Text.c_str(),(int)bStarted);
 //		Memo1->Lines->Add(sss);
 		return;
@@ -1747,6 +1758,11 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 void TD3AssistantMainForm::ProcessMouseUp(String key)
 {
 
+	if(bStarted==false)
+	{
+		StopImmediately(key);
+		return;
+	}
 
 		for(int i=0;i<8;i++)
 		{
@@ -1782,7 +1798,10 @@ void TD3AssistantMainForm::OnMouseDownHook(int b,WPARAM wParam,LPARAM lParam)
 	}
 
 
-	ProcessMouseDown(key);
+	if(bUseSendQueue==false)
+	{
+		ProcessMouseDown(key);
+	}
 
 
 
@@ -1804,13 +1823,12 @@ void TD3AssistantMainForm::OnMouseUpHook(int b,WPARAM wParam,LPARAM lParam)
 	{
 		key = "[mbMiddle]";
 	}
-	if(bStarted==false)
-	{
-		StopImmediately(key);
-        return;
-	}
 
-	ProcessMouseUp(key);
+
+	if(bUseSendQueue==false)
+	{
+		ProcessMouseUp(key);
+    }
 
 
 }
@@ -3410,6 +3428,99 @@ void __fastcall TD3AssistantMainForm::cbMediaOnlyClick(TObject *Sender)
 		ed1->Enabled = !cbMediaOnly->Checked;
 		ed2->Enabled = !cbMediaOnly->Checked;
 	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::UnpausedKeyCheckTimerTimer(TObject *Sender)
+
+{
+	UnpausedKeyCheckTimer->Enabled = false;
+
+	for(int i=0;i<8;i++)
+	{
+		keyRow *row = (keyRows+i);
+		row->CheckUnpausedKey();
+	}
+    checkColor();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::ApplicationEvents1Idle(TObject *Sender, bool &Done)
+
+{
+	//
+//	Done = true;
+
+	if(eventq.size()==0)
+	{
+		return;
+	}
+	evtq q = eventq.front();
+	eventq.pop_front();
+
+	if(MouseClickObject)
+	{
+        return;
+	}
+
+
+	if(q.type==1) // mouse
+	{
+		if(q.down)
+		{
+			ProcessMouseDown(q.key);
+		}
+		else
+		{
+			ProcessMouseUp(q.key);
+		}
+
+	}
+	if(q.type==2) // keyboard
+	{
+		if(q.down)
+		{
+			OnKeyDownHook(q.key);
+		}
+		else
+		{
+			OnKeyUpHook(q.key);
+		}
+
+	}
+
+	/*
+	if(i==1)
+	{
+		ProcessMouseDown("[mbLeft]");
+		return;
+	}
+	if(i==2)
+	{
+		ProcessMouseDown("[mbRight]");
+		return;
+	}
+	if(i==3)
+	{
+		ProcessMouseDown("[mbMiddle]");
+		return;
+	}
+	if(i==11)
+	{
+		ProcessMouseUp("[mbLeft]");
+		return;
+	}
+	if(i==12)
+	{
+		ProcessMouseUp("[mbRight]");
+		return;
+	}
+	if(i==13)
+	{
+		ProcessMouseUp("[mbMiddle]");
+		return;
+	}
+    */
 }
 //---------------------------------------------------------------------------
 

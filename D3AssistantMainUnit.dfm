@@ -28,7 +28,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Top = 113
     Width = 609
     Height = 336
-    ActivePage = TabSheet1
+    ActivePage = KeySettingTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
@@ -3017,5 +3017,16 @@ object D3AssistantMainForm: TD3AssistantMainForm
     OnTimer = TimerYoloCursorTimer
     Left = 364
     Top = 201
+  end
+  object UnpausedKeyCheckTimer: TTimer
+    Enabled = False
+    OnTimer = UnpausedKeyCheckTimerTimer
+    Left = 296
+    Top = 248
+  end
+  object ApplicationEvents1: TApplicationEvents
+    OnIdle = ApplicationEvents1Idle
+    Left = 228
+    Top = 145
   end
 end
