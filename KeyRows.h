@@ -49,7 +49,6 @@ public:
 	void clear();
     void SendToAppKey(int opt);
 	void SendToAppKey(keyRow &row,String &key,int opt);
-	int GetKeyState(const String &key);
 	void TimerOn();
 	void TimerOff();
 	void ProcessPause();

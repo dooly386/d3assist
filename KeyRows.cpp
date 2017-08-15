@@ -12,6 +12,7 @@
 int mininterval=30;
 struct keyRow keyRows[8];
 struct keyStopRow keyStopRows[16];
+std::map<String,int> keyState;  //0 up, 1 down
 
 std::map<TTimer *,keyRow *> keyTimerMap;
 std::map<String,std::list<keyRow *>> keyPauseMap;
@@ -21,6 +22,14 @@ std::list<keyRow *> keyHoldMap;
 
 
 std::map<String,keyStopRow *> keyStopMap;
+
+
+int GetKeyState(const String &key)
+{
+	if(keyState.find(key)==keyState.end()) return 0; // no state
+	return keyState[key]; // 1 press, 0 release
+
+}
 
 
 void GetForceRunKey(const String &key,std::list<keyRow *> &rows)
@@ -320,12 +329,6 @@ void keyRow::SendToAppKey(keyRow &row,String &key,int opt)
 
 }
 
-int keyRow::GetKeyState(const String &key)
-{
-	if(keyState.find(key)==keyState.end()) return 0; // no state
-	return keyState[key]; // 1 press, 0 release
-
-}
 
 void keyRow::TimerOn()
 {

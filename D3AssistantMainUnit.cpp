@@ -36,11 +36,11 @@ TD3AssistantMainForm *D3AssistantMainForm;
 
 //HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
 
+extern std::map<String,int> keyState;  //0 up, 1 down
 
 
 HHOOK g_hKeyHook=0;
 HHOOK g_hMouseHook=0;
-std::map<String,int> keyState;  //0 up, 1 down
 String gSelectedLanguage="English";
 
 

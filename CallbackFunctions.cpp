@@ -70,7 +70,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
-			if(keyState[str]==0)
+			if(GetKeyState(str)==0)
 			{
             	return -1;
 			}
@@ -89,7 +89,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 		str = translate(kb->vkCode, 0);
 		if(str && str[0])
 		{
-			if(keyState[str]==1)
+			if(GetKeyState(str)==1)
 			{
 				return -1;
 			}
@@ -201,7 +201,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				{
 					key="[XButton2]";
 				}
-				if(keyState[key]==1) return -1;
+				if(GetKeyState(key)==1) return -1;
 
 				keyState[key] = 1;
 
@@ -218,7 +218,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				{
 					key="[XButton2]";
 				}
-				if(keyState[key]==0) return -1;
+				if(GetKeyState(key)==0) return -1;
 
 				keyState[key] = 0;
 
@@ -229,7 +229,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 				}
 			case WM_LBUTTONDOWN:
-				if(keyState["[mbLeft]"]==1) return -1;
+				if(GetKeyState("[mbLeft]")==1) return -1;
 				keyState["[mbLeft]"] = 1;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseDownHook((int)mbLeft,wParam,lParam);
@@ -237,7 +237,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				processed = true;
 				break;
 			case WM_LBUTTONUP:
-				if(keyState["[mbLeft]"]==0) return -1;
+				if(GetKeyState("[mbLeft]")==0) return -1;
 				keyState["[mbLeft]"] = 0;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseUpHook((int)mbLeft,wParam,lParam);
@@ -245,28 +245,28 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				break;
 
 			case WM_RBUTTONDOWN:
-				if(keyState["[mbRight]"]==1) return -1;
+				if(GetKeyState("[mbRight]")==1) return -1;
 				keyState["[mbRight]"] = 1;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseDownHook((int)mbRight,wParam,lParam);
 				processed = true;
 				break;
 			case WM_RBUTTONUP:
-				if(keyState["[mbRight]"]==0) return -1;
+				if(GetKeyState("[mbRight]")==0) return -1;
 				keyState["[mbRight]"] = 0;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseUpHook((int)mbRight,wParam,lParam);
 				processed = true;
 				break;
 			case WM_MBUTTONDOWN:
-				if(keyState["[mbMiddle]"]==1) return -1;
+				if(GetKeyState("[mbMiddle]")==1) return -1;
 				keyState["[mbMiddle]"] = 1;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseDownHook((int)mbMiddle,wParam,lParam);
 				processed = true;
 				break;
 			case WM_MBUTTONUP:
-				if(keyState["[mbMiddle]"]==0) return -1;
+				if(GetKeyState("[mbMiddle]")==0) return -1;
 				keyState["[mbMiddle]"] = 0;
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 				D3AssistantMainForm->OnMouseUpHook((int)mbMiddle,wParam,lParam);
@@ -281,7 +281,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 					key="[WheelDn]";
 				}
 
-				if(keyState[key]==0)
+				if(GetKeyState(key)==0)
 				{
 					keyState[key] = 1;
 				}

@@ -49,5 +49,7 @@ void PushDownKey(int vcode,int scancode);
 void PushUpKey(int vcode,int scancode);
 void PressKey(int vcode,int scancode);
 
+int GetKeyState(const String &key);
+
 
 #endif
