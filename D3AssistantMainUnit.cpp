@@ -3451,76 +3451,46 @@ void __fastcall TD3AssistantMainForm::ApplicationEvents1Idle(TObject *Sender, bo
 	//
 //	Done = true;
 
-	if(eventq.size()==0)
-	{
-		return;
-	}
-	evtq q = eventq.front();
-	eventq.pop_front();
-
 	if(MouseClickObject)
 	{
         return;
 	}
 
 
-	if(q.type==1) // mouse
-	{
-		if(q.down)
-		{
-			ProcessMouseDown(q.key);
-		}
-		else
-		{
-			ProcessMouseUp(q.key);
-		}
 
-	}
-	if(q.type==2) // keyboard
+	while(eventq.size())
 	{
-		if(q.down)
-		{
-			OnKeyDownHook(q.key);
-		}
-		else
-		{
-			OnKeyUpHook(q.key);
-		}
 
-	}
+		evtq q = eventq.front();
+		eventq.pop_front();
 
-	/*
-	if(i==1)
-	{
-		ProcessMouseDown("[mbLeft]");
-		return;
-	}
-	if(i==2)
-	{
-		ProcessMouseDown("[mbRight]");
-		return;
-	}
-	if(i==3)
-	{
-		ProcessMouseDown("[mbMiddle]");
-		return;
-	}
-	if(i==11)
-	{
-		ProcessMouseUp("[mbLeft]");
-		return;
-	}
-	if(i==12)
-	{
-		ProcessMouseUp("[mbRight]");
-		return;
-	}
-	if(i==13)
-	{
-		ProcessMouseUp("[mbMiddle]");
-		return;
-	}
-    */
+
+		if(q.type==1) // mouse
+		{
+			if(q.down)
+			{
+				ProcessMouseDown(q.key);
+			}
+			else
+			{
+				ProcessMouseUp(q.key);
+			}
+
+		}
+		if(q.type==2) // keyboard
+		{
+			if(q.down)
+			{
+				OnKeyDownHook(q.key);
+			}
+			else
+			{
+				OnKeyUpHook(q.key);
+			}
+
+		}
+    }
+
 }
 //---------------------------------------------------------------------------
 
