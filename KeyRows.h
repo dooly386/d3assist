@@ -51,8 +51,10 @@ public:
 	void SendToAppKey(keyRow &row,String &key,int opt);
 	void TimerOn();
 	void TimerOff();
-	void ProcessPause();
-	void ProcessActive();
+
+	void ProcessPause(const String &key);
+	void ProcessActive(const String &key);
+
 	void ProcessKeyDown(const String &key);
 	void ProcessKeyUp(const String &key);
 	void ProcessTimer();

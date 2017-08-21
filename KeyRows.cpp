@@ -357,7 +357,7 @@ void keyRow::TimerOff()
 
 }
 
-void keyRow::ProcessPause()
+void keyRow::ProcessPause(const String &key)
 {
 	if(pausekey.Length()==0) return;
 
@@ -384,6 +384,11 @@ void keyRow::ProcessPause()
 		return;
 	}
 
+	if(activekey.Length() && pausekey==activekey)
+	{
+        return;
+    }
+
 	if(GetKeyState(pausekey)==1)
 	{
 		paused = true;
@@ -408,7 +413,7 @@ void keyRow::ProcessPause()
 	return;
 }
 
-void keyRow::ProcessActive()
+void keyRow::ProcessActive(const String &key)
 {
 //		if(timer->Enabled) return true;
 
@@ -438,6 +443,22 @@ void keyRow::ProcessActive()
 
 		return;
 	}
+
+	if(activekey.Length() && pausekey==activekey)
+	{
+		if(activekey==key)
+		{
+			if(timer->Enabled)
+			{
+				TimerOff();
+				return;
+			}
+			TimerOn();
+			return;
+		}
+		return;
+	}
+
 
 	if(GetKeyState(activekey)==1)
 	{
@@ -476,8 +497,8 @@ void keyRow::ProcessKeyDown(const String &key)
 {
 	if(enabled==false) return;
 
-	ProcessActive();
-	ProcessPause();
+	ProcessActive(key);
+	ProcessPause(key);
 //		MessageBeep(-1);
 }
 
@@ -485,8 +506,10 @@ void keyRow::ProcessKeyUp(const String &key)
 {
 	if(enabled==false) return;
 
-	ProcessPause();
-	ProcessActive();
+	if(activekey.Length() && pausekey==activekey) return;
+
+	ProcessPause(key);
+	ProcessActive(key);
 
 //	D3AssistantMainForm->UnpausedKeyCheckTimer->Enabled = false;
 //	D3AssistantMainForm->UnpausedKeyCheckTimer->Interval = 10;

@@ -1676,7 +1676,7 @@ void TD3AssistantMainForm::ProcessMouseDown(String key)
 	if(key==edStart->Text && bStarted==false)
 	{
 		if(cbDoNotStart->Checked) return;
-		if(key=="[mbLeft]") return;
+//		if(key=="[mbLeft]") return;
 
 		Start();
 		bStarted = true;
@@ -3450,11 +3450,16 @@ void __fastcall TD3AssistantMainForm::ApplicationEvents1Idle(TObject *Sender, bo
 {
 	//
 //	Done = true;
-
 	if(MouseClickObject)
 	{
-        return;
+		return;
 	}
+	if(IsForegroundWindow(Handle))
+	{
+		eventq.clear();
+        return;
+    }
+
 
 
 

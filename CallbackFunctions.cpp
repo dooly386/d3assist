@@ -239,7 +239,8 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 				keyState[key] = 1;
 
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
-				if(bUseSendQueue)
+
+				if(bUseSendQueue && D3AssistantMainForm->MouseClickObject==0)
 				{
 					evtq q;
 					q.type = 1;
@@ -269,7 +270,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 				r = CallNextHookEx(g_hMouseHook, nCode, wParam, lParam);
 
-				if(bUseSendQueue)
+				if(bUseSendQueue && D3AssistantMainForm->MouseClickObject==0)
 				{
 					evtq q;
 					q.type = 1;

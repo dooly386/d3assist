@@ -352,7 +352,6 @@ private:	// User declarations
 	String OpenFileName;
 	std::list<DWORD> editlist;
 	HWND targetHwnd;
-	TObject *MouseClickObject;
 	bool bPause;
 	bool bProtWindowFlag;
 	bool bLoading;
@@ -419,6 +418,7 @@ private:	// User declarations
 	bool IsUsedMediaFile(String filename);
 
 public:		// User declarations
+	TObject *MouseClickObject;
 	std::map<String,void *> compMap;
 	bool bStarted;
 	bool bRecordStarted;
