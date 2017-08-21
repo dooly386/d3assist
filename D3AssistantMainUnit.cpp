@@ -293,6 +293,21 @@ void TD3AssistantMainForm::LoadEnv()
 			Width = ini->ReadInteger("Setup","Width",Width);
 			Height = ini->ReadInteger("Setup","Height",Height);
 		}
+		bool b = false;
+		for(int i=0;i<Screen->MonitorCount;i++)
+		{
+			if(Screen->Monitors[i]->BoundsRect.PtInRect(TPoint(Left,Top)))
+			{
+				b = true;
+			}
+		}
+		if(b==false)
+		{
+			Left = 0;
+            Top = 0;
+        }
+
+
         cbStayOnTop->Checked = ini->ReadBool("Setup","cbStayOnTop",false);
 
 		edKeyMouseModifier->Text = ini->ReadString("Setup","edKeyMouseModifier","0");
