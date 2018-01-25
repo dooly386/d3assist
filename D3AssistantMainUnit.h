@@ -289,6 +289,11 @@ __published:	// IDE-managed Components
 	TTimer *UnpausedKeyCheckTimer;
 	TApplicationEvents *ApplicationEvents1;
 	TLabel *Label26;
+	TLabel *labelResetTime;
+	TEdit *edResetTime;
+	TLabel *labelTimeDisplay;
+	TEdit *edTimeDisplay;
+	TTimer *StopwatchTimer;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -344,6 +349,7 @@ __published:	// IDE-managed Components
 	void __fastcall cbMediaOnlyClick(TObject *Sender);
 	void __fastcall UnpausedKeyCheckTimerTimer(TObject *Sender);
 	void __fastcall ApplicationEvents1Idle(TObject *Sender, bool &Done);
+	void __fastcall StopwatchTimerTimer(TObject *Sender);
 
 private:	// User declarations
 	int widthBk;

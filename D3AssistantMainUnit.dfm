@@ -2,7 +2,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   Left = 0
   Top = 0
   Caption = 'D3Assist v1.0.0.1'
-  ClientHeight = 470
+  ClientHeight = 527
   ClientWidth = 624
   Color = clBtnFace
   DoubleBuffered = True
@@ -27,20 +27,22 @@ object D3AssistantMainForm: TD3AssistantMainForm
     Left = 0
     Top = 113
     Width = 624
-    Height = 336
+    Height = 393
     ActivePage = KeySettingTabSheet
     Align = alClient
     DoubleBuffered = True
     ParentDoubleBuffered = False
     TabOrder = 0
     OnChange = PageControlChange
+    ExplicitHeight = 336
     object KeySettingTabSheet: TTabSheet
       Caption = 'Key/Mouse'
       DoubleBuffered = True
       ParentDoubleBuffered = False
+      ExplicitHeight = 308
       DesignSize = (
         616
-        308)
+        365)
       object Label4: TLabel
         Left = 105
         Top = 8
@@ -57,11 +59,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
       end
       object Label8: TLabel
         Left = 0
-        Top = 295
+        Top = 352
         Width = 616
         Height = 13
         Align = alBottom
         Caption = 'Press [ESC] key for delete selected field or press backspace'
+        ExplicitTop = 295
         ExplicitWidth = 287
       end
       object Label15: TLabel
@@ -91,6 +94,20 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Width = 53
         Height = 13
         Caption = 'Description'
+      end
+      object labelResetTime: TLabel
+        Left = 3
+        Top = 301
+        Width = 88
+        Height = 13
+        Caption = 'Reset Time (msec)'
+      end
+      object labelTimeDisplay: TLabel
+        Left = 3
+        Top = 326
+        Width = 71
+        Height = 13
+        Caption = 'Time Display    '
       end
       object edActive1: TEdit
         Tag = 1
@@ -1284,14 +1301,27 @@ object D3AssistantMainForm: TD3AssistantMainForm
         OnContextPopup = edStartContextPopup
         OnKeyPress = edDelay1KeyPress
       end
+      object edResetTime: TEdit
+        Left = 105
+        Top = 298
+        Width = 121
+        Height = 21
+        TabOrder = 61
+        Text = '0'
+      end
+      object edTimeDisplay: TEdit
+        Left = 105
+        Top = 323
+        Width = 121
+        Height = 21
+        ReadOnly = True
+        TabOrder = 62
+      end
     end
     object TabSheetSequenceKey: TTabSheet
       Caption = 'Sequence Key'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitHeight = 345
       object Label7: TLabel
         Left = 8
         Top = 16
@@ -1303,10 +1333,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object EnvironmentTabSheet: TTabSheet
       Caption = 'Stop Keys'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitHeight = 345
       object Label9: TLabel
         Left = 3
         Top = 0
@@ -1890,10 +1917,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object YoloControlTabSheet: TTabSheet
       Caption = 'YoloCycle'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitHeight = 345
       object Label18: TLabel
         Left = 28
         Top = 0
@@ -2369,7 +2393,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 1
         Left = 407
         Top = 16
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 36
@@ -2379,7 +2403,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 2
         Left = 407
         Top = 43
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 37
@@ -2389,7 +2413,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 3
         Left = 407
         Top = 70
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 38
@@ -2399,7 +2423,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 4
         Left = 407
         Top = 97
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 39
@@ -2409,7 +2433,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 5
         Left = 407
         Top = 124
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 40
@@ -2419,7 +2443,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 6
         Left = 407
         Top = 151
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 41
@@ -2429,7 +2453,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 7
         Left = 407
         Top = 178
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 42
@@ -2439,7 +2463,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
         Tag = 8
         Left = 407
         Top = 205
-        Width = 0
+        Width = 29
         Height = 21
         VisibleButtons = [btPlay]
         TabOrder = 43
@@ -2458,6 +2482,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     object TabSheet1: TTabSheet
       Caption = 'Environment'
       ImageIndex = 2
+      ExplicitHeight = 345
       object Label6: TLabel
         Left = 19
         Top = 72
@@ -2741,7 +2766,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
   end
   object stBar: TEdit
     Left = 0
-    Top = 449
+    Top = 506
     Width = 624
     Height = 21
     Align = alBottom
@@ -2754,6 +2779,7 @@ object D3AssistantMainForm: TD3AssistantMainForm
     ReadOnly = True
     TabOrder = 2
     OnChange = stBarChange
+    ExplicitTop = 449
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.ini'
@@ -3029,5 +3055,12 @@ object D3AssistantMainForm: TD3AssistantMainForm
     OnIdle = ApplicationEvents1Idle
     Left = 284
     Top = 377
+  end
+  object StopwatchTimer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = StopwatchTimerTimer
+    Left = 332
+    Top = 441
   end
 end

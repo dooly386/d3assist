@@ -39,6 +39,7 @@ TD3AssistantMainForm *D3AssistantMainForm;
 extern std::map<String,int> keyState;  //0 up, 1 down
 std::list<evtq> eventq;
 extern bool bUseSendQueue;
+double StopwatchTime = 0;
 
 
 
@@ -1225,10 +1226,14 @@ void TD3AssistantMainForm::Start()
         WindowState = wsMinimized;
     }
 
+	StopwatchTimer->Enabled = true;
 
 }
 void TD3AssistantMainForm::Stop()
 {
+	StopwatchTime = 0;
+    StopwatchTimer->Enabled = false;
+
 	if(WindowState==wsMinimized)
 	{
         WindowState = wsNormal;
@@ -3510,6 +3515,27 @@ void __fastcall TD3AssistantMainForm::ApplicationEvents1Idle(TObject *Sender, bo
 
 		}
     }
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TD3AssistantMainForm::StopwatchTimerTimer(TObject *Sender)
+{
+	StopwatchTime += StopwatchTimer->Interval/1000.0;
+
+	double eptime = edResetTime->Text.ToInt()/1000.0;
+	if(eptime>0)
+	{
+		if(StopwatchTime>eptime)
+		{
+			StopwatchTime = 0;
+        }
+    }
+
+	AnsiString s;
+	s.printf("%2.3f sec",StopwatchTime);
+	edTimeDisplay->Text = s;
+
 
 }
 //---------------------------------------------------------------------------
