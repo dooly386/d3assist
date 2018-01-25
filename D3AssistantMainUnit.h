@@ -288,6 +288,7 @@ __published:	// IDE-managed Components
 	TCheckBox *cbMediaOnly;
 	TTimer *UnpausedKeyCheckTimer;
 	TApplicationEvents *ApplicationEvents1;
+	TLabel *Label26;
 	void __fastcall edStartKeyPress(TObject *Sender, System::WideChar &Key);
 	void __fastcall edStartKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall edKey1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
